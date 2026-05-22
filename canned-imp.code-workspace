@@ -1,0 +1,7 @@
+{
+  "folders": [
+    { "path": ".", "name": "root" },
+    // { "path": "./server", "name": "server" },
+  ],
+  "settings": {},
+}
