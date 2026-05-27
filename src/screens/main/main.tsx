@@ -19,7 +19,7 @@ export const MainScreen = () => {
       <View style={styles.container}>
         <Text>{JSON.stringify(data)}</Text>
         <Button title="Fetch" onPress={fetchData} />
-        {loading && <Text>Loading</Text>}
+        {loading && <Text>Loading... {ApiUrl}</Text>}
       </View>
     </BaseLayout>
   );
