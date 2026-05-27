@@ -1,22 +1,25 @@
-import { Button, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View, FlatList, Pressable } from "react-native";
 import { TestLayout } from "@shared/ui/layout/test-layout";
 import { SetStateAction, useState } from "react";
+import { ViewsCube } from "./ui/views-cube";
+import { Tag } from "@ui/tag";
+import { ButtonDemo } from "./ui/button-demo";
+import { TextInputDemo } from "./ui/textinput-demo";
+import { ScrollViewDemo } from "./ui/scrollview-demo";
+import { FlatListDemo } from "./ui/flatlist-demo";
+import { ModalDemo } from "./ui/modal-demo";
 
 export const ComponentsPlayGroundScreen = () => {
-  const [counter, setCounter] = useState(0);
   const [inputString, setInputString] = useState("");
   const [notes, setNotes] = useState<any[]>([]);
+  const [showModal, setShowModal] = useState(false);
 
   const handleTextChange = (propText: SetStateAction<string>) => {
     setInputString(propText);
   };
 
-  const handlePress = () => {
-    setCounter(counter + 1);
-  };
-
   const handleAddNote = (clear = false) => {
-    setNotes((prevNotes) => [...prevNotes, inputString]);
+    setNotes((prevNotes) => [...prevNotes, { data: inputString, id: Math.random().toString() }]);
     clear && setInputString("");
   };
 
@@ -24,77 +27,26 @@ export const ComponentsPlayGroundScreen = () => {
     setNotes([]);
   };
 
+  const handleDeleteNote = (id: any) => {
+    setNotes((notes) => notes.filter((note) => note.id !== id));
+  };
+
   return (
     <TestLayout>
       <View style={styles.container}>
-        <Text>&lt;Text&#47;&gt; must be placed explicitly inside the Text tags</Text>
+        {/* <Text>{Tag("Text")} must be placed explicitly inside the text tags</Text> */}
 
-        <View>
-          <Text>&lt;View&#47;&gt; is a div-alike component</Text>
-        </View>
+        {/* <ViewsCube /> */}
 
-        <View style={styles.viewDemoContainer}>
-          <View style={{ ...{ backgroundColor: "red", width: "25%" }, ...styles.viewDemoItem }}>
-            <Text style={styles.viewDemoItemText}>1</Text>
-          </View>
-          <View style={{ ...{ backgroundColor: "green", width: "60%" }, ...styles.viewDemoItem }}>
-            <Text style={styles.viewDemoItemText}>2</Text>
-          </View>
-          <View style={{ ...{ backgroundColor: "blue", width: "15%" }, ...styles.viewDemoItem }}>
-            <Text style={styles.viewDemoItemText}>3</Text>
-          </View>
-          <View style={{ ...{ backgroundColor: "yellow", width: "25%" }, ...styles.viewDemoItem }}>
-            <Text style={{ ...styles.viewDemoItemText, ...{ color: "black" } }}>4</Text>
-          </View>
-          <View style={{ ...{ backgroundColor: "purple", width: "60%" }, ...styles.viewDemoItem }}>
-            <Text style={styles.viewDemoItemText}>5</Text>
-          </View>
-          <View style={{ ...{ backgroundColor: "cyan", width: "15%" }, ...styles.viewDemoItem }}>
-            <Text style={{ ...styles.viewDemoItemText, ...{ color: "black" } }}>6</Text>
-          </View>
-          <View style={{ ...{ backgroundColor: "magenta", width: "25%" }, ...styles.viewDemoItem }}>
-            <Text style={styles.viewDemoItemText}>7</Text>
-          </View>
-          <View style={{ ...{ backgroundColor: "gold", width: "60%" }, ...styles.viewDemoItem }}>
-            <Text style={styles.viewDemoItemText}>8</Text>
-          </View>
-          <View style={{ ...{ backgroundColor: "ivory", width: "15%" }, ...styles.viewDemoItem }}>
-            <Text style={{ ...styles.viewDemoItemText, ...{ color: "black" } }}>9</Text>
-          </View>
-        </View>
+        {/* <ButtonDemo /> */}
 
-        <Button title="&lt;Button&#47;&gt; Have no style!" />
+        <TextInputDemo inputString={inputString} handleTextChange={handleTextChange} handleAddNote={handleAddNote} handleClearNotes={handleClearNotes} />
 
-        <View style={styles.wrappedButtonContainer}>
-          <Button title="But can be wrapped!" onPress={handlePress} />
-          <Text>{counter}</Text>
-        </View>
+        <ScrollViewDemo data={notes} handleDelete={handleDeleteNote} />
 
-        <View style={styles.textInputWrapper}>
-          <Text>&lt;TextInput&#47;&gt;:</Text>
-          <TextInput placeholder="Type here..." style={styles.textInput} value={inputString} onChangeText={handleTextChange}></TextInput>
-          <Text style={styles.textInputOutput}>{inputString}</Text>
-        </View>
+        <FlatListDemo data={notes} />
 
-        <View>
-          <View style={styles.addNoteButtonsContainer}>
-            <Button title="Add a note" onPress={() => handleAddNote(true)} />
-            <Button title="Clear" onPress={handleClearNotes} />
-          </View>
-        </View>
-
-        <Text>&lt;ScrollView&#47;&gt; size are defined by it's parrent container:</Text>
-
-        <View style={styles.scrollViewContainer}>
-          <Text style={{ color: "white" }}>Parrent container:</Text>
-          <ScrollView alwaysBounceVertical={false} style={styles.scrollView}>
-            {notes.map((note, index) => (
-              <Text key={`note-${index}`}>
-                {index + 1}: {note}
-              </Text>
-            ))}
-          </ScrollView>
-        </View>
+        <ModalDemo showModal={showModal} setShowModal={setShowModal} />
       </View>
     </TestLayout>
   );
@@ -108,72 +60,5 @@ const styles = StyleSheet.create({
     marginTop: 50,
     rowGap: 10,
     padding: 0,
-  },
-  viewDemoContainer: {
-    flexDirection: "row",
-    width: 100,
-    height: 100,
-    flexWrap: "wrap",
-  },
-  viewDemoItem: {
-    height: "33.33%",
-    borderColor: "black",
-    borderWidth: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  viewDemoItemText: {
-    color: "white",
-  },
-  wrappedButtonContainer: {
-    borderColor: "black",
-    borderWidth: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "80%",
-    padding: 0,
-    columnGap: 10,
-    borderRadius: "100%",
-    borderTopWidth: 0,
-    borderBottomWidth: 0,
-    overflow: "hidden",
-    backgroundColor: "gold",
-  },
-  textInputWrapper: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    columnGap: 20,
-  },
-  textInputOutput: {
-    maxWidth: 100,
-    maxHeight: 100,
-    overflow: "scroll",
-  },
-  textInput: {
-    borderColor: "black",
-    borderWidth: 1,
-    width: 100,
-    borderRadius: 10,
-  },
-  addNoteButtonsContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    columnGap: 20,
-  },
-  scrollViewContainer: {
-    borderColor: "black",
-    borderWidth: 1,
-    width: "100%",
-    height: 100,
-    padding: 10,
-    backgroundColor: "gray",
-  },
-  scrollView: {
-    borderColor: "black",
-    borderWidth: 1,
-    backgroundColor: "white",
   },
 });
