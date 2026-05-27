@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { ComponentsPlayGroundScreen } from "@src/screens/components-playground/components-playground";
+import { MainScreen } from "./src/screens/main/main";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <ComponentsPlayGroundScreen />
+      <MainScreen />
       <StatusBar style="auto" />
     </View>
   );
