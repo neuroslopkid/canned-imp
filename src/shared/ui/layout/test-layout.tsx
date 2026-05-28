@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    margin: 40,
     borderColor: "black",
     borderWidth: 1,
     borderStyle: "dotted",

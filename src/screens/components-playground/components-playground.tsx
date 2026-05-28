@@ -8,6 +8,7 @@ import { TextInputDemo } from "./ui/textinput-demo";
 import { ScrollViewDemo } from "./ui/scrollview-demo";
 import { FlatListDemo } from "./ui/flatlist-demo";
 import { ModalDemo } from "./ui/modal-demo";
+import { ImageDemo } from "./ui/image-demo";
 
 export const ComponentsPlayGroundScreen = () => {
   const [inputString, setInputString] = useState("");
@@ -47,6 +48,8 @@ export const ComponentsPlayGroundScreen = () => {
         <FlatListDemo data={notes} />
 
         <ModalDemo showModal={showModal} setShowModal={setShowModal} />
+
+        <ImageDemo />
       </View>
     </TestLayout>
   );
