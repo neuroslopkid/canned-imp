@@ -2,13 +2,19 @@ import { ScrollView, StyleSheet, Text, View, FlatList, Pressable } from "react-n
 import { TestLayout } from "@shared/ui/layout/test-layout";
 import { SetStateAction, useState } from "react";
 import { ViewsCube } from "./ui/views-cube";
-import { Tag } from "@ui/tag";
+import { Tag } from "@ui/components/tag";
 import { ButtonDemo } from "./ui/button-demo";
 import { TextInputDemo } from "./ui/textinput-demo";
 import { ScrollViewDemo } from "./ui/scrollview-demo";
 import { FlatListDemo } from "./ui/flatlist-demo";
 import { ModalDemo } from "./ui/modal-demo";
 import { ImageDemo } from "./ui/image-demo";
+import { PrimaryButton } from "@ui/components/buttons/primary-button";
+import { SecondaryButton } from "@ui/components/buttons/secondary-button";
+import { OutlinedButton } from "@ui/components/buttons/outlined-button";
+import { DangerButton } from "@ui/components/buttons/danger-button";
+import { Input } from "@ui/components/input";
+import { Sizes } from "@ui/theme/sizes";
 
 export const ComponentsPlayGroundScreen = () => {
   const [inputString, setInputString] = useState("");
@@ -37,19 +43,28 @@ export const ComponentsPlayGroundScreen = () => {
       <View style={styles.container}>
         {/* <Text>{Tag("Text")} must be placed explicitly inside the text tags</Text> */}
 
-        {/* <ViewsCube /> */}
+        {/* <ViewsCube />
 
-        {/* <ButtonDemo /> */}
+        <ButtonDemo />
 
-        <TextInputDemo inputString={inputString} handleTextChange={handleTextChange} handleAddNote={handleAddNote} handleClearNotes={handleClearNotes} />
+        <TextInputDemo inputString={inputString} handleTextChange={handleTextChange} handleAddNote={handleAddNote} handleClearNotes={handleClearNotes} /> */}
 
-        <ScrollViewDemo data={notes} handleDelete={handleDeleteNote} />
+        {/* <ScrollViewDemo data={notes} handleDelete={handleDeleteNote} />
 
         <FlatListDemo data={notes} />
 
         <ModalDemo showModal={showModal} setShowModal={setShowModal} />
 
-        <ImageDemo />
+        <ImageDemo /> */}
+
+        <View style={{ width: "100%", height: Sizes.LineHeight, flexDirection: "row", columnGap: 10 }}>
+          <PrimaryButton />
+          <SecondaryButton />
+          <OutlinedButton />
+          <DangerButton />
+        </View>
+
+        <Input maxLength={35} keyboardType="number-pad" autoCapitalize="none" autoCorrect={false} />
       </View>
     </TestLayout>
   );
@@ -57,6 +72,7 @@ export const ComponentsPlayGroundScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
     justifyContent: "flex-start",
     alignItems: "center",
     margin: 0,

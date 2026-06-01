@@ -1,4 +1,4 @@
-import { Tag } from "@ui/tag";
+import { Tag } from "@ui/components/tag";
 import { View, Text, StyleSheet } from "react-native";
 
 export const ViewsCube = () => {

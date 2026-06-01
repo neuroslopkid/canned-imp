@@ -1,4 +1,4 @@
-import { Tag } from "@ui/tag";
+import { Tag } from "@ui/components/tag";
 import { Pressable, ScrollView, View, Text, StyleSheet } from "react-native";
 
 export const ScrollViewDemo = (props: any) => {
