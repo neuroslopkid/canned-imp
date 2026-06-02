@@ -14,7 +14,13 @@ export const SecondaryButton = ({
 } & PressableProps) => {
   return (
     <Pressable
-      style={({ pressed }) => [pressableStyles.container, styles.container, style, pressed && pressableStyles.pressed, pressed && styles.pressed]}
+      style={({ pressed }) => [
+        pressableStyles.container,
+        styles.container,
+        style,
+        pressed && pressableStyles.pressed,
+        pressed && styles.pressed,
+      ]}
       {...props}
     >
       <Text style={[styles.textStyles, textStyle]}>{text}</Text>
@@ -27,7 +33,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.Secondary,
   },
   textStyles: {
-    color: Colors.TextSecondary,
+    color: Colors.TextPrimary,
   },
   pressed: {
     elevation: 10,

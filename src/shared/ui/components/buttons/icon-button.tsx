@@ -1,17 +1,17 @@
-import { useState } from "react";
-import { Text, StyleSheet, ViewStyle, StyleProp, Pressable, PressableProps } from "react-native";
+import { ReactNode, useState } from "react";
+import { View, StyleSheet, ViewStyle, StyleProp, Pressable, PressableProps } from "react-native";
 import { Colors } from "@ui/theme/colors";
 import { pressableStyles } from "./pressable.styles";
 
-export const OutlinedButton = ({
-  text = "Text",
-  textStyle,
+export const IconButton = ({
+  icon,
+  iconStyle,
   style,
   ...props
 }: {
-  text?: string;
+  icon: ReactNode;
   style?: StyleProp<ViewStyle>;
-  textStyle?: StyleProp<ViewStyle>;
+  iconStyle?: StyleProp<ViewStyle>;
 } & PressableProps) => {
   const [pressed, setPressed] = useState(false);
 
@@ -22,25 +22,25 @@ export const OutlinedButton = ({
       onPressOut={() => setPressed(false)}
       {...props}
     >
-      <Text style={[styles.textStyles, textStyle, pressed && styles.pressedText]}>{text}</Text>
+      <View style={[styles.iconStyles, iconStyle, pressed && styles.pressedIcon]}>{icon}</View>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.White,
-    borderColor: Colors.Primary,
+    backgroundColor: Colors.Transparent,
+    borderColor: Colors.Transparent,
     borderWidth: 1,
     elevation: 0,
   },
-  textStyles: {
-    color: Colors.Primary,
+  iconStyles: {
+    backgroundColor: Colors.Primary,
   },
   pressed: {
     borderColor: Colors.Accent,
   },
-  pressedText: {
-    color: Colors.Accent,
+  pressedIcon: {
+    backgroundColor: Colors.Accent,
   },
 });

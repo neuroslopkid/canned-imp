@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, Text, View, FlatList, Pressable } from "react-n
 import { TestLayout } from "@shared/ui/layout/test-layout";
 import { SetStateAction, useState } from "react";
 import { ViewsCube } from "./ui/views-cube";
-import { Tag } from "@ui/components/tag";
+import { Tag } from "@ui/components/texts/tag";
 import { ButtonDemo } from "./ui/button-demo";
 import { TextInputDemo } from "./ui/textinput-demo";
 import { ScrollViewDemo } from "./ui/scrollview-demo";
@@ -57,14 +57,14 @@ export const ComponentsPlayGroundScreen = () => {
 
         <ImageDemo /> */}
 
-        <View style={{ width: "100%", height: Sizes.LineHeight, flexDirection: "row", columnGap: 10 }}>
+        {/* <View style={{ width: "100%", height: Sizes.LineHeight, flexDirection: "row", columnGap: 10 }}>
           <PrimaryButton />
           <SecondaryButton />
           <OutlinedButton />
           <DangerButton />
-        </View>
+        </View> */}
 
-        <Input maxLength={35} keyboardType="number-pad" autoCapitalize="none" autoCorrect={false} />
+        {/* <Input maxLength={35} keyboardType="number-pad" autoCapitalize="none" autoCorrect={false} /> */}
       </View>
     </TestLayout>
   );

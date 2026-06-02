@@ -24,6 +24,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.Danger,
   },
   textStyles: {
-    color: Colors.TextSecondary,
+    color: Colors.TextPrimary,
   },
 });

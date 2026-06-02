@@ -14,7 +14,6 @@ export const PrimaryButton = ({
 } & PressableProps) => {
   return (
     <Pressable
-      android_ripple={{ color: Colors.Accent }}
       style={({ pressed }) => [pressableStyles.container, styles.container, style, pressed && pressableStyles.pressed, pressed && styles.pressed]}
       {...props}
     >
@@ -28,7 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.Primary,
   },
   textStyles: {
-    color: Colors.TextSecondary,
+    color: Colors.TextPrimary,
   },
   pressed: {
     backgroundColor: Colors.Accent,

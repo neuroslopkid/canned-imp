@@ -1,4 +1,4 @@
-import { Tag } from "@ui/components/tag";
+import { Tag } from "@ui/components/texts/tag";
 import { Button, Modal, Text, View } from "react-native";
 
 export const ModalDemo = ({ showModal, setShowModal }: { showModal: boolean; setShowModal: any }) => {
