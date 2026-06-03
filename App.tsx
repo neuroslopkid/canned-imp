@@ -2,11 +2,12 @@ import { StyleSheet, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { ChatScreen } from "@src/screens/chat/ui/chat";
+import { setDebugStyles } from "@ui/theme/debug.styles";
 
 export default function App() {
   return (
     <SafeAreaProvider>
-      <View style={styles.rootContainer}>
+      <View style={[styles.rootContainer, setDebugStyles({ borderColor: "purple" })]}>
         <ChatScreen />
         <StatusBar style="dark" />
       </View>

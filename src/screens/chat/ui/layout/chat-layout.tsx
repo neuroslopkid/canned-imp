@@ -1,48 +1,30 @@
 import { ReactNode } from "react";
-import { ImageBackground, StyleSheet, View } from "react-native";
+import { ImageBackground, KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import { Colors } from "@ui/theme/colors";
+import { setDebugStyles } from "@ui/theme/debug.styles";
+import { ChatLinearGradient } from "./constants";
 
 type ChatLayoutProps = { headerComponent: ReactNode; children: ReactNode; footerComponent: ReactNode };
 
 export const ChatLayout = ({ headerComponent, children: mainComponent, footerComponent }: ChatLayoutProps) => {
   return (
-    <LinearGradient
-      style={styles.linearGradient}
-      colors={[
-        Colors.BackgroundPrimary,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-        Colors.Black,
-      ]}
-    >
+    <LinearGradient style={[styles.linearGradient, setDebugStyles()]} colors={ChatLinearGradient}>
       <ImageBackground
         style={styles.imageBackground}
         imageStyle={styles.image}
         resizeMode="cover"
         source={require("../../../../../assets/graph.jpg")}
       >
-        <SafeAreaView style={styles.container}>
-          <View style={styles.header}>{headerComponent}</View>
-          <View style={styles.main}>{mainComponent}</View>
-          <View style={styles.footer}>{footerComponent}</View>
+        <SafeAreaView style={[styles.safeAreaContainer, setDebugStyles({ borderColor: "red" })]}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={[styles.keyboardAvoidingContainer, setDebugStyles({ borderColor: "green" })]}
+          >
+            <View style={[styles.header, setDebugStyles({ borderColor: "blue" })]}>{headerComponent}</View>
+            <View style={[styles.main, setDebugStyles()]}>{mainComponent}</View>
+            <View style={[styles.footer, setDebugStyles({ borderColor: "yellow" })]}>{footerComponent}</View>
+          </KeyboardAvoidingView>
         </SafeAreaView>
       </ImageBackground>
     </LinearGradient>
@@ -50,25 +32,28 @@ export const ChatLayout = ({ headerComponent, children: mainComponent, footerCom
 };
 
 const styles = StyleSheet.create({
-  container: {
+  keyboardAvoidingContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingBottom: 10,
+  },
+  safeAreaContainer: {
     flex: 1,
     width: "100%",
-    borderWidth: 1,
-    padding: 20,
+    
   },
   header: {
-    flex: 0.2,
+    flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
   },
   main: {
-    flex: 0.6,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   footer: {
-    flex: 0.2,
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
   },
   imageBackground: {
