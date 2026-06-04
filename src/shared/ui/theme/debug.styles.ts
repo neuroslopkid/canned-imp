@@ -10,7 +10,7 @@ export const debugStyles = StyleSheet.create({
 });
 
 export const setDebugStyles = ({ borderColor = Colors.Debug }: { borderColor?: string } = {}) => {
-  const debug = true;
+  const debug = false;
 
   return debug ? { ...debugStyles.border, ...{ borderColor } } : {};
 };

@@ -1,15 +1,17 @@
-import { View, StyleSheet } from "react-native";
-import { PrimaryText } from "@ui/components/texts/primary-text";
+import { View, StyleSheet, Image } from "react-native";
+import { FontText } from "@ui/components/texts/font-text";
 import { Sizes } from "@ui/theme/sizes";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@ui/theme/colors";
 import { IconButton } from "@ui/components/buttons/icon-button";
+import { setDebugStyles } from "@ui/theme/debug.styles";
+import ImpSvg from "../../../../assets/images/imp.svg";
 
 export const ChatNavbar = () => {
   return (
     <View style={styles.container}>
-      <PrimaryText style={{ textAlign: "left" }}>Logo</PrimaryText>
-      <PrimaryText style={{ textAlign: "left" }}>CannedIMP</PrimaryText>
+      <ImpSvg fill={Colors.White} width={Sizes.LineHeight / 2} height={Sizes.LineHeight / 2} />
+      <FontText style={[{ verticalAlign: "middle", textAlign: "left" }, setDebugStyles()]}>CannedIMP</FontText>
       <IconButton icon={<Ionicons name="chevron-down" size={24} color={Colors.White} />} />
     </View>
   );
