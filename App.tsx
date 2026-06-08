@@ -3,12 +3,30 @@ import { StyleSheet, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStaticNavigation } from "@react-navigation/native";
 import { ChatScreen } from "@src/screens/chat/ui/chat";
-import { setDebugStyles } from "@ui/theme/debug.styles";
+import { ComponentsPlayGroundScreen } from "@src/screens/components-playground/ui/components-playground";
 import { Fonts } from "@ui/theme/fonts";
 import { useEffect } from "react";
 
 preventAutoHideAsync();
+
+const RootStack = createNativeStackNavigator({
+  initialRouteName: "Chat",
+  screens: {
+    Chat: {
+      screen: ChatScreen,
+      options: { headerShown: false }, // To remove a navigation header
+    },
+    ComponentsPlayground: {
+      screen: ComponentsPlayGroundScreen,
+      options: { headerShown: false },
+    },
+  },
+});
+
+const Navigation = createStaticNavigation(RootStack);
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,18 +42,10 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <View style={[styles.rootContainer, setDebugStyles({ borderColor: "purple" })]}>
-        <ChatScreen />
-        <StatusBar style="dark" />
-      </View>
+      {/* Dont add any wrapping View with styling */}
+      <StatusBar style="dark" />
+      <Navigation />
     </SafeAreaProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

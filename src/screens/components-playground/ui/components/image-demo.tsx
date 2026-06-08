@@ -7,7 +7,7 @@ export const ImageDemo = () => {
       <Text>{Tag("Image")}:</Text>
 
       <View style={styles.container}>
-        <Image style={styles.image} source={require("../../../../assets/favicon.png")} />
+        <Image style={styles.image} source={require("../../../../../assets/favicon.png")} />
       </View>
     </>
   );

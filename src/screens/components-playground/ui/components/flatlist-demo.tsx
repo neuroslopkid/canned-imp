@@ -10,6 +10,7 @@ export const FlatListDemo = ({ data }: any) => {
         <Text style={{ color: "black" }}>Parent container:</Text>
         <FlatList
           alwaysBounceVertical={false}
+          scrollEnabled={false}
           data={data}
           style={styles.flastList}
           keyExtractor={(item, index) => {

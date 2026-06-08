@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { ApiUrl } from "@api/base";
-import { BaseLayout } from "@shared/ui/layout/base-layout";
+import { TestLayout } from "@ui/layout/test-layout";
 
 export const MainScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -15,13 +15,13 @@ export const MainScreen = () => {
   };
 
   return (
-    <BaseLayout>
+    <TestLayout>
       <View style={styles.container}>
         <Text>{JSON.stringify(data)}</Text>
         <Button title="Fetch" onPress={fetchData} />
         {loading && <Text>Loading... {ApiUrl}</Text>}
       </View>
-    </BaseLayout>
+    </TestLayout>
   );
 };
 
