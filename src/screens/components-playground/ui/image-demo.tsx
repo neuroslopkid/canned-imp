@@ -1,4 +1,4 @@
-import { Tag } from "@ui/tag";
+import { Tag } from "@ui/components/texts/tag";
 import { View, Text, Image, StyleSheet } from "react-native";
 
 export const ImageDemo = () => {

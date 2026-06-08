@@ -1,4 +1,4 @@
-import { Tag } from "@ui/tag";
+import { Tag } from "@ui/components/texts/tag";
 import { TextInput, View, Text, StyleSheet, Button } from "react-native";
 
 export const TextInputDemo = (props: any) => {

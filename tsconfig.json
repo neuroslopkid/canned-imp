@@ -13,5 +13,6 @@
       "@shared/*": ["src/shared/*"],
       "@src/*": ["src/*"]
     }
-  }
+  },
+  "include": ["src", "App.tsx", "src/shared/types/svg.d.ts"]
 }
