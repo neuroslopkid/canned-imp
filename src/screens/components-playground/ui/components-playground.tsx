@@ -1,5 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, FlatList, Pressable } from "react-native";
-import { TestLayout } from "@shared/ui/layout/test-layout";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SetStateAction, useState } from "react";
 import { ViewsCube } from "./components/views-cube";
 import { Tag } from "@ui/components/texts/tag";
@@ -17,7 +16,6 @@ import { Input } from "@ui/components/input";
 import { Sizes } from "@ui/theme/sizes";
 import { Colors } from "@ui/theme/colors";
 import { ChatNavbar } from "@src/screens/chat/ui/chat-navbar";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { BaseLayout } from "@ui/layout/base-layout";
 
 export const ComponentsPlayGroundScreen = () => {

@@ -7,6 +7,12 @@
     "paths": {
       "@api": ["src/shared/api/index"],
       "@api/*": ["src/shared/api/*"],
+      "@components": ["src/shared/ui/components/index"],
+      "@components/*": ["src/shared/ui/components/*"],
+      "@constants": ["src/shared/constants/index"],
+      "@constants/*": ["src/shared/constants/*"],
+      "@helpers": ["src/shared/helpers/index"],
+      "@helpers/*": ["src/shared/helpers/*"],
       "@ui": ["src/shared/ui/index"],
       "@ui/*": ["src/shared/ui/*"],
       "@shared": ["src/shared/index"],

@@ -4,27 +4,36 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createStaticNavigation } from "@react-navigation/native";
+import { createStaticNavigation, StaticParamList } from "@react-navigation/native";
 import { ChatScreen } from "@src/screens/chat/ui/chat";
 import { ComponentsPlayGroundScreen } from "@src/screens/components-playground/ui/components-playground";
 import { Fonts } from "@ui/theme/fonts";
 import { useEffect } from "react";
+import { Screens } from "@constants";
 
 preventAutoHideAsync();
 
 const RootStack = createNativeStackNavigator({
-  initialRouteName: "Chat",
+  initialRouteName: Screens.Chat,
   screens: {
-    Chat: {
+    [Screens.Chat]: {
       screen: ChatScreen,
       options: { headerShown: false }, // To remove a navigation header
     },
-    ComponentsPlayground: {
+    [Screens.ComponentsPlayground]: {
       screen: ComponentsPlayGroundScreen,
       options: { headerShown: false },
     },
   },
 });
+
+export type RootStackParamList = StaticParamList<typeof RootStack>;
+
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends RootStackParamList {}
+  }
+}
 
 const Navigation = createStaticNavigation(RootStack);
 
@@ -48,4 +57,3 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
-
