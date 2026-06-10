@@ -1,24 +1,24 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SetStateAction, useState } from "react";
+import { Input } from "@components/input";
+import { Tag } from "@components/texts/tag";
+import { TopNavbar } from "@components/top-navbar";
+import { DangerButton } from "@components/buttons/danger-button";
+import { PrimaryButton } from "@components/buttons/primary-button";
+import { OutlinedButton } from "@components/buttons/outlined-button";
+import { SecondaryButton } from "@components/buttons/secondary-button";
 import { ViewsCube } from "./components/views-cube";
-import { Tag } from "@ui/components/texts/tag";
+import { ImageDemo } from "./components/image-demo";
+import { ModalDemo } from "./components/modal-demo";
 import { ButtonDemo } from "./components/button-demo";
+import { FlatListDemo } from "./components/flatlist-demo";
 import { TextInputDemo } from "./components/textinput-demo";
 import { ScrollViewDemo } from "./components/scrollview-demo";
-import { FlatListDemo } from "./components/flatlist-demo";
-import { ModalDemo } from "./components/modal-demo";
-import { ImageDemo } from "./components/image-demo";
-import { PrimaryButton } from "@ui/components/buttons/primary-button";
-import { SecondaryButton } from "@ui/components/buttons/secondary-button";
-import { OutlinedButton } from "@ui/components/buttons/outlined-button";
-import { DangerButton } from "@ui/components/buttons/danger-button";
-import { Input } from "@ui/components/input";
 import { Sizes } from "@ui/theme/sizes";
 import { Colors } from "@ui/theme/colors";
-import { ChatNavbar } from "@src/screens/chat/ui/chat-navbar";
 import { BaseLayout } from "@ui/layout/base-layout";
 
-export const ComponentsPlayGroundScreen = () => {
+export const PlayGroundScreen = () => {
   const [inputString, setInputString] = useState("");
   const [notes, setNotes] = useState<any[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -41,10 +41,8 @@ export const ComponentsPlayGroundScreen = () => {
   };
 
   return (
-    <BaseLayout headerComponent={<ChatNavbar />} footerComponent={<></>}>
-      <View style={styles.navbar}></View>
-
-      <ScrollView>
+    <BaseLayout headerComponent={<TopNavbar />} footerComponent={<></>}>
+      <ScrollView contentContainerStyle={styles.container} style={{ flex: 1 }}>
         <Text>{Tag("Text")} must be placed explicitly inside the text tags</Text>
 
         <ViewsCube />
@@ -71,7 +69,13 @@ export const ComponentsPlayGroundScreen = () => {
           <DangerButton />
         </View>
 
-        <Input maxLength={35} keyboardType="number-pad" autoCapitalize="none" autoCorrect={false} />
+        <Input
+          style={{ width: 200 }}
+          maxLength={35}
+          keyboardType="number-pad"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
       </ScrollView>
     </BaseLayout>
   );
@@ -79,18 +83,11 @@ export const ComponentsPlayGroundScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     width: "100%",
     justifyContent: "flex-start",
-    backgroundColor: Colors.White,
     alignItems: "center",
-    margin: 0,
-    marginTop: 50,
+    backgroundColor: Colors.White,
     rowGap: 10,
-    padding: 0,
-  },
-  navbar: {
-    flex: 1,
-    backgroundColor: Colors.Black,
+    padding: 5,
   },
 });

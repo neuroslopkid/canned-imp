@@ -1,4 +1,4 @@
 export const Screens = {
   Chat: "Chat",
-  ComponentsPlayground: "ComponentsPlayground",
+  Playground: "Playground",
 } as const;

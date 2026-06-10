@@ -2,7 +2,7 @@ import { ScaledSize } from "react-native";
 import { Breakpoints } from "@constants/breakpoints";
 import { getDimensions, getOrientation } from "@helpers/getDimensions";
 
-export const getScaledSize = (size: number, screen: undefined | ScaledSize = undefined): number => {
+export const getScaledSize = (size: number, screen: ScaledSize | null = null): number => {
   let screenSize;
 
   if (!screen) {
@@ -18,6 +18,12 @@ export const getScaledSize = (size: number, screen: undefined | ScaledSize = und
       return size;
     } else if (screenSize.width > Breakpoints.Phone && screenSize.width <= Breakpoints.Tablet) {
       return size * 1.5;
+    }
+  } else if (orientation === "album") {
+    if (screenSize.width <= Breakpoints.Phone) {
+      return size;
+    } else if (screenSize.width > Breakpoints.Phone && screenSize.width <= Breakpoints.Tablet) {
+      return size * 2;
     }
   }
 

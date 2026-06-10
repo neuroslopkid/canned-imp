@@ -11,6 +11,8 @@
       "@components/*": ["src/shared/ui/components/*"],
       "@constants": ["src/shared/constants/index"],
       "@constants/*": ["src/shared/constants/*"],
+      "@context": ["src/shared/context/index"],
+      "@context/*": ["src/shared/context/*"],
       "@helpers": ["src/shared/helpers/index"],
       "@helpers/*": ["src/shared/helpers/*"],
       "@ui": ["src/shared/ui/index"],

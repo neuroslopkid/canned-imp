@@ -9,15 +9,15 @@ type ChatLayoutProps = { headerComponent: ReactNode; children: ReactNode; footer
 export const BaseLayout = ({ headerComponent, children: mainComponent, footerComponent }: ChatLayoutProps) => {
   return (
     <>
-      <SafeAreaView style={[styles.safeAreaContainer, setDebugStyles({ borderColor: "red" })]}>
+      <SafeAreaView style={[styles.safeAreaContainer, setDebugStyles()]}>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={[styles.keyboardAvoidingContainer, setDebugStyles({ borderColor: "green" })]}
+          style={[styles.keyboardAvoidingContainer, setDebugStyles()]}
         >
           <DimensionsOverlay />
-          <View style={[styles.header, setDebugStyles({ borderColor: "blue" })]}>{headerComponent}</View>
+          <View style={[styles.header, setDebugStyles()]}>{headerComponent}</View>
           <View style={[styles.main, setDebugStyles()]}>{mainComponent}</View>
-          <View style={[styles.footer, setDebugStyles({ borderColor: "yellow" })]}>{footerComponent}</View>
+          <View style={[styles.footer, setDebugStyles()]}>{footerComponent}</View>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </>

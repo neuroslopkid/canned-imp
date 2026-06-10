@@ -1,15 +1,16 @@
 import { hideAsync, preventAutoHideAsync } from "expo-splash-screen";
-import { StyleSheet, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createStaticNavigation, StaticParamList } from "@react-navigation/native";
 import { ChatScreen } from "@src/screens/chat/ui/chat";
-import { ComponentsPlayGroundScreen } from "@src/screens/components-playground/ui/components-playground";
+import { PlayGroundScreen } from "@src/screens/playground/ui/playground";
 import { Fonts } from "@ui/theme/fonts";
 import { useEffect } from "react";
 import { Screens } from "@constants";
+import { DimensionsProvider } from "@context";
+import * as SystemUI from "expo-system-ui";
 
 preventAutoHideAsync();
 
@@ -20,8 +21,8 @@ const RootStack = createNativeStackNavigator({
       screen: ChatScreen,
       options: { headerShown: false }, // To remove a navigation header
     },
-    [Screens.ComponentsPlayground]: {
-      screen: ComponentsPlayGroundScreen,
+    [Screens.Playground]: {
+      screen: PlayGroundScreen,
       options: { headerShown: false },
     },
   },
@@ -47,13 +48,19 @@ export default function App() {
     if (fontsLoaded) hideAsync();
   }, [fontsLoaded]);
 
+  useEffect(() => {
+    SystemUI.setBackgroundColorAsync("transparent");
+  }, []);
+
   if (!fontsLoaded) return null;
 
   return (
-    <SafeAreaProvider>
-      {/* Dont add any wrapping View with styling */}
-      <StatusBar style="dark" />
-      <Navigation />
+    <SafeAreaProvider style={{ backgroundColor: "red" }}>
+      <DimensionsProvider>
+        {/* Dont add any wrapping View with styling */}
+        <StatusBar style="dark" />
+        <Navigation />
+      </DimensionsProvider>
     </SafeAreaProvider>
   );
 }
