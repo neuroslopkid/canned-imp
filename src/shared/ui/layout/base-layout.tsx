@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   safeAreaContainer: {
     flex: 1,
     width: "100%",
+    backgroundColor: "black",
   },
   header: {
     flexDirection: "row",

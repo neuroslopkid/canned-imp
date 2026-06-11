@@ -1,5 +1,5 @@
 import { View, StyleSheet, Text, Platform } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Screens } from "@constants";
 import { FontText } from "@ui/components/texts/font-text";
 import { Sizes } from "@ui/theme/sizes";
@@ -11,14 +11,21 @@ import ImpSvg from "../../../../assets/images/imp.svg";
 import { getScaledSize } from "@helpers/getScaledSize";
 import { useDimensions } from "@context";
 import { useState } from "react";
+import { NavigationTypes } from "@typesInterfaces/navigation.types";
 
 export const TopNavbar = () => {
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<NavigationTypes>();
+  const route = useRoute();
   const dimensions = useDimensions();
   const [open, setOpen] = useState(false);
 
   const handleOpenNavmenu = () => {
     setOpen((prev) => !prev);
+  };
+
+  const handleNavigation = (screen: any, params: any = {}) => {
+    setOpen(false);
+    navigate(screen, params);
   };
 
   return (
@@ -38,18 +45,22 @@ export const TopNavbar = () => {
           />
           {open && (
             <View style={styles.navmenu}>
-              <Text
-                onPress={() => navigate(Screens.Chat)}
-                style={{ color: Colors.TextPrimary, fontSize: getScaledSize(14, dimensions) }}
-              >
-                Chat
-              </Text>
-              <Text
-                onPress={() => navigate(Screens.Playground)}
-                style={{ color: Colors.TextPrimary, fontSize: getScaledSize(14, dimensions) }}
-              >
-                Playground
-              </Text>
+              {route.name !== Screens.Chat && (
+                <Text
+                  onPress={() => handleNavigation(Screens.Chat)}
+                  style={{ color: Colors.TextPrimary, fontSize: getScaledSize(14, dimensions) }}
+                >
+                  Chat
+                </Text>
+              )}
+              {route.name !== Screens.Playground && (
+                <Text
+                  onPress={() => handleNavigation(Screens.Playground)}
+                  style={{ color: Colors.TextPrimary, fontSize: getScaledSize(14, dimensions) }}
+                >
+                  Playground
+                </Text>
+              )}
             </View>
           )}
         </View>
@@ -77,6 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
+    columnGap: 6,
   },
   navWrapper: {
     justifyContent: "flex-start",

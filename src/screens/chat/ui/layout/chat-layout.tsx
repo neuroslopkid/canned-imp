@@ -4,31 +4,32 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { setDebugStyles } from "@ui/theme/debug.styles";
 import { ChatLinearGradient } from "./constants";
-import {} from "react-native";
 
 type ChatLayoutProps = { headerComponent: ReactNode; children: ReactNode; footerComponent: ReactNode };
 
 export const ChatLayout = ({ headerComponent, children: mainComponent, footerComponent }: ChatLayoutProps) => {
   return (
-    <LinearGradient style={[styles.linearGradient, setDebugStyles()]} colors={ChatLinearGradient}>
-      <ImageBackground
-        style={styles.imageBackground}
-        imageStyle={styles.image}
-        resizeMode="cover"
-        source={require("../../../../../assets/graph.jpg")}
-      >
-        <SafeAreaView style={[styles.safeAreaContainer, setDebugStyles()]}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={[styles.keyboardAvoidingContainer, setDebugStyles()]}
-          >
-            <View style={[styles.header, setDebugStyles()]}>{headerComponent}</View>
-            <View style={[styles.main, setDebugStyles()]}>{mainComponent}</View>
-            <View style={[styles.footer, setDebugStyles()]}>{footerComponent}</View>
-          </KeyboardAvoidingView>
-        </SafeAreaView>
-      </ImageBackground>
-    </LinearGradient>
+    <>
+      <LinearGradient style={[styles.linearGradient, setDebugStyles()]} colors={ChatLinearGradient}>
+        <ImageBackground
+          style={styles.imageBackground}
+          imageStyle={styles.image}
+          resizeMode="cover"
+          source={require("../../../../../assets/graph.jpg")}
+        >
+          <SafeAreaView style={[styles.safeAreaContainer, setDebugStyles()]}>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+              style={[styles.keyboardAvoidingContainer, setDebugStyles()]}
+            >
+              <View style={[styles.header, setDebugStyles()]}>{headerComponent}</View>
+              <View style={[styles.main, setDebugStyles()]}>{mainComponent}</View>
+              <View style={[styles.footer, setDebugStyles()]}>{footerComponent}</View>
+            </KeyboardAvoidingView>
+          </SafeAreaView>
+        </ImageBackground>
+      </LinearGradient>
+    </>
   );
 };
 
@@ -42,8 +43,6 @@ const styles = StyleSheet.create({
   safeAreaContainer: {
     flex: 1,
     width: "100%",
-    paddingBottom: 10,
-    padding: 10,
   },
   header: {
     flexDirection: "row",

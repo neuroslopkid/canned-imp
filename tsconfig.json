@@ -15,6 +15,8 @@
       "@context/*": ["src/shared/context/*"],
       "@helpers": ["src/shared/helpers/index"],
       "@helpers/*": ["src/shared/helpers/*"],
+      "@typesInterfaces": ["src/shared/typesInterfaces/index"],
+      "@typesInterfaces/*": ["src/shared/typesInterfaces/*"],
       "@ui": ["src/shared/ui/index"],
       "@ui/*": ["src/shared/ui/*"],
       "@shared": ["src/shared/index"],
@@ -22,5 +24,5 @@
       "@src/*": ["src/*"]
     }
   },
-  "include": ["src", "App.tsx", "src/shared/types/svg.d.ts"]
+  "include": ["src", "App.tsx", "src/shared/typesInterfaces/declarations/svg.d.ts"]
 }
