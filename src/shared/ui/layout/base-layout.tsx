@@ -1,15 +1,50 @@
 import { ReactNode } from "react";
-import { StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { setDebugStyles } from "@ui/theme/debug.styles";
+import { DimensionsOverlay } from "@ui/components/dimensions-overlay";
 
-type BaseLayoutProps = { children: ReactNode };
+type ChatLayoutProps = { headerComponent: ReactNode; children: ReactNode; footerComponent: ReactNode };
 
-export const BaseLayout = ({ children }: BaseLayoutProps) => {
-  return <View style={styles.container}>{children}</View>;
+export const BaseLayout = ({ headerComponent, children: mainComponent, footerComponent }: ChatLayoutProps) => {
+  return (
+    <>
+      <SafeAreaView style={[styles.safeAreaContainer, setDebugStyles()]}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={[styles.keyboardAvoidingContainer, setDebugStyles()]}
+        >
+          <DimensionsOverlay />
+          <View style={[styles.header, setDebugStyles()]}>{headerComponent}</View>
+          <View style={[styles.main, setDebugStyles()]}>{mainComponent}</View>
+          <View style={[styles.footer, setDebugStyles()]}>{footerComponent}</View>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </>
+  );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  keyboardAvoidingContainer: {
     flex: 1,
-    padding: 50,
+  },
+  safeAreaContainer: {
+    flex: 1,
+    width: "100%",
+    backgroundColor: "black",
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  main: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footer: {
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

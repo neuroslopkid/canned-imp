@@ -8,7 +8,8 @@ export const pressableStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
-    height: Sizes.LineHeight,
+    padding: 5,
+    height: Sizes.LineHeight / 1.25,
     // iOS
     shadowRadius: 10,
     shadowColor: "#171717",

@@ -5,26 +5,41 @@ import { IconButton } from "@ui/components/buttons/icon-button";
 import { Sizes } from "@ui/theme/sizes";
 import { setDebugStyles } from "@ui/theme/debug.styles";
 import { Ionicons } from "@expo/vector-icons";
+import { getScaledSize } from "@helpers/getScaledSize";
+import { useDimensions } from "@context";
 
 export const ChatInput = () => {
+  const dimensions = useDimensions();
+
   return (
-    <View style={[styles.container, setDebugStyles({ borderColor: Colors.White })]}>
-      <View style={[styles.input, setDebugStyles({ borderColor: Colors.White })]}>
+    <View
+      style={[
+        styles.container,
+        {
+          maxWidth: getScaledSize(373, dimensions),
+          borderRadius: getScaledSize(20, dimensions),
+          height: getScaledSize(Sizes.LineHeight * 2 + 30, dimensions),
+          padding: getScaledSize(10, dimensions),
+        },
+        setDebugStyles(),
+      ]}
+    >
+      <View style={[styles.input, setDebugStyles()]}>
         <Input
-          placeholder="Ask anything... if you dare..."
+          placeholder={"Ask anything... if you dare..."}
           style={{ borderColor: Colors.Transparent, backgroundColor: Colors.Transparent }}
         />
       </View>
-      <View style={[styles.buttonsWrapper, setDebugStyles({ borderColor: Colors.White })]}>
-        <View style={[styles.leftButtons, setDebugStyles({ borderColor: Colors.White })]}>
-          <IconButton icon={<Ionicons name="add" size={24} color={Colors.White} />} />
+      <View style={[styles.buttonsWrapper, setDebugStyles()]}>
+        <View style={[styles.leftButtons, setDebugStyles()]}>
+          <IconButton icon={<Ionicons name="add" size={getScaledSize(24, dimensions)} color={Colors.White} />} />
         </View>
-        <View style={[styles.rightButtons, setDebugStyles({ borderColor: Colors.White })]}>
+        <View style={[styles.rightButtons, setDebugStyles()]}>
           <IconButton
             onPress={() =>
               Alert.alert("AAAAAAAAAA", "AAAAAA!", [{ text: "Text", style: "destructive", onPress: () => {} }])
             }
-            icon={<Ionicons name="mic" size={24} color={Colors.White} />}
+            icon={<Ionicons name="mic" size={getScaledSize(24, dimensions)} color={Colors.White} />}
           />
         </View>
       </View>
@@ -40,10 +55,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.BackgroundPrimary,
     borderColor: Colors.BorderMedium,
     borderWidth: 1,
-    borderRadius: 20,
     overflow: "hidden",
-    height: Sizes.LineHeight * 2 + 30,
-    padding: 10,
   },
   input: {
     flex: 1,

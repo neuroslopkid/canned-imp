@@ -24,5 +24,5 @@ export const Colors = {
   BorderHeavy: "#fff3",
   BorderXheavy: "#ffffff40",
   BorderSharp: "#ffffff0d",
-  Debug: "#ffffff50",
+  Debug: "#ffffff2a",
 } as const;

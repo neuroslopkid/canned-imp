@@ -1,13 +1,30 @@
-import { StyleSheet, TextInput, Text, View, TextInputProps } from "react-native";
+import { StyleSheet, TextInput, TextInputProps } from "react-native";
 import { Colors } from "@ui/theme/colors";
 import { Sizes } from "@ui/theme/sizes";
 import { useState } from "react";
+import { getScaledSize } from "@helpers/getScaledSize";
+import { useDimensions } from "@context";
 
 export const Input = ({ style, ...props }: TextInputProps) => {
   const [text, setText] = useState("");
+  const dimensions = useDimensions();
 
   return (
-    <TextInput placeholderTextColor={Colors.TextPlaceholder} style={[styles.container, style]} {...props}>
+    <TextInput
+      placeholderTextColor={Colors.TextPlaceholder}
+      style={[
+        styles.container,
+        {
+          height: getScaledSize(Sizes.LineHeight, dimensions),
+          maxHeight: getScaledSize(Sizes.LineHeight, dimensions),
+          paddingLeft: getScaledSize(10, dimensions),
+          paddingRight: getScaledSize(10, dimensions),
+          fontSize: getScaledSize(14, dimensions),
+        },
+        style,
+      ]}
+      {...props}
+    >
       {text}
     </TextInput>
   );
@@ -16,10 +33,7 @@ export const Input = ({ style, ...props }: TextInputProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: Sizes.LineHeight,
-    maxHeight: Sizes.LineHeight,
     color: Colors.TextPrimary,
-    padding: 10,
     flexDirection: "row",
     justifyContent: "space-between",
     borderColor: Colors.BorderMedium,
