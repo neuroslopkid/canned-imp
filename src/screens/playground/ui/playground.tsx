@@ -20,6 +20,7 @@ import { BaseLayout } from "@ui/layout/base-layout";
 import { Screens } from "@constants/screens";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParamList } from "@typesInterfaces/navigation.types";
+import { DimensionsOverlay } from "@components/dimensions-overlay";
 
 type PlaygroundNavigationProp = NativeStackNavigationProp<StackParamList>;
 
@@ -47,6 +48,7 @@ export const PlayGroundScreen = ({ navigation }: { navigation: PlaygroundNavigat
 
   return (
     <BaseLayout headerComponent={<TopNavbar />} footerComponent={<></>}>
+      <DimensionsOverlay />
       <ScrollView contentContainerStyle={styles.container} style={{ flex: 1 }}>
         <Text>{Tag("Text")} must be placed explicitly inside the text tags</Text>
 
@@ -86,7 +88,6 @@ export const PlayGroundScreen = ({ navigation }: { navigation: PlaygroundNavigat
           text="Navigate to Chat"
           onPress={() => navigation.navigate(Screens.Chat, { welcome: "You've returned..." })}
         />
-
       </ScrollView>
     </BaseLayout>
   );

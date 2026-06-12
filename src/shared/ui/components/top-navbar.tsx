@@ -61,6 +61,14 @@ export const TopNavbar = () => {
                   Playground
                 </Text>
               )}
+              {route.name !== Screens.StateTorture && (
+                <Text
+                  onPress={() => handleNavigation(Screens.StateTorture)}
+                  style={{ color: Colors.TextPrimary, fontSize: getScaledSize(14, dimensions) }}
+                >
+                  State Torture
+                </Text>
+              )}
             </View>
           )}
         </View>

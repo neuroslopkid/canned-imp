@@ -11,8 +11,8 @@ import { useEffect } from "react";
 import { Screens } from "@constants";
 import { DimensionsProvider } from "@context";
 import * as SystemUI from "expo-system-ui";
-import { Colors } from "@ui/theme/colors";
 import { StatusBar } from "expo-status-bar";
+import { StateTortureScreen } from "@src/screens/state-torture/ui/state-torture";
 
 preventAutoHideAsync();
 
@@ -87,6 +87,7 @@ export default function App() {
           >
             <Stack.Screen name={Screens.Chat} component={ChatScreen} initialParams={{ welcome: "Welcome" }} />
             <Stack.Screen name={Screens.Playground} component={PlayGroundScreen} />
+            <Stack.Screen name={Screens.StateTorture} component={StateTortureScreen} />
           </Stack.Navigator>
         </NavigationContainer>
         {/* <Navigation /> */}

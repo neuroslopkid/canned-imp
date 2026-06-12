@@ -1,20 +1,28 @@
 import { ReactNode } from "react";
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, Platform, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { setDebugStyles } from "@ui/theme/debug.styles";
-import { DimensionsOverlay } from "@ui/components/dimensions-overlay";
 
-type ChatLayoutProps = { headerComponent: ReactNode; children: ReactNode; footerComponent: ReactNode };
+type ChatLayoutProps = {
+  headerComponent: ReactNode;
+  children: ReactNode;
+  footerComponent: ReactNode;
+  safeAreaStyles?: StyleProp<ViewStyle>;
+};
 
-export const BaseLayout = ({ headerComponent, children: mainComponent, footerComponent }: ChatLayoutProps) => {
+export const BaseLayout = ({
+  headerComponent,
+  children: mainComponent,
+  footerComponent,
+  safeAreaStyles,
+}: ChatLayoutProps) => {
   return (
     <>
-      <SafeAreaView style={[styles.safeAreaContainer, setDebugStyles()]}>
+      <SafeAreaView style={[styles.safeAreaContainer, safeAreaStyles, setDebugStyles()]}>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={[styles.keyboardAvoidingContainer, setDebugStyles()]}
         >
-          <DimensionsOverlay />
           <View style={[styles.header, setDebugStyles()]}>{headerComponent}</View>
           <View style={[styles.main, setDebugStyles()]}>{mainComponent}</View>
           <View style={[styles.footer, setDebugStyles()]}>{footerComponent}</View>
