@@ -18,7 +18,10 @@ export const BaseLayout = ({
 }: ChatLayoutProps) => {
   return (
     <>
-      <SafeAreaView style={[styles.safeAreaContainer, safeAreaStyles, setDebugStyles()]}>
+      <SafeAreaView
+        edges={["left", "right", "bottom", "top"]}
+        style={[styles.safeAreaContainer, safeAreaStyles, setDebugStyles()]}
+      >
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={[styles.keyboardAvoidingContainer, setDebugStyles()]}

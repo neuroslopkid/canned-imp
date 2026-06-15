@@ -12,12 +12,12 @@ export const ChatLayout = ({ headerComponent, children: mainComponent, footerCom
     <>
       <LinearGradient style={[styles.linearGradient, setDebugStyles()]} colors={ChatLinearGradient}>
         <ImageBackground
-          style={styles.imageBackground}
+          style={[styles.imageBackground, setDebugStyles()]}
           imageStyle={styles.image}
           resizeMode="cover"
           source={require("../../../../../assets/graph.jpg")}
         >
-          <SafeAreaView style={[styles.safeAreaContainer, setDebugStyles()]}>
+          <SafeAreaView edges={["left", "right", "bottom", "top"]} style={[styles.safeAreaContainer, setDebugStyles()]}>
             <KeyboardAvoidingView
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               style={[styles.keyboardAvoidingContainer, setDebugStyles()]}

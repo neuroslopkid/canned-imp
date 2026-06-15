@@ -1,3 +1,5 @@
+import { initExecutorch } from 'react-native-executorch';
+import { ExpoResourceFetcher } from 'react-native-executorch-expo-resource-fetcher';
 import { hideAsync, preventAutoHideAsync } from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
@@ -13,7 +15,9 @@ import { DimensionsProvider } from "@context";
 import * as SystemUI from "expo-system-ui";
 import { StatusBar } from "expo-status-bar";
 import { StateTortureScreen } from "@src/screens/state-torture/ui/state-torture";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
+initExecutorch({ resourceFetcher: ExpoResourceFetcher });
 preventAutoHideAsync();
 
 // THIS IS HOW STATIC NAVIGATOR IS DEFINED (Current dynamic):
@@ -45,6 +49,18 @@ preventAutoHideAsync();
 // const Navigation = createStaticNavigation(RootStack);
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+
+const DrawerNavigator = () => {
+  return (
+    // If you want to show the header then you have to remove edge "top" from safeareaview to remove the gap
+    <Drawer.Navigator screenOptions={{ headerShown: false }}>
+      <Drawer.Screen name={Screens.Chat} component={ChatScreen} initialParams={{ welcome: "Welcome" }} />
+      <Drawer.Screen name={Screens.Playground} component={PlayGroundScreen} />
+      <Drawer.Screen name={Screens.StateTorture} component={StateTortureScreen} />
+    </Drawer.Navigator>
+  );
+};
 
 declare global {
   namespace ReactNavigation {
@@ -88,6 +104,8 @@ export default function App() {
             <Stack.Screen name={Screens.Chat} component={ChatScreen} initialParams={{ welcome: "Welcome" }} />
             <Stack.Screen name={Screens.Playground} component={PlayGroundScreen} />
             <Stack.Screen name={Screens.StateTorture} component={StateTortureScreen} />
+            {/* Nested Drawer navigator inside Stack navigator */}
+            <Stack.Screen name={Screens.DrawerNavigator} component={DrawerNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
         {/* <Navigation /> */}

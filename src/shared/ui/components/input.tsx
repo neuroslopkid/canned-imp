@@ -1,17 +1,16 @@
 import { StyleSheet, TextInput, TextInputProps } from "react-native";
 import { Colors } from "@ui/theme/colors";
 import { Sizes } from "@ui/theme/sizes";
-import { useState } from "react";
 import { getScaledSize } from "@helpers/getScaledSize";
 import { useDimensions } from "@context";
 
-export const Input = ({ style, ...props }: TextInputProps) => {
-  const [text, setText] = useState("");
+export const Input = ({ style, value, ...props }: TextInputProps) => {
   const dimensions = useDimensions();
 
   return (
     <TextInput
       placeholderTextColor={Colors.TextPlaceholder}
+      value={value}
       style={[
         styles.container,
         {
@@ -24,9 +23,7 @@ export const Input = ({ style, ...props }: TextInputProps) => {
         style,
       ]}
       {...props}
-    >
-      {text}
-    </TextInput>
+    ></TextInput>
   );
 };
 
