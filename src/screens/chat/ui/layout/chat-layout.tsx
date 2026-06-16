@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { ImageBackground, KeyboardAvoidingView, Platform, StyleSheet, View, ScrollView } from "react-native";
+import { ImageBackground, KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { setDebugStyles } from "@ui/theme/debug.styles";

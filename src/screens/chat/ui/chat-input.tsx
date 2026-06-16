@@ -1,4 +1,5 @@
-import { View, StyleSheet, Alert, TextInputChangeEvent } from "react-native";
+import { View, StyleSheet, Alert, Text, ActivityIndicator } from "react-native";
+import { Message, models, useLLM } from "react-native-executorch";
 import { Input } from "@ui/components/input";
 import { Colors } from "@ui/theme/colors";
 import { IconButton } from "@ui/components/buttons/icon-button";
@@ -7,14 +8,35 @@ import { setDebugStyles } from "@ui/theme/debug.styles";
 import { Ionicons } from "@expo/vector-icons";
 import { getScaledSize } from "@helpers/getScaledSize";
 import { useDimensions } from "@context";
-import { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
-export const ChatInput = () => {
+export const ChatInput = ({
+  setMessageHistory,
+}: {
+  setMessageHistory: React.Dispatch<React.SetStateAction<Message[]>>;
+}) => {
   const dimensions = useDimensions();
   const [inputValue, setInputValue] = useState("");
 
+  const modelConfig = useMemo(() => models.llm.smollm2_1_135m(), []);
+
+  const llm = useLLM({
+    model: modelConfig,
+  });
+
   const handleTextChange = (text: string) => {
     setInputValue(text);
+  };
+
+  useEffect(() => {
+    setMessageHistory(() => [...llm.messageHistory]);
+  }, [llm.isGenerating]);
+
+  const handleSendText = () => {
+    if (llm.isReady && !llm.isGenerating) {
+      llm.sendMessage(inputValue);
+      setInputValue("");
+    }
   };
 
   return (
@@ -43,7 +65,7 @@ export const ChatInput = () => {
           <IconButton
             icon={<Ionicons name="add" size={getScaledSize(24, dimensions)} color={Colors.White} />}
             onPress={() =>
-              Alert.alert("Files not available", "File attachments to implemented yet. Please keep in touch!", [
+              Alert.alert("Test", `Ready: ${llm.isReady}; Progress: ${llm.downloadProgress} `, [
                 { text: "Close", style: "destructive", onPress: () => {} },
               ])
             }
@@ -52,12 +74,19 @@ export const ChatInput = () => {
         <View style={[styles.rightButtons, setDebugStyles()]}>
           <IconButton
             disabled={!inputValue}
-            style={{ opacity: inputValue ? 1 : 0.5 }}
+            onPress={handleSendText}
             icon={
               inputValue ? (
                 <Ionicons name="arrow-up-circle" size={getScaledSize(24, dimensions)} color={Colors.White} />
+              ) : llm.isGenerating ? (
+                <ActivityIndicator color={Colors.TextPrimary} />
               ) : (
-                <Ionicons name="mic" size={getScaledSize(24, dimensions)} color={Colors.White} />
+                <Ionicons
+                  name="mic"
+                  style={{ opacity: inputValue ? 1 : 0.5 }}
+                  size={getScaledSize(24, dimensions)}
+                  color={Colors.White}
+                />
               )
             }
           />

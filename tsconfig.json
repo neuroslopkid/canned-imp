@@ -17,6 +17,8 @@
       "@helpers/*": ["src/shared/helpers/*"],
       "@typesInterfaces": ["src/shared/typesInterfaces/index"],
       "@typesInterfaces/*": ["src/shared/typesInterfaces/*"],
+      "@redux": ["src/shared/redux/index"],
+      "@redux/*": ["src/shared/redux/*"],
       "@ui": ["src/shared/ui/index"],
       "@ui/*": ["src/shared/ui/*"],
       "@shared": ["src/shared/index"],

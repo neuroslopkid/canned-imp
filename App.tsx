@@ -1,5 +1,5 @@
-import { initExecutorch } from 'react-native-executorch';
-import { ExpoResourceFetcher } from 'react-native-executorch-expo-resource-fetcher';
+import { initExecutorch } from "react-native-executorch";
+import { ExpoResourceFetcher } from "react-native-executorch-expo-resource-fetcher";
 import { hideAsync, preventAutoHideAsync } from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
@@ -16,6 +16,8 @@ import * as SystemUI from "expo-system-ui";
 import { StatusBar } from "expo-status-bar";
 import { StateTortureScreen } from "@src/screens/state-torture/ui/state-torture";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { Provider } from "react-redux";
+import store from "@redux/store";
 
 initExecutorch({ resourceFetcher: ExpoResourceFetcher });
 preventAutoHideAsync();
@@ -85,31 +87,33 @@ export default function App() {
   if (!fontsLoaded) return null;
 
   return (
-    <SafeAreaProvider>
-      <DimensionsProvider>
-        {/* Dont add any wrapping View with styling */}
-        <StatusBar style="auto" />
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-              headerStyle: {
-                backgroundColor: "grey",
-              },
-              // contentStyle: {
-              //   marginTop: -34, // to remove gap between content and navigator
-              // },
-            }}
-          >
-            <Stack.Screen name={Screens.Chat} component={ChatScreen} initialParams={{ welcome: "Welcome" }} />
-            <Stack.Screen name={Screens.Playground} component={PlayGroundScreen} />
-            <Stack.Screen name={Screens.StateTorture} component={StateTortureScreen} />
-            {/* Nested Drawer navigator inside Stack navigator */}
-            <Stack.Screen name={Screens.DrawerNavigator} component={DrawerNavigator} />
-          </Stack.Navigator>
-        </NavigationContainer>
-        {/* <Navigation /> */}
-      </DimensionsProvider>
-    </SafeAreaProvider>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <DimensionsProvider>
+          {/* Dont add any wrapping View with styling */}
+          <StatusBar style="auto" />
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+                headerStyle: {
+                  backgroundColor: "grey",
+                },
+                // contentStyle: {
+                //   marginTop: -34, // to remove gap between content and navigator
+                // },
+              }}
+            >
+              <Stack.Screen name={Screens.Chat} component={ChatScreen} initialParams={{ welcome: "Welcome" }} />
+              <Stack.Screen name={Screens.Playground} component={PlayGroundScreen} />
+              <Stack.Screen name={Screens.StateTorture} component={StateTortureScreen} />
+              {/* Nested Drawer navigator inside Stack navigator */}
+              <Stack.Screen name={Screens.DrawerNavigator} component={DrawerNavigator} />
+            </Stack.Navigator>
+          </NavigationContainer>
+          {/* <Navigation /> */}
+        </DimensionsProvider>
+      </SafeAreaProvider>
+    </Provider>
   );
 }
