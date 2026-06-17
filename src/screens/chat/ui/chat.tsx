@@ -6,23 +6,19 @@ import { ChatInput } from "./chat-input";
 import { ChatWelcome } from "./chat-welcome";
 import { Screens } from "@constants";
 import { StackParamList } from "@typesInterfaces/navigation.types";
-import { Message } from "react-native-executorch";
-import { useState } from "react";
 import { Colors } from "@ui/theme/colors";
 import { setDebugStyles } from "@ui/theme/debug.styles";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "@redux/store";
 
 export const ChatScreen = () => {
   const route = useRoute<RouteProp<StackParamList, typeof Screens.Chat>>();
   const welcome = route.params.welcome;
-  const [messageHistory, setMessageHistory] = useState<Message[]>([]);
 
-  const messages = useSelector((state: RootState) => state.messages);
-  const dispatch = useDispatch();
+  const messageHistory = useSelector((state: RootState) => state.messages.messages);
 
   return (
-    <ChatLayout headerComponent={<TopNavbar />} footerComponent={<ChatInput setMessageHistory={setMessageHistory} />}>
+    <ChatLayout headerComponent={<TopNavbar />} footerComponent={<ChatInput />}>
       {!messageHistory.length ? (
         <ChatWelcome text={welcome} />
       ) : (
@@ -39,15 +35,27 @@ export const ChatScreen = () => {
               style={[
                 {
                   alignSelf: message.role === "assistant" ? "flex-start" : "flex-end",
-                  borderColor: message.role === "assistant" ? "red" : "blue",
+                  backgroundColor: Colors.BackgroundPrimary,
                   borderRadius: 5,
                   borderWidth: 1,
                   borderStyle: "solid",
-                  padding: 5,
+                  paddingHorizontal: 20,
+                  paddingVertical: 10,
                 },
                 setDebugStyles(),
               ]}
             >
+              <View
+                style={{
+                  position: "absolute",
+                  top: -5,
+                  left: -5,
+                  borderRadius: 5,
+                  backgroundColor: message.role === "assistant" ? "red" : "blue",
+                  width: 10,
+                  height: 10,
+                }}
+              ></View>
               <Text style={[{ color: Colors.White }, setDebugStyles()]}>{message.content}</Text>
             </View>
           ))}

@@ -17,7 +17,7 @@ import { StatusBar } from "expo-status-bar";
 import { StateTortureScreen } from "@src/screens/state-torture/ui/state-torture";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Provider } from "react-redux";
-import store from "@redux/store";
+import { store } from "@redux/store";
 
 initExecutorch({ resourceFetcher: ExpoResourceFetcher });
 preventAutoHideAsync();
