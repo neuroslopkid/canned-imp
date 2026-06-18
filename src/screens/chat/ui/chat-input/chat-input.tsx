@@ -1,5 +1,4 @@
-import { View, StyleSheet, Alert, Text, ActivityIndicator } from "react-native";
-import { Message, models, useLLM, useSpeechToText } from "react-native-executorch";
+import { View, StyleSheet, Alert } from "react-native";
 import { Input } from "@ui/components/input";
 import { Colors } from "@ui/theme/colors";
 import { IconButton } from "@ui/components/buttons/icon-button";
@@ -8,49 +7,25 @@ import { setDebugStyles } from "@ui/theme/debug.styles";
 import { Ionicons } from "@expo/vector-icons";
 import { getScaledSize } from "@helpers/getScaledSize";
 import { useDimensions } from "@context";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setMessages } from "@redux/slices/message-slice";
-import { MicButton } from "./components/mic-button";
+import { setMessages } from "@redux/slices/chat-slice";
+import { RightChatButtons } from "./right-chat-buttons";
+import { useLLMModels } from "@context/llm.provider";
 
 export const ChatInput = () => {
   const dimensions = useDimensions();
-  const [inputValue, setInputValue] = useState("");
   const dispatch = useDispatch();
-
-  const llmModelConfig = useMemo(() => models.llm.smollm2_1_135m(), []);
-  // const ttsModelConfig = useMemo(() => models.speech_to_text.whisper_tiny_en(), []);
-
-  const llm = useLLM({
-    model: llmModelConfig,
-  });
-
-  // const tts = useSpeechToText({
-  //   model: ttsModelConfig,
-  // });
+  const [inputValue, setInputValue] = useState<string>("");
+  const llm = useLLMModels();
 
   const handleTextChange = (text: string) => {
     setInputValue(text);
   };
 
   useEffect(() => {
-    dispatch(setMessages([...llm.messageHistory]));
-  }, [llm.isGenerating]);
-
-  const handleSendText = () => {
-    if (llm.isReady && !llm.isGenerating) {
-      llm.sendMessage(inputValue);
-      setInputValue("");
-    }
-  };
-
-  const handeInterrupt = () => {
-    if (llm.isGenerating) {
-      llm.interrupt();
-    }
-  };
-
-  // const handleTTS = () => {};
+    dispatch(setMessages([...(llm?.messageHistory || [])]));
+  }, [llm?.isGenerating]);
 
   return (
     <View
@@ -78,34 +53,16 @@ export const ChatInput = () => {
           <IconButton
             icon={<Ionicons name="add" size={getScaledSize(24, dimensions)} color={Colors.White} />}
             onPress={() =>
-              Alert.alert("Test", `Ready: ${llm.isReady}; Progress: ${llm.downloadProgress} `, [
-                { text: "Close", style: "destructive", onPress: () => {} },
-              ])
+              Alert.alert(
+                "Test",
+                `Ready: ${llm?.isReady}; Progress: ${llm?.downloadProgress}, Else: ${llm?.isGenerating} `,
+                [{ text: "Close", style: "destructive", onPress: () => {} }],
+              )
             }
           />
         </View>
         <View style={[styles.rightButtons, setDebugStyles()]}>
-          {llm.isGenerating && (
-            <IconButton
-              disabled={!llm.isGenerating}
-              onPress={handeInterrupt}
-              icon={<Ionicons name="close" size={getScaledSize(24, dimensions)} color={Colors.White} />}
-            />
-          )}
-
-          <IconButton
-            disabled={!inputValue}
-            onPress={handleSendText}
-            icon={
-              inputValue ? (
-                <Ionicons name="arrow-up-circle" size={getScaledSize(24, dimensions)} color={Colors.White} />
-              ) : llm.isGenerating ? (
-                <ActivityIndicator color={Colors.TextPrimary} />
-              ) : (
-                <MicButton disabled={!inputValue} onPress={handleSendText} /> // TO BE REMADE
-              )
-            }
-          />
+          <RightChatButtons inputValue={inputValue} setInputValue={setInputValue} />
         </View>
       </View>
     </View>

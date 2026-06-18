@@ -11,7 +11,7 @@ import { PlayGroundScreen } from "@src/screens/playground/ui/playground";
 import { Fonts } from "@ui/theme/fonts";
 import { useEffect } from "react";
 import { Screens } from "@constants";
-import { DimensionsProvider } from "@context";
+import { DimensionsProvider, LLMProvider } from "@context";
 import * as SystemUI from "expo-system-ui";
 import { StatusBar } from "expo-status-bar";
 import { StateTortureScreen } from "@src/screens/state-torture/ui/state-torture";
@@ -89,30 +89,32 @@ export default function App() {
   return (
     <Provider store={store}>
       <SafeAreaProvider>
-        <DimensionsProvider>
-          {/* Dont add any wrapping View with styling */}
-          <StatusBar style="auto" />
-          <NavigationContainer>
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false,
-                headerStyle: {
-                  backgroundColor: "grey",
-                },
-                // contentStyle: {
-                //   marginTop: -34, // to remove gap between content and navigator
-                // },
-              }}
-            >
-              <Stack.Screen name={Screens.Chat} component={ChatScreen} initialParams={{ welcome: "Welcome" }} />
-              <Stack.Screen name={Screens.Playground} component={PlayGroundScreen} />
-              <Stack.Screen name={Screens.StateTorture} component={StateTortureScreen} />
-              {/* Nested Drawer navigator inside Stack navigator */}
-              <Stack.Screen name={Screens.DrawerNavigator} component={DrawerNavigator} />
-            </Stack.Navigator>
-          </NavigationContainer>
-          {/* <Navigation /> */}
-        </DimensionsProvider>
+        <LLMProvider>
+          <DimensionsProvider>
+            {/* Dont add any wrapping View with styling */}
+            <StatusBar style="auto" />
+            <NavigationContainer>
+              <Stack.Navigator
+                screenOptions={{
+                  headerShown: false,
+                  headerStyle: {
+                    backgroundColor: "grey",
+                  },
+                  // contentStyle: {
+                  //   marginTop: -34, // to remove gap between content and navigator
+                  // },
+                }}
+              >
+                <Stack.Screen name={Screens.Chat} component={ChatScreen} initialParams={{ welcome: "Welcome" }} />
+                <Stack.Screen name={Screens.Playground} component={PlayGroundScreen} />
+                <Stack.Screen name={Screens.StateTorture} component={StateTortureScreen} />
+                {/* Nested Drawer navigator inside Stack navigator */}
+                <Stack.Screen name={Screens.DrawerNavigator} component={DrawerNavigator} />
+              </Stack.Navigator>
+            </NavigationContainer>
+            {/* <Navigation /> */}
+          </DimensionsProvider>
+        </LLMProvider>
       </SafeAreaProvider>
     </Provider>
   );

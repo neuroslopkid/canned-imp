@@ -15,7 +15,7 @@ export const ChatScreen = () => {
   const route = useRoute<RouteProp<StackParamList, typeof Screens.Chat>>();
   const welcome = route.params.welcome;
 
-  const messageHistory = useSelector((state: RootState) => state.messages.messages);
+  const messageHistory = useSelector((state: RootState) => state.chat.messages);
 
   return (
     <ChatLayout headerComponent={<TopNavbar />} footerComponent={<ChatInput />}>
@@ -23,9 +23,15 @@ export const ChatScreen = () => {
         <ChatWelcome text={welcome} />
       ) : (
         <ScrollView
-          style={[{ flex: 1, width: "100%" }, setDebugStyles()]}
+          style={[{ flex: 1, width: "100%", maxWidth: 600 }, setDebugStyles()]}
           contentContainerStyle={[
-            { justifyContent: "flex-start", rowGap: 10, width: "100%", padding: 10 },
+            {
+              justifyContent: "flex-start",
+              alignItems: "center",
+              rowGap: 10,
+              width: "100%",
+              padding: 10,
+            },
             setDebugStyles(),
           ]}
         >

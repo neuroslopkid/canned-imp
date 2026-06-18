@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { messageSliceReducer } from "./slices/message-slice";
+import { chatSliceReducer } from "./slices/chat-slice";
 import { baseApi } from "./api/base";
 
 export const store = configureStore({
   reducer: {
-    messages: messageSliceReducer,
+    chat: chatSliceReducer,
     [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
