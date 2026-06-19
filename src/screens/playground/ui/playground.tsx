@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, Image } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SetStateAction, useState } from "react";
 import { Input } from "@components/input";
 import { Tag } from "@components/texts/tag";
@@ -17,14 +17,11 @@ import { ScrollViewDemo } from "./components/scrollview-demo";
 import { Sizes } from "@ui/theme/sizes";
 import { Colors } from "@ui/theme/colors";
 import { BaseLayout } from "@ui/layout/base-layout";
-import { Screens } from "@constants/screens";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { StackParamList } from "@typesInterfaces/navigation.types";
 import { DimensionsOverlay } from "@components/dimensions-overlay";
+import { router } from "expo-router";
+import { Path } from "@constants";
 
-type PlaygroundNavigationProp = NativeStackNavigationProp<StackParamList>;
-
-export const PlayGroundScreen = ({ navigation }: { navigation: PlaygroundNavigationProp }) => {
+export const PlayGroundScreen = () => {
   const [inputString, setInputString] = useState("");
   const [notes, setNotes] = useState<any[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -86,7 +83,15 @@ export const PlayGroundScreen = ({ navigation }: { navigation: PlaygroundNavigat
 
         <PrimaryButton
           text="Navigate to Chat"
-          onPress={() => navigation.navigate(Screens.Chat, { welcome: "You've returned..." })}
+          // onPress={() => navigation.navigate(Screens.Chat, { welcome: "You've returned..." })}
+          onPress={() =>
+            router.push({
+              pathname: Path.Chat,
+              params: {
+                welcome: "You've returned...",
+              },
+            })
+          }
         />
       </ScrollView>
     </BaseLayout>

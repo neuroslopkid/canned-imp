@@ -1,19 +1,21 @@
 import { ScrollView, Text, View } from "react-native";
-import { useRoute, RouteProp } from "@react-navigation/native";
+import { useLocalSearchParams } from "expo-router";
 import { TopNavbar } from "@components";
 import { ChatLayout } from "./layout/chat-layout";
 import { ChatInput } from "./chat-input";
 import { ChatWelcome } from "./chat-welcome";
-import { Screens } from "@constants";
-import { StackParamList } from "@typesInterfaces/navigation.types";
 import { Colors } from "@ui/theme/colors";
 import { setDebugStyles } from "@ui/theme/debug.styles";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store";
 
 export const ChatScreen = () => {
-  const route = useRoute<RouteProp<StackParamList, typeof Screens.Chat>>();
-  const welcome = route.params.welcome;
+  //   const route = useRoute<RouteProp<StackParamList, typeof Screens.Chat>>();
+  // const welcome = route.params.welcome;
+
+  const { welcome = "Welcome" } = useLocalSearchParams<{
+    welcome?: string;
+  }>();
 
   const messageHistory = useSelector((state: RootState) => state.chat.messages);
 
