@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { ImageBackground, KeyboardAvoidingView, Platform, StyleSheet, View, ScrollView } from "react-native";
+import { ImageBackground, KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { setDebugStyles } from "@ui/theme/debug.styles";
@@ -12,12 +12,12 @@ export const ChatLayout = ({ headerComponent, children: mainComponent, footerCom
     <>
       <LinearGradient style={[styles.linearGradient, setDebugStyles()]} colors={ChatLinearGradient}>
         <ImageBackground
-          style={styles.imageBackground}
+          style={[styles.imageBackground, setDebugStyles()]}
           imageStyle={styles.image}
           resizeMode="cover"
           source={require("../../../../../assets/graph.jpg")}
         >
-          <SafeAreaView style={[styles.safeAreaContainer, setDebugStyles()]}>
+          <SafeAreaView edges={["left", "right", "bottom", "top"]} style={[styles.safeAreaContainer, setDebugStyles()]}>
             <KeyboardAvoidingView
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               style={[styles.keyboardAvoidingContainer, setDebugStyles()]}

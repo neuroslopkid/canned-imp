@@ -7,9 +7,25 @@ import { setDebugStyles } from "@ui/theme/debug.styles";
 import { Ionicons } from "@expo/vector-icons";
 import { getScaledSize } from "@helpers/getScaledSize";
 import { useDimensions } from "@context";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setMessages } from "@redux/slices/chat-slice";
+import { RightChatButtons } from "./right-chat-buttons";
+import { useLLMModels } from "@context/llm.provider";
 
 export const ChatInput = () => {
   const dimensions = useDimensions();
+  const dispatch = useDispatch();
+  const [inputValue, setInputValue] = useState<string>("");
+  const llm = useLLMModels();
+
+  const handleTextChange = (text: string) => {
+    setInputValue(text);
+  };
+
+  useEffect(() => {
+    dispatch(setMessages([...(llm?.messageHistory || [])]));
+  }, [llm?.isGenerating]);
 
   return (
     <View
@@ -28,19 +44,25 @@ export const ChatInput = () => {
         <Input
           placeholder={"Ask anything... if you dare..."}
           style={{ borderColor: Colors.Transparent, backgroundColor: Colors.Transparent }}
+          value={inputValue}
+          onChangeText={handleTextChange}
         />
       </View>
       <View style={[styles.buttonsWrapper, setDebugStyles()]}>
         <View style={[styles.leftButtons, setDebugStyles()]}>
-          <IconButton icon={<Ionicons name="add" size={getScaledSize(24, dimensions)} color={Colors.White} />} />
+          <IconButton
+            icon={<Ionicons name="add" size={getScaledSize(24, dimensions)} color={Colors.White} />}
+            onPress={() =>
+              Alert.alert(
+                "Test",
+                `Ready: ${llm?.isReady}; Progress: ${llm?.downloadProgress}, Else: ${llm?.isGenerating} `,
+                [{ text: "Close", style: "destructive", onPress: () => {} }],
+              )
+            }
+          />
         </View>
         <View style={[styles.rightButtons, setDebugStyles()]}>
-          <IconButton
-            onPress={() =>
-              Alert.alert("AAAAAAAAAA", "AAAAAA!", [{ text: "Text", style: "destructive", onPress: () => {} }])
-            }
-            icon={<Ionicons name="mic" size={getScaledSize(24, dimensions)} color={Colors.White} />}
-          />
+          <RightChatButtons inputValue={inputValue} setInputValue={setInputValue} />
         </View>
       </View>
     </View>

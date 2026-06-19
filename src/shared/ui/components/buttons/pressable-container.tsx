@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 5,
     height: 30,
+    maxHeight: 30,
     // iOS
     shadowRadius: 10,
     shadowColor: "#171717",

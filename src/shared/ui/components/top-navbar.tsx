@@ -1,6 +1,7 @@
 import { View, StyleSheet, Text, Platform } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { Screens } from "@constants";
+// import { useNavigation, useRoute } from "@react-navigation/native";
+import { router, usePathname } from "expo-router";
+import { Path, Screens } from "@constants";
 import { FontText } from "@ui/components/texts/font-text";
 import { Sizes } from "@ui/theme/sizes";
 import { Ionicons } from "@expo/vector-icons";
@@ -11,11 +12,11 @@ import ImpSvg from "../../../../assets/images/imp.svg";
 import { getScaledSize } from "@helpers/getScaledSize";
 import { useDimensions } from "@context";
 import { useState } from "react";
-import { NavigationTypes } from "@typesInterfaces/navigation.types";
 
 export const TopNavbar = () => {
-  const { navigate } = useNavigation<NavigationTypes>();
-  const route = useRoute();
+  // const { navigate } = useNavigation<NavigationTypes>();
+  // const route = useRoute();
+  const pathname = usePathname();
   const dimensions = useDimensions();
   const [open, setOpen] = useState(false);
 
@@ -23,9 +24,11 @@ export const TopNavbar = () => {
     setOpen((prev) => !prev);
   };
 
-  const handleNavigation = (screen: any, params: any = {}) => {
+  // const handleNavigation = (screen: any, params: any = {}) => {
+  const handleNavigation = (href: string) => {
     setOpen(false);
-    navigate(screen, params);
+    // navigate(screen, params);
+    router.push(href);
   };
 
   return (
@@ -45,20 +48,28 @@ export const TopNavbar = () => {
           />
           {open && (
             <View style={styles.navmenu}>
-              {route.name !== Screens.Chat && (
+              {pathname !== Path.Chat && (
                 <Text
-                  onPress={() => handleNavigation(Screens.Chat)}
+                  onPress={() => handleNavigation(Path.Chat)}
                   style={{ color: Colors.TextPrimary, fontSize: getScaledSize(14, dimensions) }}
                 >
                   Chat
                 </Text>
               )}
-              {route.name !== Screens.Playground && (
+              {pathname !== Path.Playground && (
                 <Text
-                  onPress={() => handleNavigation(Screens.Playground)}
+                  onPress={() => handleNavigation(Path.Playground)}
                   style={{ color: Colors.TextPrimary, fontSize: getScaledSize(14, dimensions) }}
                 >
                   Playground
+                </Text>
+              )}
+              {pathname !== Path.StateTorture && (
+                <Text
+                  onPress={() => handleNavigation(Path.StateTorture)}
+                  style={{ color: Colors.TextPrimary, fontSize: getScaledSize(14, dimensions) }}
+                >
+                  State Torture
                 </Text>
               )}
             </View>
@@ -102,7 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     top: 50,
     padding: 15,
-    width: 120,
+    width: 130,
     rowGap: 20,
     borderWidth: 1,
     borderColor: "white",

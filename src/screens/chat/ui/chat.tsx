@@ -1,18 +1,74 @@
-import { useRoute, RouteProp } from "@react-navigation/native";
+import { ScrollView, Text, View } from "react-native";
+import { useLocalSearchParams } from "expo-router";
 import { TopNavbar } from "@components";
 import { ChatLayout } from "./layout/chat-layout";
 import { ChatInput } from "./chat-input";
 import { ChatWelcome } from "./chat-welcome";
-import { Screens } from "@constants";
-import { StackParamList } from "@typesInterfaces/navigation.types";
+import { Colors } from "@ui/theme/colors";
+import { setDebugStyles } from "@ui/theme/debug.styles";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/store";
 
 export const ChatScreen = () => {
-  const route = useRoute<RouteProp<StackParamList, typeof Screens.Chat>>();
-  const welcome = route.params.welcome;
+  //   const route = useRoute<RouteProp<StackParamList, typeof Screens.Chat>>();
+  // const welcome = route.params.welcome;
+
+  const { welcome = "Welcome" } = useLocalSearchParams<{
+    welcome?: string;
+  }>();
+
+  const messageHistory = useSelector((state: RootState) => state.chat.messages);
 
   return (
     <ChatLayout headerComponent={<TopNavbar />} footerComponent={<ChatInput />}>
-      <ChatWelcome text={welcome} />
+      {!messageHistory.length ? (
+        <ChatWelcome text={welcome} />
+      ) : (
+        <ScrollView
+          style={[{ flex: 1, width: "100%", maxWidth: 600 }, setDebugStyles()]}
+          contentContainerStyle={[
+            {
+              justifyContent: "flex-start",
+              alignItems: "center",
+              rowGap: 10,
+              width: "100%",
+              padding: 10,
+            },
+            setDebugStyles(),
+          ]}
+        >
+          {messageHistory.map((message, index) => (
+            <View
+              key={index}
+              style={[
+                {
+                  alignSelf: message.role === "assistant" ? "flex-start" : "flex-end",
+                  backgroundColor: Colors.BackgroundPrimary,
+                  borderRadius: 5,
+                  borderWidth: 1,
+                  borderStyle: "solid",
+                  paddingHorizontal: 20,
+                  paddingVertical: 10,
+                },
+                setDebugStyles(),
+              ]}
+            >
+              <View
+                style={{
+                  position: "absolute",
+                  top: -5,
+                  left: -5,
+                  borderRadius: 5,
+                  backgroundColor: message.role === "assistant" ? "red" : "blue",
+                  width: 10,
+                  height: 10,
+                }}
+              ></View>
+              <Text style={[{ color: Colors.White }, setDebugStyles()]}>{message.content}</Text>
+            </View>
+          ))}
+        </ScrollView>
+      )}
     </ChatLayout>
   );
 };
