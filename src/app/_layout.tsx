@@ -11,7 +11,8 @@ import { DimensionsProvider, LLMProvider } from "@context";
 import * as SystemUI from "expo-system-ui";
 import { StatusBar } from "expo-status-bar";
 import { Provider } from "react-redux";
-import { store } from "@redux/store";
+import { persistor, store } from "@redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 initExecutorch({ resourceFetcher: ExpoResourceFetcher });
 preventAutoHideAsync();
@@ -40,21 +41,23 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
-        <LLMProvider>
-          <DimensionsProvider>
-            <StatusBar style="auto" />
-            <Stack
-              screenOptions={{
-                headerShown: false,
-                headerStyle: {
-                  backgroundColor: "grey",
-                },
-              }}
-            />
-          </DimensionsProvider>
-        </LLMProvider>
-      </SafeAreaProvider>
+      <PersistGate persistor={persistor}>
+        <SafeAreaProvider>
+          <LLMProvider>
+            <DimensionsProvider>
+              <StatusBar style="auto" />
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                  headerStyle: {
+                    backgroundColor: "grey",
+                  },
+                }}
+              />
+            </DimensionsProvider>
+          </LLMProvider>
+        </SafeAreaProvider>
+      </PersistGate>
     </Provider>
   );
 }

@@ -7,17 +7,17 @@ import { ChatWelcome } from "./chat-welcome";
 import { Colors } from "@ui/theme/colors";
 import { setDebugStyles } from "@ui/theme/debug.styles";
 import { useSelector } from "react-redux";
-import { RootState } from "@redux/store";
+import { StoreState } from "@redux/store";
 
 export const ChatScreen = () => {
-  //   const route = useRoute<RouteProp<StackParamList, typeof Screens.Chat>>();
+  // const route = useRoute<RouteProp<StackParamList, typeof Screens.Chat>>();
   // const welcome = route.params.welcome;
 
   const { welcome = "Welcome" } = useLocalSearchParams<{
     welcome?: string;
   }>();
 
-  const messageHistory = useSelector((state: RootState) => state.chat.messages);
+  const messageHistory = useSelector((state: StoreState) => state.chat.messages);
 
   return (
     <ChatLayout headerComponent={<TopNavbar />} footerComponent={<ChatInput />}>

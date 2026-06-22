@@ -72,6 +72,14 @@ export const TopNavbar = () => {
                   State Torture
                 </Text>
               )}
+              {pathname !== Path.Map && (
+                <Text
+                  onPress={() => handleNavigation(Path.Map)}
+                  style={{ color: Colors.TextPrimary, fontSize: getScaledSize(14, dimensions) }}
+                >
+                  Map
+                </Text>
+              )}
             </View>
           )}
         </View>
