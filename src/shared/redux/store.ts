@@ -1,4 +1,14 @@
-import { persistStore, persistReducer, PersistConfig } from "redux-persist";
+import {
+  persistStore,
+  persistReducer,
+  PersistConfig,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { configureStore } from "@reduxjs/toolkit";
 import { chatSliceReducer } from "./slices/chat";
@@ -17,7 +27,12 @@ export const store = configureStore({
     security: persistReducer<SecurityState>(securityPersistConfig, securitySliceReducer),
     [baseApi.reducerPath]: baseApi.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(baseApi.middleware),
 });
 
 export const persistor = persistStore(store);

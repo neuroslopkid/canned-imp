@@ -1,47 +1,72 @@
-import { Platform, Text } from "react-native";
+import { Platform, Text, View } from "react-native";
 import { TopNavbar } from "@components";
 import { BaseLayout } from "@ui/layout/base-layout";
-import ExpoLocation, { useForegroundPermissions } from "expo-location";
+import * as ExpoLocation from "expo-location";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setLocation } from "@redux/slices/security";
 import { StoreState } from "@redux/store";
 
-export const MapScreen = async () => {
+export const MapScreen = () => {
   const [hasPermission, setHasPermission] = useState(false);
-  const [_, requestLocationPermission] = useForegroundPermissions();
+  const [geoData, setGeoData] = useState<ExpoLocation.LocationGeocodedAddress[]>([]);
+  const [_, requestLocationPermission] = ExpoLocation.useForegroundPermissions();
   const locationData = useSelector((state: StoreState) => state.security.location);
-
-  const checkHasPermissions = async () => {
-    if (!hasPermission) {
-      const permissionResponse = await requestLocationPermission();
-
-      if (Platform.OS === "android") {
-        setHasPermission(
-          permissionResponse.android?.accuracy === "coarse" || permissionResponse.android?.accuracy === "fine",
-        );
-      } else if (Platform.OS === "ios") {
-        setHasPermission(permissionResponse.ios?.scope === "always" || permissionResponse.ios?.scope === "whenInUse");
-      }
-    }
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    checkHasPermissions();
+    const requestPermission = async () => {
+      if (!hasPermission) {
+        const permissionResponse = await requestLocationPermission();
+
+        if (Platform.OS === "android") {
+          setHasPermission(
+            permissionResponse.android?.accuracy === "coarse" || permissionResponse.android?.accuracy === "fine",
+          );
+        } else if (Platform.OS === "ios") {
+          setHasPermission(permissionResponse.ios?.scope === "always" || permissionResponse.ios?.scope === "whenInUse");
+        }
+      }
+    };
+
+    requestPermission();
   }, []);
 
-  if (hasPermission) {
-    const { getCurrentPositionAsync } = ExpoLocation;
+  useEffect(() => {
+    if (!hasPermission) return;
 
-    const location = await getCurrentPositionAsync();
-    const dispatch = useDispatch();
+    const loadLocation = async () => {
+      const location = await ExpoLocation.getCurrentPositionAsync();
 
-    dispatch(setLocation(location));
-  }
+      const addresses = await ExpoLocation.reverseGeocodeAsync({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+
+      setGeoData(addresses);
+
+      dispatch(setLocation(location));
+    };
+
+    loadLocation();
+  }, [hasPermission, dispatch]);
 
   return (
     <BaseLayout headerComponent={<TopNavbar />} footerComponent={<></>}>
-      <Text>{`${locationData?.coords}`}</Text>
+      <View style={{ backgroundColor: "white", flex: 1, width: "100%" }}>
+        <Text>{`latitude: ${locationData?.coords.latitude}`}</Text>
+        <Text>{`longitude: ${locationData?.coords.longitude}`}</Text>
+        <Text>{`altitude: ${locationData?.coords.altitude}`}</Text>
+        <Text>{`mocked: ${locationData?.mocked}`}</Text>
+        <Text></Text>
+        {geoData?.map((item, index) => (
+          <Text key={index}>
+            {Object.entries(item)
+              .map(([key, value]) => `${key}: ${value}`)
+              .join("\n")}
+          </Text>
+        ))}
+      </View>
     </BaseLayout>
   );
 };

@@ -60,7 +60,7 @@ export const ChatInput = () => {
             onPress={() =>
               Alert.alert(
                 "Test",
-                `Ready: ${llm?.isReady}; Progress: ${llm?.downloadProgress}, Else: ${llm?.isGenerating} `,
+                `Ready: ${llm?.isReady}; Progress: ${llm?.downloadProgress}, Generating: ${llm?.isGenerating} `,
                 [{ text: "Close", style: "destructive", onPress: () => {} }],
               )
             }
