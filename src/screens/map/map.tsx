@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setLocation } from "@redux/slices/security";
 import { StoreState } from "@redux/store";
+import { MapWebView } from "./map.webview";
 
 export const MapScreen = () => {
   const [hasPermission, setHasPermission] = useState(false);
@@ -66,6 +67,7 @@ export const MapScreen = () => {
               .join("\n")}
           </Text>
         ))}
+        <MapWebView latitude={locationData?.coords.latitude || 0} longitude={locationData?.coords.longitude || 0} />
       </View>
     </BaseLayout>
   );
