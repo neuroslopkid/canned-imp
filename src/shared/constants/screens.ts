@@ -3,6 +3,7 @@ export const Screens = {
   Playground: "Playground",
   StateTorture: "StateTorture",
   DrawerNavigator: "DrawerNavigator",
+  Map: "Map",
 } as const;
 
 export const Path = {
@@ -10,4 +11,5 @@ export const Path = {
   Playground: "/playground",
   StateTorture: "/state-torture",
   DrawerNavigator: "/drawer",
+  Map: "/map",
 } as const;

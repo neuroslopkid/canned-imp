@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { MicButton } from "./mic-button";
 import { Colors } from "@ui/theme/colors";
 import { useDimensions, useLLMModels } from "@context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const RightChatButtons = ({
   inputValue = "",
@@ -16,9 +17,10 @@ export const RightChatButtons = ({
   const dimensions = useDimensions();
   const llm = useLLMModels();
 
-  const handleSendText = () => {
+  const handleSendText = async () => {
     if (llm?.isReady && !llm?.isGenerating && llm?.sendMessage && inputValue) {
       llm?.sendMessage(inputValue);
+      await AsyncStorage.setItem("lastMessage", inputValue);
       setInputValue("");
     }
   };

@@ -9,9 +9,10 @@ import { getScaledSize } from "@helpers/getScaledSize";
 import { useDimensions } from "@context";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setMessages } from "@redux/slices/chat-slice";
+import { setMessages } from "@redux/slices/chat/chat-slice";
 import { RightChatButtons } from "./right-chat-buttons";
 import { useLLMModels } from "@context/llm.provider";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const ChatInput = () => {
   const dimensions = useDimensions();
@@ -22,6 +23,10 @@ export const ChatInput = () => {
   const handleTextChange = (text: string) => {
     setInputValue(text);
   };
+
+  useEffect(() => {
+    AsyncStorage.getItem("lastMessage").then((message) => setInputValue(message || ""));
+  }, []);
 
   useEffect(() => {
     dispatch(setMessages([...(llm?.messageHistory || [])]));
@@ -55,7 +60,7 @@ export const ChatInput = () => {
             onPress={() =>
               Alert.alert(
                 "Test",
-                `Ready: ${llm?.isReady}; Progress: ${llm?.downloadProgress}, Else: ${llm?.isGenerating} `,
+                `Ready: ${llm?.isReady}; Progress: ${llm?.downloadProgress}, Generating: ${llm?.isGenerating} `,
                 [{ text: "Close", style: "destructive", onPress: () => {} }],
               )
             }
