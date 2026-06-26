@@ -21,6 +21,8 @@
       "@redux/*": ["src/shared/redux/*"],
       "@ui": ["src/shared/ui/index"],
       "@ui/*": ["src/shared/ui/*"],
+      "@utils": ["src/shared/utils/index"],
+      "@utils/*": ["src/shared/utils/*"],
       "@shared": ["src/shared/index"],
       "@shared/*": ["src/shared/*"],
       "@src/*": ["src/*"]

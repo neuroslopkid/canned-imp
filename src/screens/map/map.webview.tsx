@@ -28,13 +28,13 @@ export const createMapHtml = (latitude: number, longitude: number) => `
     <script>
       const map = L.map('map').setView(
         [${latitude}, ${longitude}],
-        15
+        17
       );
 
       L.tileLayer(
         'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
         {
-          maxZoom: 19
+          maxZoom: 20
         }
       ).addTo(map);
 
@@ -50,7 +50,7 @@ export const createMapHtml = (latitude: number, longitude: number) => `
 export const MapWebView = ({ latitude, longitude }: { latitude: number; longitude: number }) => {
   return (
     <WebView
-      style={{ flex: 1, backgroundColor: "grey" }}
+      style={{ height: 300, width: 300, backgroundColor: "grey" }}
       originWhitelist={["*"]}
       source={{
         html: createMapHtml(latitude, longitude) as any,

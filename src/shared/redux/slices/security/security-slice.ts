@@ -1,14 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SecurityState } from "./security-slice.type";
-import { LocationObject } from "expo-location";
 
 const initialState: SecurityState = {
   location: undefined,
+  address: undefined,
 };
 
 const reducers = {
-  setLocation: (state: SecurityState, action: PayloadAction<LocationObject>) => {
+  setGeolocationData: (state: SecurityState, action: PayloadAction<SecurityState>) => {
+    state.location = action.payload.location;
+    state.address = action.payload.address;
+  },
+  setLocation: (state: SecurityState, action: PayloadAction<SecurityState["location"]>) => {
     state.location = action.payload;
+  },
+  setAddress: (state: SecurityState, action: PayloadAction<SecurityState["address"]>) => {
+    state.address = action.payload;
   },
 };
 
@@ -18,5 +25,5 @@ export const securitySlice = createSlice({
   reducers,
 });
 
-export const { setLocation } = securitySlice.actions;
+export const { setLocation, setGeolocationData, setAddress } = securitySlice.actions;
 export const securitySliceReducer = securitySlice.reducer;
