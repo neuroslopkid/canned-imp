@@ -1,17 +1,17 @@
 import { baseApi } from "./base";
 
-export const testApi = baseApi.injectEndpoints({
+export const addedApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     searchFAQs: builder.query<any, any>({
       query: ({ q, limit }) => ({
-        url: "/test",
+        url: "/added",
         params: {
           q,
           limit,
         },
       }),
 
-      providesTags: ["test"],
+      providesTags: ["added"],
     }),
   }),
 });
