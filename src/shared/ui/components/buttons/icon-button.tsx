@@ -26,11 +26,13 @@ export const IconButton = ({
         pressableStyles.container,
         styles.pressableContainer,
         style,
-        pressed && [pressableStyles.pressed, styles.pressedPressable],
+        pressed && pressableStyles.pressed,
+        pressed && styles.pressedPressable,
         setDebugStyles(),
       ]}
       onPressIn={() => setPressed(true)}
       onPressOut={() => setPressed(false)}
+      testID="icon-button-pressable"
       {...props}
     >
       <View style={[styles.icon, iconStyle, pressed && styles.pressedIcon, setDebugStyles()]}>{icon}</View>

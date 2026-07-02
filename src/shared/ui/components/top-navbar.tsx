@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text, Platform } from "react-native";
 // import { useNavigation, useRoute } from "@react-navigation/native";
 import { router, usePathname } from "expo-router";
-import { Path, Screens } from "@constants";
+import { Path } from "@constants";
 import { FontText } from "@ui/components/texts/font-text";
 import { Sizes } from "@ui/theme/sizes";
 import { Ionicons } from "@expo/vector-icons";
@@ -10,7 +10,7 @@ import { IconButton } from "@ui/components/buttons/icon-button";
 import { setDebugStyles } from "@ui/theme/debug.styles";
 import ImpSvg from "../../../../assets/images/imp.svg";
 import { getScaledSize } from "@helpers/getScaledSize";
-import { useDimensions } from "@context";
+import { useDimensions } from "@context/dimensions.provider";
 import { useState } from "react";
 
 export const TopNavbar = () => {

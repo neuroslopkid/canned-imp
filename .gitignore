@@ -41,3 +41,6 @@ yarn-error.*
 /android
 .env
 /coverage
+/.claude/skills
+/.agent/skills
+/.opencode
