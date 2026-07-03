@@ -8,15 +8,16 @@ export const ScrollViewDemo = (props: any) => {
 
       <View style={styles.scrollViewContainer}>
         <Text style={{ color: "white" }}>Parrent container:</Text>
-        <ScrollView alwaysBounceVertical={false} style={styles.scrollView}>
+        <ScrollView alwaysBounceVertical={false} style={styles.scrollView} testID="scroll-view-with-text">
           {props.data.map((item: any, index: any) => (
             <Pressable
               android_ripple={{ color: "#F00" }}
               style={({ pressed }) => pressed && { opacity: 0.5 }}
               onPress={() => props.handleDelete(item.id)}
               key={`item-${index}`}
+              testID="scroll-view-pressable"
             >
-              <Text>
+              <Text testID="scroll-view-pressable-text-width-data">
                 {index + 1}: {item.data}
               </Text>
             </Pressable>

@@ -6,14 +6,20 @@ export const TextInputDemo = (props: any) => {
     <>
       <View style={styles.textInputWrapper}>
         <Text>{Tag("TextInput")}:</Text>
-        <TextInput placeholder="Type here..." style={styles.textInput} value={props.inputString} onChangeText={props.handleTextChange}></TextInput>
+        <TextInput
+          placeholder="Type here..."
+          style={styles.textInput}
+          value={props.inputString}
+          onChangeText={props.handleTextChange}
+          testID="note-text-input"
+        />
         <Text style={styles.textInputOutput}>{props.inputString}</Text>
       </View>
 
       <View>
         <View style={styles.addNoteButtonsContainer}>
-          <Button title="Add a note" onPress={() => props.handleAddNote(true)} />
-          <Button title="Clear" onPress={props.handleClearNotes} />
+          <Button title="Add a note" onPress={() => props.handleAddNote(true)} testID="add-text-to-list-button" />
+          <Button title="Clear" onPress={props.handleClearNotes} testID="clear-list-button" />
         </View>
       </View>
     </>

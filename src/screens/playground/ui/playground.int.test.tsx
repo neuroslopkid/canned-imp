@@ -19,10 +19,10 @@ jest.mock("../../../../assets/images/imp.svg", () => {
   return SvgComponent;
 });
 
-import { render } from "@testing-library/react-native";
+import { fireEvent, render, RenderResult } from "@testing-library/react-native";
 import { PlayGroundScreen } from "./playground";
 
-describe("PlayGroundScreen - integration", () => {
+describe("PlayGroundScreen - rendering", () => {
   it("renders Text demo", async () => {
     const screen = await render(<PlayGroundScreen />);
 
@@ -85,5 +85,59 @@ describe("PlayGroundScreen - integration", () => {
     const imageDemo = screen.getByText(/local Image file/i);
 
     expect(imageDemo).toBeTruthy();
+  });
+});
+
+const typeTextAndAddNote = async (screen: RenderResult, text: string) => {
+  const textInput = screen.getByTestId("note-text-input");
+  const addButton = screen.getByTestId("add-text-to-list-button");
+
+  await fireEvent(textInput, "changeText", text);
+  await fireEvent(addButton, "press");
+};
+
+describe("PlayGroundScreen - notes workflow", () => {
+  it("adds a note and shows it in both lists", async () => {
+    const screen = await render(<PlayGroundScreen />);
+
+    await typeTextAndAddNote(screen, "First note");
+
+    expect(screen.getAllByTestId("flat-list-with-text-item")).toHaveLength(1);
+    expect(screen.getAllByTestId("scroll-view-pressable-text-width-data")).toHaveLength(1);
+  });
+
+  it("appends multiple notes in order to both lists", async () => {
+    const screen = await render(<PlayGroundScreen />);
+    const firstText = "First note";
+    const secondText = "Second note";
+
+    await typeTextAndAddNote(screen, firstText);
+    await typeTextAndAddNote(screen, secondText);
+
+    const scrollViewItems = screen.getAllByTestId("scroll-view-pressable-text-width-data");
+    const flatListItems = screen.getAllByTestId("flat-list-with-text-item");
+
+    expect(scrollViewItems).toHaveLength(2);
+    expect(scrollViewItems[0]).toHaveTextContent(/First note/);
+    expect(scrollViewItems[1]).toHaveTextContent(/Second note/);
+
+    expect(flatListItems).toHaveLength(2);
+    expect(flatListItems[0]).toHaveTextContent(/First note/);
+    expect(flatListItems[1]).toHaveTextContent(/Second note/);
+  });
+
+  it("clears all notes from both lists", async () => {
+    const screen = await render(<PlayGroundScreen />);
+    const firstText = "First note";
+    const secondText = "Second note";
+    const clearButton = screen.getByTestId("clear-list-button");
+
+    await typeTextAndAddNote(screen, firstText);
+    await typeTextAndAddNote(screen, secondText);
+
+    await fireEvent(clearButton, "press");
+
+    expect(screen.queryAllByTestId("scroll-view-pressable-text-width-data")).toHaveLength(0);
+    expect(screen.queryAllByTestId("flat-list-with-text-item")).toHaveLength(0);
   });
 });

@@ -18,11 +18,12 @@ export const FlatListDemo = ({ data }: any) => {
           }}
           renderItem={(itemData) => {
             return (
-              <Text>
+              <Text testID="flat-list-with-text-item">
                 {itemData.index + 1}: {itemData.item.data}
               </Text>
             );
           }}
+          testID="flat-list-with-text"
         />
       </View>
     </>
