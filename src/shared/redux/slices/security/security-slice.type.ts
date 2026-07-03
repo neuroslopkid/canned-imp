@@ -1,4 +1,4 @@
-import { LocationGeocodedAddress, LocationObject, LocationPermissionResponse } from "expo-location";
+import { LocationGeocodedAddress, LocationObject } from "expo-location";
 
 export type SecurityState = {
   location: LocationObject | undefined;
