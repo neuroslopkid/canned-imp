@@ -22,6 +22,8 @@ export const Input = ({ style, value, ...props }: TextInputProps) => {
         },
         style,
       ]}
+      autoCorrect={false}
+      autoCapitalize={"none"}
       {...props}
     ></TextInput>
   );

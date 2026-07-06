@@ -30,5 +30,5 @@
     "types": ["jest"]
   },
   "include": ["src", "App.tsx", "src/shared/typesInterfaces/declarations/svg.d.ts"],
-  "exclude": ["node_modules"]
+  "exclude": []
 }

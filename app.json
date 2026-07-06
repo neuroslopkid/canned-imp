@@ -24,7 +24,14 @@
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "package": "com.anonymous.cannedimp",
-      "permissions": ["ACCESS_BACKGROUND_LOCATION", "ACCESS_FOREGROUND_LOCATION"]
+      "permissions": [
+        "ACCESS_BACKGROUND_LOCATION",
+        "ACCESS_FOREGROUND_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "ACCESS_FOREGROUND_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"

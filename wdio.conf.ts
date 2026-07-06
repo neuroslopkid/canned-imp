@@ -1,9 +1,8 @@
+// import { spawn, ChildProcess } from "node:child_process";
+
+// let metroProcess: ChildProcess;
+
 export const config: WebdriverIO.Config = {
-  //
-  // ====================
-  // Runner Configuration
-  // ====================
-  // WebdriverIO supports running e2e tests as well as unit and component tests.
   runner: "local",
   tsConfigPath: "./tsconfig.e2e.json",
 
@@ -55,13 +54,28 @@ export const config: WebdriverIO.Config = {
   //
   capabilities: [
     {
-      // capabilities for local Appium web tests on an Android Emulator
       platformName: "Android",
-      browserName: "Chrome",
-      "appium:deviceName": "Android GoogleAPI Emulator",
-      "appium:platformVersion": "12.0",
       "appium:automationName": "UiAutomator2",
+      "appium:appPackage": "com.anonymous.cannedimp",
+      "appium:appActivity": ".MainActivity",
+      "appium:udid": "emulator-5554",
+      "appium:platformVersion": "12.0",
+      "appium:avd": "Medium_Tablet", // only for emulator
+      "appium:noReset": true,
+      "appium:fullReset": false,
+      "appium:autoGrantPermissions": true,
+      // "appium:app": path.join(__dirname, "android/app/build/outputs/apk/debug/app-debug.apk"),
     },
+    // {
+    //   platformName: "Android",
+    //   "appium:automationName": "UiAutomator2",
+    //   "appium:appPackage": "com.anonymous.cannedimp",
+    //   "appium:appActivity": ".MainActivity",
+    //   "appium:udid": "adb-TS6PNJIFWCQ4O7TG-TFivOk._adb-tls-connect._tcp", // from `adb devices`
+    //   "appium:platformVersion": "15.0", // actual device version
+    //   "appium:app": path.join(__dirname, "android/app/build/outputs/apk/debug/app-debug.apk"),
+    //   "appium:noReset": true, // don't uninstall existing app
+    // },
   ],
 
   //
@@ -156,7 +170,11 @@ export const config: WebdriverIO.Config = {
    * @param {object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-  // onPrepare: function (config, capabilities) {
+  // onPrepare: function () {
+  //   metroProcess = spawn("npx", ["expo", "start"], {
+  //     stdio: "inherit",
+  //     shell: true,
+  //   });
   // },
   /**
    * Gets executed before a worker process is spawned and can be used to initialize specific service
@@ -280,7 +298,8 @@ export const config: WebdriverIO.Config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {<Object>} results object containing test results
    */
-  // onComplete: function(exitCode, config, capabilities, results) {
+  // onComplete: function () {
+  //   metroProcess?.kill();
   // },
   /**
    * Gets executed when a refresh happens.

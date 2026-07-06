@@ -1,5 +1,5 @@
 import { View, StyleSheet, Alert } from "react-native";
-import { Input } from "@ui/components/input";
+import { Input } from "@components/inputs/input";
 import { Colors } from "@ui/theme/colors";
 import { IconButton } from "@ui/components/buttons/icon-button";
 import { Sizes } from "@ui/theme/sizes";

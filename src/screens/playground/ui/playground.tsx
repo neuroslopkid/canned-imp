@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SetStateAction, useState } from "react";
-import { Input } from "@components/input";
+import { Input } from "@components/inputs/input";
 import { Tag } from "@components/texts/tag";
 import { TopNavbar } from "@components/top-navbar";
 import { DangerButton } from "@components/buttons/danger-button";
