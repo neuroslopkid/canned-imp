@@ -25,7 +25,7 @@ export const getScaledSize = (size: number, screen: ScaledSize | null = null): n
     } else if (screenSize.width > Breakpoints.Phone && screenSize.width <= Breakpoints.Tablet) {
       return size * 2;
     }
-  }
+  } 
 
   return size;
 };

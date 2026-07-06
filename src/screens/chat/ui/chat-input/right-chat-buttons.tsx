@@ -4,14 +4,15 @@ import { getScaledSize } from "@helpers/getScaledSize";
 import { Ionicons } from "@expo/vector-icons";
 import { MicButton } from "./mic-button";
 import { Colors } from "@ui/theme/colors";
-import { useDimensions, useLLMModels } from "@context";
+import { useDimensions } from "@context/dimensions.provider";
+import { useLLMModels } from "@context/llm.provider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const RightChatButtons = ({
-  inputValue = "",
+  inputValue,
   setInputValue,
 }: {
-  inputValue: string;
+  inputValue?: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const dimensions = useDimensions();
@@ -38,22 +39,24 @@ export const RightChatButtons = ({
           disabled={!llm.isGenerating}
           onPress={handeInterrupt}
           icon={<Ionicons name="close" size={getScaledSize(24, dimensions)} color={Colors.White} />}
+          testID="interrupt-llm-button"
         />
       )}
       {inputValue ? (
         <IconButton
           disabled={!inputValue}
           onPress={handleSendText}
+          testID="send-message-to-llm-button"
           icon={
             llm?.isGenerating ? (
-              <ActivityIndicator color={Colors.TextPrimary} />
+              <ActivityIndicator color={Colors.TextPrimary} testID="activity-indicator" />
             ) : (
               <Ionicons name="arrow-up-circle" size={getScaledSize(24, dimensions)} color={Colors.White} />
             )
           }
         />
       ) : (
-        <MicButton disabled={!inputValue} onPress={handleSendText} />
+        <MicButton disabled={!inputValue} onPress={handleSendText} testID="stt-mic-button" />
       )}
     </>
   );

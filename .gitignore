@@ -40,3 +40,7 @@ yarn-error.*
 /ios
 /android
 .env
+/coverage
+/.claude/skills
+/.agent/skills
+/.opencode
