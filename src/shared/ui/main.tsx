@@ -88,7 +88,9 @@ export default function Main() {
         }}
       >
         <ActivityIndicator color={Colors.Black} />
-        <Text testID="app-loading">Loading...</Text>
+        <Text testID="app-loading" accessibilityLabel="app-loading">
+          Loading...
+        </Text>
       </View>
     );
   }

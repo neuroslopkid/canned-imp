@@ -1,4 +1,5 @@
 // import { spawn, ChildProcess } from "node:child_process";
+// import path from "node:path";
 
 // let metroProcess: ChildProcess;
 
@@ -59,12 +60,16 @@ export const config: WebdriverIO.Config = {
       "appium:appPackage": "com.anonymous.cannedimp",
       "appium:appActivity": ".MainActivity",
       "appium:udid": "emulator-5554",
-      "appium:platformVersion": "12.0",
+      // "appium:udid": "emulator-5556",
+      "appium:platformVersion": "35",
       "appium:avd": "Medium_Tablet", // only for emulator
+      // "appium:avd": "Medium_Tablet_2",
       "appium:noReset": true,
       "appium:fullReset": false,
+      // "appium:noReset": false,
+      // "appium:fullReset": true,
       "appium:autoGrantPermissions": true,
-      // "appium:app": path.join(__dirname, "android/app/build/outputs/apk/debug/app-debug.apk"),
+      // "appium:app": path.join(__dirname, "android/app/build/outputs/apk/release/app-release.apk"),
     },
     // {
     //   platformName: "Android",
@@ -125,7 +130,17 @@ export const config: WebdriverIO.Config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  services: ["appium"],
+  services: [
+    [
+      "appium",
+      {
+        appiumStartTimeout: 120000,
+        args: {
+          port: 4723,
+        },
+      },
+    ],
+  ],
 
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
