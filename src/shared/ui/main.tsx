@@ -81,16 +81,16 @@ export default function Main() {
         style={{
           flex: 1,
           flexDirection: "row",
-          rowGap: 20,
+          columnGap: 20,
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "white",
         }}
       >
-        <ActivityIndicator color={Colors.Black} />
         <Text testID="app-loading" accessibilityLabel="app-loading">
           Loading...
         </Text>
+        <ActivityIndicator color={Colors.Black} />
       </View>
     );
   }

@@ -13,16 +13,66 @@ import { setMessages } from "@redux/slices/chat/chat-slice";
 import { RightChatButtons } from "./right-chat-buttons";
 import { useLLMModels } from "@context/llm.provider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  scheduleNotificationAsync,
+  SchedulableTriggerInputTypes,
+  cancelAllScheduledNotificationsAsync,
+  getAllScheduledNotificationsAsync,
+} from "expo-notifications";
+import { checkNotificationPermission } from "@utils";
+
+const NOTIFICATION_STORAGE_KEY = "scheduledNotificationId";
+
+const startNotification = async () => {
+  const granted = await checkNotificationPermission();
+
+  if (!granted) {
+    return false;
+  }
+
+  const identifier = await scheduleNotificationAsync({
+    content: {
+      title: "Look at that notification",
+      body: "I'm so proud of myself!",
+      data: { userName: "user" },
+    },
+    trigger: {
+      type: SchedulableTriggerInputTypes.TIME_INTERVAL,
+      seconds: 5,
+      repeats: true,
+    },
+  });
+  await AsyncStorage.setItem(NOTIFICATION_STORAGE_KEY, identifier);
+
+  return true;
+};
+
+const stopNotification = async () => {
+  await cancelAllScheduledNotificationsAsync();
+  await AsyncStorage.removeItem(NOTIFICATION_STORAGE_KEY);
+
+  return false;
+};
 
 export const ChatInput = () => {
   const dimensions = useDimensions();
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState<string>("");
+  const [notificationActive, setNotificationActive] = useState(false);
   const llm = useLLMModels();
 
   const handleTextChange = (text: string) => {
     setInputValue(text);
   };
+
+  useEffect(() => {
+    (async () => {
+      const savedId = await AsyncStorage.getItem(NOTIFICATION_STORAGE_KEY);
+      const scheduled = await getAllScheduledNotificationsAsync();
+      const stillActive = savedId && scheduled.some((n) => n.identifier === savedId);
+      setNotificationActive(!!stillActive);
+    })();
+  }, []);
 
   useEffect(() => {
     AsyncStorage.getItem("lastMessage").then((message) => setInputValue(message || ""));
@@ -64,6 +114,22 @@ export const ChatInput = () => {
                 [{ text: "Close", style: "destructive", onPress: () => {} }],
               )
             }
+          />
+          <IconButton
+            icon={
+              <Ionicons
+                name={notificationActive ? "notifications-off" : "notifications"}
+                size={getScaledSize(24, dimensions)}
+                color={notificationActive ? Colors.Danger : Colors.White}
+              />
+            }
+            onPress={async () => {
+              if (notificationActive) {
+                setNotificationActive(await stopNotification());
+              } else {
+                setNotificationActive(await startNotification());
+              }
+            }}
           />
         </View>
         <View style={[styles.rightButtons, setDebugStyles()]}>

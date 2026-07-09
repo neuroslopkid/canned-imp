@@ -59,11 +59,11 @@ export const config: WebdriverIO.Config = {
       "appium:automationName": "UiAutomator2",
       "appium:appPackage": "com.anonymous.cannedimp",
       "appium:appActivity": ".MainActivity",
-      "appium:udid": "emulator-5554",
-      // "appium:udid": "emulator-5556",
+      // "appium:udid": "emulator-5554",
+      "appium:udid": "emulator-5556",
       "appium:platformVersion": "35",
-      "appium:avd": "Medium_Tablet", // only for emulator
-      // "appium:avd": "Medium_Tablet_2",
+      // "appium:avd": "Medium_Tablet", // only for emulator
+      "appium:avd": "Medium_Tablet_2",
       "appium:noReset": true,
       "appium:fullReset": false,
       // "appium:noReset": false,
