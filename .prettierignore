@@ -1,0 +1,12 @@
+node_modules
+.expo
+coverage
+.git
+android
+ios
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.svg

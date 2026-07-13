@@ -14,7 +14,13 @@ export const PrimaryButton = ({
 } & PressableProps) => {
   return (
     <Pressable
-      style={({ pressed }) => [pressableStyles.container, styles.container, style, pressed && pressableStyles.pressed, pressed && styles.pressed]}
+      style={({ pressed }) => [
+        pressableStyles.container,
+        styles.container,
+        style,
+        pressed && pressableStyles.pressed,
+        pressed && styles.pressed,
+      ]}
       {...props}
     >
       <Text style={[styles.textStyles, textStyle]}>{text}</Text>

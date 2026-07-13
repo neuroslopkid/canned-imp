@@ -5,6 +5,7 @@ export async function checkNotificationPermission(): Promise<boolean> {
 
   if (existingPermission.status === Notifications.PermissionStatus.UNDETERMINED) {
     const requestedPermission = await Notifications.requestPermissionsAsync();
+
     return requestedPermission.granted;
   }
 

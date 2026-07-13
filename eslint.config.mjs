@@ -14,6 +14,7 @@ export default defineConfig(
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
       "no-console": "warn",
+      "padding-line-between-statements": ["warn", { blankLine: "always", prev: "*", next: "return" }],
     },
   },
 );
