@@ -27,8 +27,8 @@
       "@shared/*": ["src/shared/*"],
       "@src/*": ["src/*"]
     },
-    "types": ["jest"]
+    "types": ["jest", "node", "@wdio/globals/types"]
   },
-  "include": ["src", "App.tsx", "src/shared/typesInterfaces/declarations/svg.d.ts"],
-  "exclude": ["node_modules"]
+  "include": ["src", "App.tsx", "src/shared/typesInterfaces/declarations/svg.d.ts", "wdio.conf.ts"],
+  "exclude": []
 }

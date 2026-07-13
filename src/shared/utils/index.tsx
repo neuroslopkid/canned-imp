@@ -1,2 +1,3 @@
 export * from "./getLocationData";
-export * from "./checkPermission";
+export * from "./checkLocationPermission";
+export * from "./checkNotificationPermission";
