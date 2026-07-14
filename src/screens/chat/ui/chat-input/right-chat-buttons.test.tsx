@@ -10,7 +10,12 @@ jest.mock("@react-native-async-storage/async-storage", () => ({
 }));
 
 jest.mock("@context/llm.provider", () => ({
-  useLLMModels: jest.fn(),
+  useLLMModels: jest.fn().mockReturnValue({
+    llm: null,
+    selectedModelId: null,
+    availableModels: [],
+    openModelPicker: jest.fn(),
+  }),
 }));
 
 import { fireEvent, render, waitFor } from "@testing-library/react-native";
@@ -32,8 +37,10 @@ const baseLLM = {
 
 const mockLLM = (overrides: Partial<LLMType> = {}) => {
   (useLLMModels as jest.Mock).mockReturnValue({
-    ...baseLLM,
-    ...overrides,
+    llm: { ...baseLLM, ...overrides },
+    selectedModelId: "smollm2_1_135m",
+    availableModels: [],
+    openModelPicker: jest.fn(),
   });
 };
 

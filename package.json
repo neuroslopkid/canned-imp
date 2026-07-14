@@ -26,7 +26,6 @@
     "@react-navigation/native": "^7.1.8",
     "@react-navigation/native-stack": "^7.3.16",
     "@reduxjs/toolkit": "2.12.0",
-    "@types/jest": "29.5.14",
     "expo": "~54.0.35",
     "expo-asset": "~12.0.13",
     "expo-constants": "~18.0.13",
@@ -61,7 +60,7 @@
     "redux-persist": "~6.0.0"
   },
   "devDependencies": {
-    "@eslint/js": "^8.57.1",
+    "@eslint/js": "^9.39.4",
     "@testing-library/react-native": "^14.0.1",
     "@types/jest": "29.5.14",
     "@types/mocha": "^10.0.10",
@@ -111,5 +110,11 @@
       "prettier --write"
     ]
   },
-  "private": true
+  "private": true,
+  "allowScripts": {
+    "appium@3.5.2": true,
+    "edgedriver@6.3.0": true,
+    "esbuild@0.28.1": true,
+    "geckodriver@6.1.0": true
+  }
 }
