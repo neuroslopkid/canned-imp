@@ -6,3 +6,4 @@
 ## Code style rules
 
 - Every `return` statement have to be separated from preceeding code by newline.
+- `.github` CI/CD `.yml` workflows shall have descriptive short `name:` of what action they do, not just actions.
