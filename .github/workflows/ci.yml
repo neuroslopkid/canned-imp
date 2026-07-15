@@ -4,12 +4,9 @@ on:
   push:
     branches-ignore:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  lint-and-typecheck:
+  lint-typecheck-security:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -29,6 +26,8 @@ jobs:
         run: npm run check-types
       - name: Code style check
         run: npm run prettier
+      - name: TruffleHog OSS
+        uses: trufflesecurity/trufflehog@v3.95.9
   test:
     runs-on: ubuntu-latest
     steps:
