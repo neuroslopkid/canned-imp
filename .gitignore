@@ -42,5 +42,8 @@ yarn-error.*
 .env
 /coverage
 /.claude/skills
-/.agent/skills
+/.agent
+/.agents
+skills-lock.json
 /.opencode
+*.jks

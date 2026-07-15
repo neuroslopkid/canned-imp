@@ -6,8 +6,9 @@ export const ViewsCube = () => {
     <>
       <View>
         <Text>
-          {Tag("View")} is a div-alike component. You <Text style={{ fontWeight: "bold", color: "red" }}>HAVE</Text> to predefine it's size to prevent children
-          from overflowing and it's children must be of a portion of parent size (not exceeds it).
+          {Tag("View")} is a div-alike component. You <Text style={{ fontWeight: "bold", color: "red" }}>HAVE</Text> to
+          predefine it's size to prevent children from overflowing and it's children must be of a portion of parent size
+          (not exceeds it).
         </Text>
       </View>
 

@@ -5,7 +5,21 @@
 - Keys for release apk build are generated with. Note that you have remember your_password:
 
 ```TS
-keytool -genkeypair -v -keystore release-key.jks -alias release-key  -keyalg RSA -keysize 2048 -validity 100000 -storepass your_password -keypass your_password -dname "CN=canned-imp, OU=, O=, L=, ST=, C="
+keytool -genkeypair -v
+  -keystore ci-release-key.jks
+  -alias ci-release-key
+  -keyalg RSA
+  -keysize 2048
+  -validity 10000
+  -storepass <strong-password>
+  -keypass <strong-password>
+  -dname "CN=canned-imp, OU=, O=, L=, S=, C="
+```
+
+To convert file to base64 to be able to store as secret:
+
+```TS
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("ci-release-key.jks"))
 ```
 
 - Configuration is at android/app/build.gradle:

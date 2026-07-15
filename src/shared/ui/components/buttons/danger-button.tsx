@@ -13,7 +13,10 @@ export const DangerButton = ({
   textStyle?: StyleProp<ViewStyle>;
 } & PressableProps) => {
   return (
-    <Pressable style={({ pressed }) => [pressableStyles.container, styles.container, style, pressed && pressableStyles.pressed]} {...props}>
+    <Pressable
+      style={({ pressed }) => [pressableStyles.container, styles.container, style, pressed && pressableStyles.pressed]}
+      {...props}
+    >
       <Text style={[styles.textStyles, textStyle]}>{text}</Text>
     </Pressable>
   );

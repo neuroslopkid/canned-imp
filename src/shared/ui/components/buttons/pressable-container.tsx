@@ -11,7 +11,11 @@ export const PressableContainer = ({
   style: StyleProp<ViewStyle>;
 }) => {
   return (
-    <Pressable onPress={onPress} style={({ pressed }) => [styles.container, style, pressed && styles.pressed]} {...props}>
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [styles.container, style, pressed && styles.pressed]}
+      {...props}
+    >
       {children}
     </Pressable>
   );

@@ -17,7 +17,13 @@ export const OutlinedButton = ({
 
   return (
     <Pressable
-      style={[pressableStyles.container, styles.container, style, pressed && pressableStyles.pressed, pressed && styles.pressed]}
+      style={[
+        pressableStyles.container,
+        styles.container,
+        style,
+        pressed && pressableStyles.pressed,
+        pressed && styles.pressed,
+      ]}
       onPressIn={() => setPressed(true)}
       onPressOut={() => setPressed(false)}
       {...props}

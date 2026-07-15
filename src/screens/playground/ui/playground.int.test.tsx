@@ -19,6 +19,11 @@ jest.mock("../../../../assets/images/imp.svg", () => {
   return SvgComponent;
 });
 
+jest.mock("@react-native-async-storage/async-storage", () => ({
+  getItem: jest.fn(() => Promise.resolve(null)),
+  setItem: jest.fn(() => Promise.resolve()),
+}));
+
 import { fireEvent, render, RenderResult } from "@testing-library/react-native";
 import { PlayGroundScreen } from "./playground";
 

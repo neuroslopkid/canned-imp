@@ -1,4 +1,4 @@
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Text, Alert } from "react-native";
 import { Input } from "@components/inputs/input";
 import { Colors } from "@ui/theme/colors";
 import { IconButton } from "@ui/components/buttons/icon-button";
@@ -24,12 +24,6 @@ import { checkNotificationPermission } from "@utils";
 const NOTIFICATION_STORAGE_KEY = "scheduledNotificationId";
 
 const startNotification = async () => {
-  const granted = await checkNotificationPermission();
-
-  if (!granted) {
-    return false;
-  }
-
   const identifier = await scheduleNotificationAsync({
     content: {
       title: "Look at that notification",
@@ -39,7 +33,6 @@ const startNotification = async () => {
     trigger: {
       type: SchedulableTriggerInputTypes.TIME_INTERVAL,
       seconds: 5,
-      repeats: true,
     },
   });
   await AsyncStorage.setItem(NOTIFICATION_STORAGE_KEY, identifier);
@@ -59,7 +52,8 @@ export const ChatInput = () => {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState<string>("");
   const [notificationActive, setNotificationActive] = useState(false);
-  const llm = useLLMModels();
+  const [notificationLoading, setNotificationLoading] = useState(false);
+  const { llm, openModelPicker } = useLLMModels();
 
   const handleTextChange = (text: string) => {
     setInputValue(text);
@@ -105,29 +99,66 @@ export const ChatInput = () => {
       </View>
       <View style={[styles.buttonsWrapper, setDebugStyles()]}>
         <View style={[styles.leftButtons, setDebugStyles()]}>
-          <IconButton
-            icon={<Ionicons name="add" size={getScaledSize(24, dimensions)} color={Colors.White} />}
-            onPress={() =>
-              Alert.alert(
-                "Test",
-                `Ready: ${llm?.isReady}; Progress: ${llm?.downloadProgress}, Generating: ${llm?.isGenerating} `,
-                [{ text: "Close", style: "destructive", onPress: () => {} }],
-              )
-            }
-          />
+          <View>
+            <IconButton
+              icon={<Ionicons name="code-download" size={getScaledSize(24, dimensions)} color={Colors.White} />}
+              onPress={openModelPicker}
+            />
+            {llm != null && llm.downloadProgress > 0 && (
+              <Text
+                style={{
+                  color: Colors.TextPrimary,
+                  fontSize: 10,
+                  position: "absolute",
+                  bottom: 5,
+                  alignSelf: "center",
+                }}
+              >
+                {Math.trunc(llm?.downloadProgress * 100)}%
+              </Text>
+            )}
+            {llm != null && llm.isReady && (
+              <Text
+                style={{
+                  color: Colors.TextPrimary,
+                  fontSize: 10,
+                  position: "absolute",
+                  bottom: 5,
+                  alignSelf: "center",
+                }}
+              >
+                Ready
+              </Text>
+            )}
+          </View>
           <IconButton
             icon={
               <Ionicons
                 name={notificationActive ? "notifications-off" : "notifications"}
                 size={getScaledSize(24, dimensions)}
-                color={notificationActive ? Colors.Danger : Colors.White}
+                color={notificationLoading ? Colors.Accent : notificationActive ? Colors.Danger : Colors.White}
               />
             }
+            disabled={notificationLoading}
             onPress={async () => {
-              if (notificationActive) {
-                setNotificationActive(await stopNotification());
-              } else {
-                setNotificationActive(await startNotification());
+              if (notificationLoading) return;
+              setNotificationLoading(true);
+              try {
+                if (notificationActive) {
+                  setNotificationActive(await stopNotification());
+                } else {
+                  const granted = await checkNotificationPermission();
+                  if (!granted) {
+                    Alert.alert("Permission Denied", "Please enable notifications in Settings.");
+                    return;
+                  }
+                  setNotificationActive(await startNotification());
+                }
+              } catch (error) {
+                console.log("Notification toggle failed:", error);
+                if (!notificationActive) setNotificationActive(false);
+              } finally {
+                setNotificationLoading(false);
               }
             }}
           />

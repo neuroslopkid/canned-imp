@@ -16,7 +16,7 @@ export const RightChatButtons = ({
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const dimensions = useDimensions();
-  const llm = useLLMModels();
+  const { llm } = useLLMModels();
 
   const handleSendText = async () => {
     if (llm?.isReady && !llm?.isGenerating && llm?.sendMessage && inputValue) {
@@ -36,7 +36,7 @@ export const RightChatButtons = ({
     <>
       {llm?.isGenerating && (
         <IconButton
-          disabled={!llm.isGenerating}
+          disabled={!llm?.isReady || !llm.isGenerating}
           onPress={handeInterrupt}
           icon={<Ionicons name="close" size={getScaledSize(24, dimensions)} color={Colors.White} />}
           testID="interrupt-llm-button"
@@ -44,7 +44,7 @@ export const RightChatButtons = ({
       )}
       {inputValue ? (
         <IconButton
-          disabled={!inputValue}
+          disabled={!inputValue || !llm?.isReady}
           onPress={handleSendText}
           testID="send-message-to-llm-button"
           icon={
@@ -55,8 +55,10 @@ export const RightChatButtons = ({
             )
           }
         />
-      ) : (
+      ) : !llm?.isGenerating ? (
         <MicButton disabled={!inputValue} onPress={handleSendText} testID="stt-mic-button" />
+      ) : (
+        <ActivityIndicator color={Colors.TextPrimary} testID="activity-indicator" />
       )}
     </>
   );

@@ -9,7 +9,7 @@ export const ModalDemo = ({ showModal, setShowModal }: { showModal: boolean; set
       <Button title="Show Modal" onPress={() => setShowModal(!showModal)} />
 
       {/* {showModal && ( */}
-      <Modal visible={showModal} animationType="slide" style={{width: 100}}>
+      <Modal visible={showModal} animationType="slide" style={{ width: 100 }}>
         <View>
           <Text>Modal</Text>
           <Button title="Close" onPress={() => setShowModal(false)} />
