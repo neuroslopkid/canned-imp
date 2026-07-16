@@ -52,5 +52,50 @@ services:
       - ./server:/app
       - /app/node_modules
 
+  jenkins-with-docker:
+    container_name: jenkins-with-docker
+    image: jenkins-with-docker
+    build:
+      context: .
+      dockerfile: Dockerfiles/Dockerfile.jenkins
+    restart: unless-stopped
+    environment:
+      - DOCKER_HOST=tcp://docker:2376
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - jenkins_docker_certs:/certs/client:ro
+    ports:
+      - "${JENKINS_WEBUI_PORT:-8080}:8080"
+      - "${JENKINS_AGENTS_PORT:-50000}:50000"
+    networks:
+      - jenkins-network
+    depends_on:
+    - docker-in-jenkins
+
+  docker-in-jenkins:
+    container_name: docker-in-jenkins
+    image: docker:dind
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    volumes:
+      - jenkins_docker_certs:/certs/client
+      - jenkins_home:/var/jenkins_home
+    ports:
+      - "${JENKINS_DIND_PORT:-2376}:2376"
+    networks:
+      jenkins-network:
+        aliases:
+          - docker
+    command: --storage-driver overlay2
+
+networks:
+  jenkins-network:
+    driver: bridge
+
 volumes:
   mongo_data:
+  jenkins_home:
+  jenkins_docker_certs:
