@@ -41,12 +41,11 @@ pipeline {
       steps {
         echo '========== Scan repository for secrets =========='
         sh '''
-          trufflehog git --since-commit HEAD~15 \
-            --results=verified,unknown \
-            --fail \
-            --exclude-paths=.trufflehogignore \
-            . \
-            --no-update
+        trufflehog filesystem --directory=. \
+          --results=verified,unknown \
+          --fail \
+          --exclude-paths=.trufflehogignore \
+          --no-update
         '''
       }
     }
