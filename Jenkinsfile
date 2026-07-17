@@ -11,20 +11,20 @@ pipeline {
       }
 
       steps {
-        echo '=== Check Node.js ==='
+        echo '========== Check Node.js =========='
         sh 'node -v'
         sh 'npm -v'
 
-        echo '=== Install dependencies ==='
+        echo '========== Install dependencies =========='
         sh 'npm ci'
 
-        echo '=== Lint ==='
+        echo '========== Lint =========='
         sh 'npm run lint'
 
-        echo '=== TypeScript type check ==='
+        echo '========== TypeScript type check =========='
         sh 'npm run check-types'
 
-        echo '=== Code style check ==='
+        echo '========== Code style check =========='
         sh 'npm run prettier'
       }
     }
@@ -38,8 +38,13 @@ pipeline {
       }
 
       steps {
-        echo '=== Scan repository for secrets ==='
-        sh 'trufflehog filesystem . --results=verified,unknown --fail'
+        echo '========== Scan repository for secrets =========='
+        sh '''
+          trufflehog filesystem . \
+            --results=verified,unknown \
+            --fail \
+            --exclude-paths=.trufflehogignore
+        '''
       }
     }
   }
