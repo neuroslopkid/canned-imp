@@ -72,7 +72,7 @@ services:
     networks:
       - jenkins-network
     depends_on:
-    - docker-in-jenkins
+      - docker-in-jenkins
 
   docker-in-jenkins:
     container_name: docker-in-jenkins
