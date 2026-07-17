@@ -1,29 +1,46 @@
 pipeline {
-    agent any
+  agent any
 
-    stages {
-        stage('w/o docker') {
-      steps {
-        sh '''
-          echo "Without docker"
-          ls -la
-        '''
-      }
-        }
-
-    stage('w/ docker') {
+  stages {
+    stage('Static Analysis') {
       agent {
         docker {
           image 'node:24-alpine'
           reuseNode true
         }
       }
+
       steps {
-        sh '''
-          echo "With docker"
-          ls -la
-        '''
-        }
+        echo '=== Check Node.js ==='
+        sh 'node -v'
+        sh 'npm -v'
+
+        echo '=== Install dependencies ==='
+        sh 'npm ci'
+
+        echo '=== Lint ==='
+        sh 'npm run lint'
+
+        echo '=== TypeScript type check ==='
+        sh 'npm run check-types'
+
+        echo '=== Code style check ==='
+        sh 'npm run prettier'
       }
     }
+
+    stage('Secrets Scan') {
+      agent {
+        docker {
+          image 'trufflesecurity/trufflehog:latest'
+          reuseNode true
+        }
+      }
+
+      steps {
+        echo '=== Scan repository for secrets ==='
+        sh 'trufflehog filesystem . --results=verified,unknown --fail'
+      }
+    }
+  }
 }
