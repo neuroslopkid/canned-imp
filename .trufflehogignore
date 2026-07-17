@@ -4,3 +4,4 @@ build
 coverage
 android/app/build
 ios/build
+.git
