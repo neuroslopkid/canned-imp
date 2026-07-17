@@ -45,7 +45,8 @@ pipeline {
             --results=verified,unknown \
             --fail \
             --exclude-paths=.trufflehogignore \
-            .
+            . \
+            --no-update
         '''
       }
     }
