@@ -44,7 +44,8 @@ pipeline {
           trufflehog git --since-commit HEAD~15 \
             --results=verified,unknown \
             --fail \
-            --exclude-paths=.trufflehogignore
+            --exclude-paths=.trufflehogignore \
+            .
         '''
       }
     }
