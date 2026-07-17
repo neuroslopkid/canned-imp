@@ -6,7 +6,7 @@ import tseslint from "typescript-eslint";
 
 export default defineConfig(
   {
-    ignores: [".agent/**", ".claude/**", "**/*.test.ts", "metro.config.js"],
+    ignores: [".agents/**", ".claude/**", "**/*.test.ts", "metro.config.js"],
   },
   {
     files: ["**/*.{js,ts}"],

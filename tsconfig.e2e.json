@@ -10,5 +10,5 @@
     "noEmit": true,
     "resolveJsonModule": true
   },
-  "include": ["tests/**/*.ts", "wdio.conf.ts"]
+  "include": ["e2e/**/*.ts", "wdio.conf.ts"]
 }
