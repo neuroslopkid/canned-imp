@@ -1,7 +1,4 @@
-// import { spawn, ChildProcess } from "node:child_process";
-// import path from "node:path";
-
-// let metroProcess: ChildProcess;
+import path from "node:path";
 
 export const config: WebdriverIO.Config = {
   runner: "local",
@@ -55,23 +52,23 @@ export const config: WebdriverIO.Config = {
   //
   capabilities: [
     {
+      "appium:deviceName": "Medium_Tablet_Debug",
       platformName: "Android",
       "appium:automationName": "UiAutomator2",
       "appium:appPackage": "com.anonymous.cannedimp",
       "appium:appActivity": ".MainActivity",
-      // "appium:udid": "emulator-5554",
-      "appium:udid": "emulator-5556",
+      "appium:udid": "emulator-5554",
       "appium:platformVersion": "35",
-      // "appium:avd": "Medium_Tablet", // only for emulator
       "appium:avd": "Medium_Tablet_2",
-      "appium:noReset": true,
-      "appium:fullReset": false,
-      // "appium:noReset": false,
-      // "appium:fullReset": true,
+      "appium:noReset": false,
+      "appium:fullReset": true,
       "appium:autoGrantPermissions": true,
       // "appium:app": path.join(__dirname, "android/app/build/outputs/apk/release/app-release.apk"),
+      // RUN npx expo start for debug apk
+      "appium:app": path.join(__dirname, "android/app/build/outputs/apk/debug/app-debug.apk"),
     },
     // {
+    //  "appium:deviceName": "Real_Device_Debug",
     //   platformName: "Android",
     //   "appium:automationName": "UiAutomator2",
     //   "appium:appPackage": "com.anonymous.cannedimp",
@@ -90,7 +87,7 @@ export const config: WebdriverIO.Config = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "info",
+  logLevel: "warn",
   //
   // Set specific log levels per logger
   // loggers:
@@ -185,12 +182,6 @@ export const config: WebdriverIO.Config = {
    * @param {object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-  // onPrepare: function () {
-  //   metroProcess = spawn("npx", ["expo", "start"], {
-  //     stdio: "inherit",
-  //     shell: true,
-  //   });
-  // },
   /**
    * Gets executed before a worker process is spawned and can be used to initialize specific service
    * for that worker as well as modify runtime environments in an async fashion.

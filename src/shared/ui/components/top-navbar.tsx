@@ -40,11 +40,13 @@ export const TopNavbar = () => {
           height={getScaledSize(Sizes.LineHeight / 2, dimensions)}
         />
         <FontText style={[{ verticalAlign: "middle", textAlign: "left" }, setDebugStyles()]}>CannedIMP</FontText>
-        <View style={styles.navWrapper}>
+        <View style={styles.navWrapper} testID="navigation-menu" accessibilityLabel="navigation-menu">
           <IconButton
             style={{ height: 48, width: 48 }}
             onPress={handleOpenNavmenu}
             icon={<Ionicons name="chevron-down" size={24} color={Colors.White} />}
+            testID="navigation-menu-button"
+            accessibilityLabel="navigation-menu-button"
           />
           {open && (
             <View style={styles.navmenu}>
@@ -76,6 +78,8 @@ export const TopNavbar = () => {
                 <Text
                   onPress={() => handleNavigation(Path.Map)}
                   style={{ color: Colors.TextPrimary, fontSize: getScaledSize(14, dimensions) }}
+                  testID="navigation-menu-map-entry"
+                  accessibilityLabel="navigation-menu-map-entry"
                 >
                   Map
                 </Text>

@@ -105,7 +105,9 @@ export default function Main() {
           backgroundColor: "white",
         }}
       >
-        <Text>Your region is not currently supported.</Text>
+        <Text testID="region-not-supported" accessibilityLabel="region-not-supported">
+          Your region is not currently supported.
+        </Text>
       </View>
     );
   }
