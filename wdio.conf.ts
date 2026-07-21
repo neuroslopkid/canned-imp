@@ -134,6 +134,7 @@ export const config: WebdriverIO.Config = {
         appiumStartTimeout: 120000,
         args: {
           port: 4723,
+          "allow-insecure": "*:chromedriver_autodownload",
         },
       },
     ],

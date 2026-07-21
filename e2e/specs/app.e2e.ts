@@ -36,4 +36,12 @@ describe("App launches", () => {
 
     await driver.pause(5000);
   });
+
+  it("has geolocation data", async () => {
+    const latitude = await $('android=new UiSelector().textMatches("(?i)latitude:\\s*\\S+")');
+    const longitude = await $('android=new UiSelector().textMatches("(?i)longitude:\\s*\\S+")');
+
+    await expect(latitude).toBeDisplayed();
+    await expect(longitude).toBeDisplayed();
+  });
 });
