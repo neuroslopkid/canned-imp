@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { TopNavbar } from "@components";
 import { BaseLayout } from "@ui/layout/base-layout";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,10 +32,11 @@ export const MapScreen = () => {
 
   return (
     <BaseLayout headerComponent={<TopNavbar />} footerComponent={<></>}>
-      <View
-        style={{
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{
+          width: "100%",
           backgroundColor: "white",
-          flex: 1,
           padding: 20,
           justifyContent: "flex-start",
           alignItems: "center",
@@ -45,56 +46,51 @@ export const MapScreen = () => {
         <View
           style={{
             flex: 1,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
           }}
         >
-          <View
-            style={{
-              flex: 1,
-              maxWidth: "50%",
-            }}
-          >
-            <Text>{`latitude: ${location?.coords.latitude}`}</Text>
-            <Text>{`longitude: ${location?.coords.longitude}`}</Text>
-            <Text>{`altitude: ${location?.coords.altitude}`}</Text>
-            <Text>{`mocked: ${location?.mocked}`}</Text>
-            <Text></Text>
-            <View>
-              {Object.entries(address || {}).map(([key, value]) => (
-                <Text key={key}>
-                  {key}: {value}
-                </Text>
-              ))}
-            </View>
-          </View>
-
-          <View
-            style={{
-              flex: 1,
-              maxWidth: "50%",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                width: 300,
-                height: 300,
-                borderRadius: 150,
-                overflow: "hidden",
-              }}
-            >
-              <MapWebView latitude={location?.coords.latitude || 0} longitude={location?.coords.longitude || 0} />
-            </View>
+          <Text>{`latitude: ${location?.coords.latitude}`}</Text>
+          <Text>{`longitude: ${location?.coords.longitude}`}</Text>
+          <Text>{`altitude: ${location?.coords.altitude}`}</Text>
+          <Text>{`mocked: ${location?.mocked}`}</Text>
+          <Text></Text>
+          <View>
+            {Object.entries(address || {}).map(([key, value]) => (
+              <Text key={key}>
+                {key}: {value}
+              </Text>
+            ))}
           </View>
         </View>
 
         <View
-          style={{ flex: 1, borderColor: "black", borderWidth: 5, justifyContent: "flex-start", alignSelf: "stretch" }}
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              width: 300,
+              height: 300,
+              borderRadius: 150,
+              overflow: "hidden",
+            }}
+          >
+            <MapWebView latitude={location?.coords.latitude || 0} longitude={location?.coords.longitude || 0} />
+          </View>
+        </View>
+
+        <View
+          style={{
+            height: 600,
+            borderColor: "black",
+            borderWidth: 5,
+            justifyContent: "flex-start",
+            alignSelf: "stretch",
+          }}
         >
           <WebView
             testID="docs-webview"
@@ -104,7 +100,7 @@ export const MapScreen = () => {
             style={{ flex: 1 }}
           />
         </View>
-      </View>
+      </ScrollView>
     </BaseLayout>
   );
 };

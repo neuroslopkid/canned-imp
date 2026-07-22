@@ -57,9 +57,8 @@ export const config: WebdriverIO.Config = {
       "appium:automationName": "UiAutomator2",
       "appium:appPackage": "com.anonymous.cannedimp",
       "appium:appActivity": ".MainActivity",
-      "appium:udid": "emulator-5554",
-      "appium:platformVersion": "35",
-      "appium:avd": "Medium_Tablet_2",
+      "appium:platformVersion": "31",
+      "appium:avd": "zMedium_Tablet_2",
       "appium:noReset": false,
       "appium:fullReset": true,
       "appium:autoGrantPermissions": true,
@@ -114,11 +113,11 @@ export const config: WebdriverIO.Config = {
   // baseUrl: 'http://localhost:8080',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 10000,
+  waitforTimeout: 20000,
   //
   // Default timeout in milliseconds for request
   // if browser driver or grid doesn't send response
-  connectionRetryTimeout: 120000,
+  connectionRetryTimeout: 150000,
   //
   // Default request retries count
   connectionRetryCount: 3,
@@ -131,7 +130,7 @@ export const config: WebdriverIO.Config = {
     [
       "appium",
       {
-        appiumStartTimeout: 120000,
+        appiumStartTimeout: 240000,
         args: {
           port: 4723,
           "allow-insecure": "*:chromedriver_autodownload",
