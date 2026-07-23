@@ -35,7 +35,7 @@ export const MapScreen = () => {
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{
-          width: "100%",
+          minWidth: "100%",
           backgroundColor: "white",
           padding: 20,
           justifyContent: "flex-start",
@@ -46,6 +46,7 @@ export const MapScreen = () => {
         <View
           style={{
             flex: 1,
+            width: "100%",
           }}
         >
           <Text>{`latitude: ${location?.coords.latitude}`}</Text>

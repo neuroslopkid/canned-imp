@@ -20,6 +20,7 @@ import { BaseLayout } from "@ui/layout/base-layout";
 import { DimensionsOverlay } from "@components/dimensions-overlay";
 import { router } from "expo-router";
 import { Path } from "@constants";
+import { AnimationsDemo } from "./components/animations-demo";
 
 export const PlayGroundScreen = () => {
   const [inputString, setInputString] = useState("");
@@ -45,9 +46,11 @@ export const PlayGroundScreen = () => {
 
   return (
     <BaseLayout headerComponent={<TopNavbar />} footerComponent={<></>}>
-      <DimensionsOverlay />
+      {/* <DimensionsOverlay /> */}
       <ScrollView contentContainerStyle={styles.container} style={{ flex: 1 }}>
         <Text>{Tag("Text")} must be placed explicitly inside the text tags</Text>
+
+        <AnimationsDemo />
 
         <ViewsCube />
 
