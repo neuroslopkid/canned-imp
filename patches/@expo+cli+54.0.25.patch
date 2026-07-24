@@ -1,0 +1,22 @@
+diff --git a/build/src/start/platforms/android/adb.js b/build/src/start/platforms/android/adb.js
+index 5b7fabdce1..b22de62020 100644
+--- a/build/src/start/platforms/android/adb.js
++++ b/build/src/start/platforms/android/adb.js
+@@ -305,7 +305,16 @@ async function getAdbNameForDeviceIdAsync(device) {
+         // Can also occur when the emulator does not exist.
+         throw new _errors.CommandError('EMULATOR_NOT_FOUND', results);
+     }
+-    return sanitizeAdbDeviceName(results) ?? null;
++    const avdName = sanitizeAdbDeviceName(results);
++    if (avdName) {
++        return avdName;
++    }
++    // ADB 35+ returns empty for 'adb emu avd name'. Fall back to kernel boot property.
++    // It's located at \node_modules\expo\node_modules\@expo\cli\build\src\start\platforms\android\adb.js
++    try {
++        const props = await getPropertyDataForDeviceAsync({ pid: device.pid }, 'ro.boot.qemu.avd_name');
++        return sanitizeAdbDeviceName(props['ro.boot.qemu.avd_name']) ?? null;
++    } catch {
++        return null;
++    }
+ }

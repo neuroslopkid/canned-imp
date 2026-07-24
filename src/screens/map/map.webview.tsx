@@ -5,6 +5,7 @@ export const createMapHtml = (latitude: number, longitude: number) => `
 <html>
   <head>
     <meta charset="utf-8" />
+    <title>Map Circle</title>
 
     <link
       rel="stylesheet"
@@ -17,12 +18,15 @@ export const createMapHtml = (latitude: number, longitude: number) => `
         height: 100%;
         margin: 0;
       }
+      #map {
+        border: 5px solid black;
+        border-radius: 50%;
+      }
     </style>
   </head>
 
   <body>
-    <div id="map"></div>
-
+    <div id="map">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
@@ -42,7 +46,7 @@ export const createMapHtml = (latitude: number, longitude: number) => `
         [${latitude}, ${longitude}]
       ).addTo(map);
     </script>
-
+    </div>
   </body>
 </html>
 `;
@@ -52,6 +56,9 @@ export const MapWebView = ({ latitude, longitude }: { latitude: number; longitud
     <WebView
       style={{ height: 300, width: 300, backgroundColor: "grey" }}
       originWhitelist={["*"]}
+      testID="map-webview"
+      accessibilityLabel="map-webview"
+      userAgent="MapCircle"
       source={{
         html: createMapHtml(latitude, longitude) as any,
       }}

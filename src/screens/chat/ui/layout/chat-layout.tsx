@@ -22,7 +22,9 @@ export const ChatLayout = ({ headerComponent, children: mainComponent, footerCom
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               style={[styles.keyboardAvoidingContainer, setDebugStyles()]}
             >
-              <View style={[styles.header, setDebugStyles()]}>{headerComponent}</View>
+              <View style={[styles.header, setDebugStyles()]} testID="chat-screen" accessibilityLabel="chat-screen">
+                {headerComponent}
+              </View>
               <View style={[styles.main, setDebugStyles()]}>{mainComponent}</View>
               <View style={[styles.footer, setDebugStyles()]}>{footerComponent}</View>
             </KeyboardAvoidingView>

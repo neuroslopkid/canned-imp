@@ -7,7 +7,7 @@ import { getScaledSize } from "@helpers/getScaledSize";
 
 export const ChatWelcome = ({ text }: { text: string | undefined }) => {
   return (
-    <View style={[styles.container, setDebugStyles()]}>
+    <View style={[styles.container, setDebugStyles()]} testID="chat-welcome" accessibilityLabel="chat-welcome">
       <LinearGradient
         style={[styles.gradient, setDebugStyles()]}
         colors={[Colors.BackgroundPrimary, Colors.Black, Colors.Black, Colors.BackgroundPrimary]}

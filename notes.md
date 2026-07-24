@@ -62,3 +62,16 @@ android {
     ...
 }
 ```
+
+Working ADB that doesn't break and not responsed on `avd emu`:
+<https://dl.google.com/android/repository/platform-tools_r35.0.2-win.zip>
+
+Though it doesn't work also. Only the patch helped a little;
+
+Replace contents in `USERPROFILE\AppData\Local\Android\Sdk\platform-tools`
+
+Install companion:
+
+```TS
+adb -s adb-TS6PNJIFWCQ4O7TG-TFivOk._adb-tls-connect._tcp install -r "C:\Projects\canned-imp\node_modules\appium-uiautomator2-driver\node_modules\io.appium.settings\apks\settings_apk-debug.apk"
+```

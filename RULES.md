@@ -2,6 +2,7 @@
 
 - `render()` is async — it wraps rendering in `await act(...)` to flush state updates and effects synchronously. Always await it: `const screen = await render(<Component />);`.
 - Don't run tests with `npm run test`. It is handled by CI.
+- CLI commands shall be OS agnostic or work under `current OS` - detect it or ask a `user` if you can't detect;
 
 ## Code style rules
 
