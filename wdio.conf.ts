@@ -1,4 +1,4 @@
-// import path from "node:path";
+import path from "node:path";
 
 export const config: WebdriverIO.Config = {
   runner: "local",
@@ -51,33 +51,36 @@ export const config: WebdriverIO.Config = {
   // https://saucelabs.com/platform/platform-configurator
   //
   capabilities: [
-    // {
-    //   "appium:deviceName": "Medium_Tablet_Debug",
-    //   platformName: "Android",
-    //   "appium:automationName": "UiAutomator2",
-    //   "appium:appPackage": "com.anonymous.cannedimp",
-    //   "appium:appActivity": ".MainActivity",
-    //   "appium:platformVersion": "36",
-    //   "appium:avd": "zSmall_Tablet",
-    //   "appium:noReset": false,
-    //   "appium:fullReset": true,
-    //   "appium:autoGrantPermissions": true,
-    //   // "appium:app": path.join(__dirname, "android/app/build/outputs/apk/release/app-release.apk"),
-    //   // RUN npx expo start for debug apk
-    //   "appium:app": path.join(__dirname, "android/app/build/outputs/apk/debug/app-debug.apk"),
-    // },
     {
-      "appium:deviceName": "Real_Device_Debug",
+      "appium:deviceName": "Small_Tablet_Debug",
       platformName: "Android",
       "appium:automationName": "UiAutomator2",
       "appium:appPackage": "com.anonymous.cannedimp",
       "appium:appActivity": ".MainActivity",
-      "appium:udid": "adb-TS6PNJIFWCQ4O7TG-TFivOk._adb-tls-connect._tcp", // from `adb devices`
-      "appium:platformVersion": "15",
-      "appium:noReset": true, // don't uninstall existing app
-      "appium:ignoreHiddenApiPolicyError": true,
-      // "appium:autoGrantPermissions": true,
+      "appium:platformVersion": "35",
+      "appium:avd": "zSmall_Tablet",
+      // "appium:noReset": false,
+      "appium:fullReset": true,
+      "appium:autoGrantPermissions": true,
+      // "appium:app": path.join(__dirname, "android/app/build/outputs/apk/release/app-release.apk"),
+      // RUN npx expo start for debug apk
+      "appium:app": path.join(__dirname, "android/app/build/outputs/apk/debug/app-debug.apk"),
+      "appium:avdReadyTimeout": 180000,
+      "appium:avdLaunchTimeout": 180000,
     },
+    // {
+    //   "appium:deviceName": "Real_Device_Debug",
+    //   platformName: "Android",
+    //   "appium:automationName": "UiAutomator2",
+    //   "appium:appPackage": "com.anonymous.cannedimp",
+    //   "appium:appActivity": ".MainActivity",
+    //   "appium:udid": "adb-TS6PNJIFWCQ4O7TG-TFivOk._adb-tls-connect._tcp", // from `adb devices`
+    //   "appium:platformVersion": "15",
+    //   "appium:noReset": true, // don't uninstall existing app
+    //   "appium:ignoreHiddenApiPolicyError": true,
+    //   // "appium:app": path.join(__dirname, "android/app/build/outputs/apk/release/app-release.apk"),
+    //   // "appium:autoGrantPermissions": true,
+    // },
   ],
 
   //
@@ -118,7 +121,7 @@ export const config: WebdriverIO.Config = {
   //
   // Default timeout in milliseconds for request
   // if browser driver or grid doesn't send response
-  connectionRetryTimeout: 150000,
+  connectionRetryTimeout: 300000,
   //
   // Default request retries count
   connectionRetryCount: 3,

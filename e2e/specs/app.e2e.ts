@@ -32,7 +32,7 @@ describe("App launches", () => {
   it("redirects to geolocation screen", async () => {
     const navMenuButton = await $("~navigation-menu-button");
     await navMenuButton.waitForDisplayed({ timeout: 40000 });
-    navMenuButton.click();
+    await navMenuButton.click();
 
     const navMenu = await $("~navigation-menu");
     const navMenuMapEntry = await $("~navigation-menu-map-entry");
@@ -63,20 +63,27 @@ describe("App launches", () => {
     await expect(currentContext).toMatch(/WEBVIEW_\S+/);
   });
 
-  it("displays map webview, loaded map tiles, zooms in and zooms out in the webview map", async () => {
+  it("displays map webview, loaded map tiles", async () => {
     const map = await $("#map");
     await map.waitForExist({ timeout: 10000 });
-    await expect(map).toBePresent();
+    await expect(map).toBeDisplayed();
 
     const loadedMapTiles = await $$(".leaflet-tile-loaded");
     await expect(loadedMapTiles).toBeElementsArrayOfSize({ gte: 1 });
+  });
+
+  it("zooms in and zooms out in the webview map", async () => {
+    const map = await $("#map");
+    await map.waitForExist({ timeout: 10000 });
 
     const zoomInButton = await $("a.leaflet-control-zoom-in");
-    await browser.execute((el) => el.click(), zoomInButton);
+    expect(zoomInButton).toExist();
+    await driver.execute((el) => el.click(), zoomInButton);
     await driver.pause(2000);
 
     const zoomOutButton = await $("a.leaflet-control-zoom-out");
-    await browser.execute((el) => el.click(), zoomOutButton);
+    expect(zoomOutButton).toExist();
+    await driver.execute((el) => el.click(), zoomOutButton);
     await driver.pause(2000);
   });
 
