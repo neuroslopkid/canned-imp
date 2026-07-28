@@ -21,6 +21,7 @@ import { DimensionsOverlay } from "@components/dimensions-overlay";
 import { router } from "expo-router";
 import { Path } from "@constants";
 import { AnimationsDemo } from "./components/animations-demo";
+import { AllMatchersDemo } from "./components/all-matchers-demo";
 
 export const PlayGroundScreen = () => {
   const [inputString, setInputString] = useState("");
@@ -68,6 +69,8 @@ export const PlayGroundScreen = () => {
         <ModalDemo showModal={showModal} setShowModal={setShowModal} />
 
         <ImageDemo />
+
+        <AllMatchersDemo />
 
         <View style={{ width: "100%", height: Sizes.LineHeight, flexDirection: "row", columnGap: 10 }}>
           <PrimaryButton />

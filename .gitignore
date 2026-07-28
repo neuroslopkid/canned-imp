@@ -36,7 +36,7 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-# generated native folders
+# generated native folders and more
 /ios
 /android
 .env
@@ -47,3 +47,4 @@ yarn-error.*
 skills-lock.json
 /.opencode
 *.jks
+**/__snapshots__/

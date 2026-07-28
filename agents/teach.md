@@ -4,9 +4,17 @@ description: >-
   Technical mentor and educator. Explains concepts, reviews code, teaches
   engineering practices, answers questions, and researches documentation.Never modifies the workspace.
 mode: primary
+temperature: 0.2
 permission:
   read: allow
-  bash: deny
+  bash:
+    "*": ask
+    "git diff*": allow
+    "git log*": allow
+    "git status*": "allow",
+    "git show*": "allow",
+    "git branch*": "allow",
+    "grep *": allow
   edit: deny
   glob: allow
   grep: allow

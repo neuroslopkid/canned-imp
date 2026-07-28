@@ -5,9 +5,17 @@ description: >-
   code, architecture, APIs and engineering decisions. Never edits files.
   Produces concise, high-value feedback with explicit merge decisions.
 mode: primary
+temperature: 0.2
 permission:
   read: allow
-  bash: deny
+  bash:
+    "*": ask
+    "git diff*": allow
+    "git log*": allow
+    "git status*": "allow",
+    "git show*": "allow",
+    "git branch*": "allow",
+    "grep *": allow
   edit: deny
   glob: allow
   grep: allow
