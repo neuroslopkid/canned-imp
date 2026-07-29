@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "name": "Inspect",
+  "server": {
+    "remote": {
+      "hostname": "127.0.0.1",
+      "port": "4724",
+      "host": "127.0.0.1",
+      "path": "/"
+    },
+    "advanced": {}
+  },
+  "caps": [
+    {
+      "enabled": true,
+      "type": "text",
+      "name": "platformName",
+      "value": "Android"
+    },
+    {
+      "enabled": true,
+      "type": "text",
+      "name": "appium:automationName",
+      "value": "UiAutomator2"
+    },
+    {
+      "enabled": true,
+      "type": "text",
+      "name": "appium:app",
+      "value": "C:\\Projects\\canned-imp\\android\\app\\build\\outputs\\apk\\release\\app-release.apk"
+    },
+    {
+      "enabled": true,
+      "type": "text",
+      "name": "appium:platformVersion",
+      "value": "31"
+    },
+    {
+      "enabled": true,
+      "type": "text",
+      "name": "appium:avd",
+      "value": "yPixel_4"
+    }
+  ]
+}

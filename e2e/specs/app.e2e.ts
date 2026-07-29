@@ -94,3 +94,21 @@ describe("App launches", () => {
     await expect(currentContext).toMatch(/NATIVE_APP/);
   });
 });
+
+// Notes:
+
+// const elemByClassName = await $("android.view.View");
+// const textFromElemByClassName = elemByClassName.getText();
+// elemByClassName.addValue();
+
+// //tagName[@prop=value]
+// const elemByXpath = await $("//android.view.ViewGroup[@content-desc="navigation-menu-button"]");
+// const elemByXpath2 = await $("//android.view.ViewGroup[@resource-id="navigation-menu-button"]");
+// const elemByXpath3= await $("//android.widget.TextView[@text=""]");
+// const elemByXpath4= await $("//*[@text=""]"); // You can ommit tagname
+
+// $ - single element
+// $$ - multiple elements
+
+// driver.dismissAlert()
+// driver.acceptAlert();

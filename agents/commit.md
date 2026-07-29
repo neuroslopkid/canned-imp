@@ -10,10 +10,10 @@ permission:
     "*": ask
     "git diff*": allow
     "git log*": allow
-    "git status*": "allow",
-    "git show*": "allow",
-    "git branch*": "allow",
-    "grep *": allow
+    "git status*": allow
+    "git show*": allow
+    "git branch*": allow
+    "grep*": allow
   edit: deny
   glob: allow
   grep: allow

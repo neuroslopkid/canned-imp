@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "name": "Real",
+  "server": {
+    "remote": {
+      "hostname": "127.0.0.1",
+      "port": "4723",
+      "host": "192.168.9.43",
+      "path": "/"
+    },
+    "advanced": {}
+  },
+  "caps": [
+    {
+      "enabled": true,
+      "type": "text",
+      "value": "Android",
+      "name": "platformName"
+    },
+    {
+      "enabled": true,
+      "type": "text",
+      "value": "UiAutomator2",
+      "name": "appium:automationName"
+    },
+    {
+      "enabled": true,
+      "type": "text",
+      "name": "appium:udid",
+      "value": "adb-xxxxxxxxxxxxxxxx-xxxxxx._adb-tls-connect._tcp"
+    }
+  ]
+}
