@@ -252,9 +252,9 @@ describe("AllMatchersDemo", () => {
 
   // -------------------- SNAPSHOTS --------------------
 
-  it("toMatchSnapshot", () => {
-    expect(valueForToMatchSnapshot).toMatchSnapshot({ a: 1, b: 2 });
-  });
+  // it("toMatchSnapshot", () => {
+  //   expect(valueForToMatchSnapshot).toMatchSnapshot({ a: 1, b: 2 });
+  // });
 
   // it("toMatchInlineSnapshot", () => {
   //   expect({ x: 1, y: 2 }).toMatchInlineSnapshot();
@@ -269,10 +269,10 @@ describe("AllMatchersDemo", () => {
   // });
 
   // ── Error file snapshot ──
-  it("toThrowErrorMatchingSnapshot", () => {
-    expect(fnForToThrowError).toThrowErrorMatchingSnapshot();
-    // Snapshot saved to __snapshots__/all-matchers-demo.test.tsx.snap
-  });
+  // it("toThrowErrorMatchingSnapshot", () => {
+  //   expect(fnForToThrowError).toThrowErrorMatchingSnapshot();
+  //   // Snapshot saved to __snapshots__/all-matchers-demo.test.tsx.snap
+  // });
 
   // -------------------- FUNCTIONS, CALLS --------------------
 

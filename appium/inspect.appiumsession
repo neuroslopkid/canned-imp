@@ -40,6 +40,12 @@
       "type": "text",
       "name": "appium:avd",
       "value": "yPixel_4"
+    },
+    {
+      "type": "boolean",
+      "enabled": true,
+      "name": "appium:autoGrantPermissions",
+      "value": true
     }
   ]
 }

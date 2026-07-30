@@ -1,8 +1,13 @@
-import { acceptPermissionDialogIfShown } from "../helpers/acceptPermissions";
-import { handleExpoDevClientIfNeeded } from "../helpers/expoDevClient";
-import { UiSelector } from "../helpers/uiselector";
+import { acceptPermissionDialogIfShown } from "../../helpers/acceptPermissions";
+import { handleExpoDevClientIfNeeded } from "../../helpers/expoDevClient";
+import { UiSelector } from "../../helpers/uiselector";
 
 describe("App launches", () => {
+  // before(() => {});
+  // after(() => {});
+  // beforeEach(() => {});
+  // afterEach(() => {});
+
   it("should show loading text while app initializes", async () => {
     await handleExpoDevClientIfNeeded();
 
@@ -93,6 +98,38 @@ describe("App launches", () => {
     const currentContext = await driver.getContext();
     await expect(currentContext).toMatch(/NATIVE_APP/);
   });
+
+  it("has scrollview, scrolls down", async () => {
+    // const scrollView = await $("//*[scrollable=true]");
+    // const scrollView = await $("android=UiScrollable(new UiSelector().scrollable(true)).scrollTextIntoView('Your text')");
+    // const scrollView = await $("android=UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(1,5)");
+    // const classChainDemo = '**/XCUIElementTypeCell[`name BEGINSWITH "A"`][-1]/XCUIElementTypeButton[10]';
+    // const scrollViewIOS = await $(`-ios class chain${classChainDemo}`);
+    // const predicateStringDemo = "label=='Alert Views'";
+    // const scrollViewIOS2 = await $(`-ios predicate string:${predicateStringDemo}`);
+    const scrollView = await $(
+      "android=UiScrollable(new UiSelector().scrollable(true)).setAsHorizontalList().scrollForward()",
+    );
+
+    // JS object ref exists (always passes if $() didn't throw)
+    expect(scrollView).toBeTruthy();
+
+    // exists + visible + actually scrolled into view
+    expect(scrollView).toBeDisplayedInViewport();
+
+    // exists + visible (may be off-screen)
+    expect(scrollView).toBeDisplayed();
+
+    // exists in UI hierarchy (may be hidden)
+    expect(scrollView).toBePresent();
+
+    // identical to toBePresent (alias)
+    expect(scrollView).toBeExisting();
+
+    // Non-reliable. Other elements doesn't check if the element is realy visible
+    const opacity = await scrollView.getAttribute("opacity");
+    expect(opacity).toBeGreaterThan(0);
+  });
 });
 
 // Notes:
@@ -112,3 +149,5 @@ describe("App launches", () => {
 
 // driver.dismissAlert()
 // driver.acceptAlert();
+// driver.getAlertText();
+// driver.back();
