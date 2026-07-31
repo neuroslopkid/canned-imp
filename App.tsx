@@ -77,14 +77,18 @@ export default function App() {
   });
 
   useEffect(() => {
-    if (fontsLoaded) hideAsync();
+    if (fontsLoaded) {
+      hideAsync();
+    }
   }, [fontsLoaded]);
 
   useEffect(() => {
     SystemUI.setBackgroundColorAsync("transparent");
   }, []);
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <Provider store={store}>

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { PrimaryButton } from "@components/buttons/primary-button";
 import { useState } from "react";
 

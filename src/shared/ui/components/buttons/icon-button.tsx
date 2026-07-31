@@ -10,12 +10,10 @@ export const IconButton = ({
   icon,
   iconStyle,
   style,
-  size,
   ...props
 }: {
   icon: ReactNode;
   style?: StyleProp<ViewStyle>;
-  size?: any;
   iconStyle?: StyleProp<ViewStyle>;
 } & PressableProps) => {
   const [pressed, setPressed] = useState(false);

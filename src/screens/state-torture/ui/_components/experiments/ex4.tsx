@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { PrimaryButton } from "@components/buttons/primary-button";
 import { useState } from "react";
 import { View, Text } from "react-native";
@@ -8,12 +9,12 @@ import { View, Text } from "react-native";
  * 3) Don't modify state directly or it will cause state problems
  */
 export const Ex4 = () => {
-  const [items, setItems] = useState([
+  const [items] = useState([
     { id: 1, name: "A" },
     { id: 2, name: "B" },
     { id: 3, name: "C" },
   ]);
-  const [selectedItem, setSelectedItem] = useState(items[0]);
+  const [selectedItem] = useState(items[0]);
 
   const handleDelete = () => {
     console.log({ items });

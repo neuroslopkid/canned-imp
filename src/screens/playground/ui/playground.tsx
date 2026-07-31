@@ -17,7 +17,7 @@ import { ScrollViewDemo } from "./components/scrollview-demo";
 import { Sizes } from "@ui/theme/sizes";
 import { Colors } from "@ui/theme/colors";
 import { BaseLayout } from "@ui/layout/base-layout";
-import { DimensionsOverlay } from "@components/dimensions-overlay";
+// import { DimensionsOverlay } from "@components/dimensions-overlay";
 import { router } from "expo-router";
 import { Path } from "@constants";
 import { AnimationsDemo } from "./components/animations-demo";
@@ -34,7 +34,9 @@ export const PlayGroundScreen = () => {
 
   const handleAddNote = (clear = false) => {
     setNotes((prevNotes) => [...prevNotes, { data: inputString, id: Math.random().toString() }]);
-    clear && setInputString("");
+    if (clear) {
+      setInputString("");
+    }
   };
 
   const handleClearNotes = () => {

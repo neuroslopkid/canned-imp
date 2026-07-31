@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { withMainApplication } = require("expo/config-plugins");
 
 module.exports = function withWebViewDebugging(config) {

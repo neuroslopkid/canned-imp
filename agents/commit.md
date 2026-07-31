@@ -9,6 +9,7 @@ permission:
   bash:
     "*": ask
     "git diff*": allow
+    "git rev-parse*": allow
     "git log*": allow
     "git status*": allow
     "git show*": allow

@@ -1,13 +1,16 @@
 import * as Notifications from "expo-notifications";
 
-export async function checkNotificationPermission(): Promise<boolean> {
+export async function checkNotificationPermission(): Promise<Notifications.PermissionResponse> {
+  let permission;
   const existingPermission = await Notifications.getPermissionsAsync();
 
   if (existingPermission.status === Notifications.PermissionStatus.UNDETERMINED) {
     const requestedPermission = await Notifications.requestPermissionsAsync();
 
-    return requestedPermission.granted;
+    permission = requestedPermission;
+  } else {
+    permission = existingPermission;
   }
 
-  return existingPermission.granted;
+  return permission;
 }

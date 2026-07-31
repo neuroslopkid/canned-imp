@@ -54,6 +54,7 @@ export const createMapHtml = (latitude: number, longitude: number) => `
 export const MapWebView = ({ latitude, longitude }: { latitude: number; longitude: number }) => {
   return (
     <WebView
+      webviewDebuggingEnabled
       style={{ height: 300, width: 300, backgroundColor: "grey" }}
       originWhitelist={["*"]}
       testID="map-webview"

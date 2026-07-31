@@ -10,5 +10,5 @@
     "resolveJsonModule": true,
     "types": ["node", "mocha", "@wdio/globals/types"]
   },
-  "include": ["e2e/**/*.ts", "wdio.conf.ts", "wdio.android.conf.ts", "wdio.ios.conf.ts"]
+  "include": ["e2e/**/*.ts"]
 }

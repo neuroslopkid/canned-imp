@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react-native";
+import { fireEvent, render } from "@testing-library/react-native";
 import {
   AllMatchersDemo,
   arrayForToContain,
@@ -6,7 +6,7 @@ import {
   dateForToBeInstanceOf,
   floatForToBeCloseTo,
   fnForToThrow,
-  fnForToThrowError,
+  // fnForToThrowError,
   nanForToBeNaN,
   nullForToBeNull,
   numberForToBeGreaterThan,
@@ -24,7 +24,7 @@ import {
   valueForToBeDefined,
   valueForToBeFalsy,
   valueForToBeTruthy,
-  valueForToMatchSnapshot,
+  // valueForToMatchSnapshot,
 } from "./all-matchers-demo";
 
 // testID="([^"]*)"

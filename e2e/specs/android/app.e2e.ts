@@ -82,12 +82,12 @@ describe("App launches", () => {
     await map.waitForExist({ timeout: 10000 });
 
     const zoomInButton = await $("a.leaflet-control-zoom-in");
-    expect(zoomInButton).toExist();
+    await expect(zoomInButton).toExist();
     await driver.execute((el) => el.click(), zoomInButton);
     await driver.pause(2000);
 
     const zoomOutButton = await $("a.leaflet-control-zoom-out");
-    expect(zoomOutButton).toExist();
+    await expect(zoomOutButton).toExist();
     await driver.execute((el) => el.click(), zoomOutButton);
     await driver.pause(2000);
   });
@@ -115,16 +115,16 @@ describe("App launches", () => {
     expect(scrollView).toBeTruthy();
 
     // exists + visible + actually scrolled into view
-    expect(scrollView).toBeDisplayedInViewport();
+    await expect(scrollView).toBeDisplayedInViewport();
 
     // exists + visible (may be off-screen)
-    expect(scrollView).toBeDisplayed();
+    await expect(scrollView).toBeDisplayed();
 
     // exists in UI hierarchy (may be hidden)
-    expect(scrollView).toBePresent();
+    await expect(scrollView).toBePresent();
 
     // identical to toBePresent (alias)
-    expect(scrollView).toBeExisting();
+    await expect(scrollView).toBeExisting();
 
     // Non-reliable. Other elements doesn't check if the element is realy visible
     const opacity = await scrollView.getAttribute("opacity");
