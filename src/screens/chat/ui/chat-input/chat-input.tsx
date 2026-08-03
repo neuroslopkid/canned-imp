@@ -101,38 +101,55 @@ export const ChatInput = () => {
       </View>
       <View style={[styles.buttonsWrapper, setDebugStyles()]}>
         <View style={[styles.leftButtons, setDebugStyles()]}>
-          <View>
-            <IconButton
-              icon={<Ionicons name="code-download" size={getScaledSize(24, dimensions)} color={Colors.White} />}
-              onPress={openModelPicker}
-            />
-            {llm != null && llm.downloadProgress > 0 && (
-              <Text
-                style={{
-                  color: Colors.TextPrimary,
-                  fontSize: 10,
-                  position: "absolute",
-                  bottom: 5,
-                  alignSelf: "center",
-                }}
-              >
-                {Math.trunc(llm?.downloadProgress * 100)}%
-              </Text>
-            )}
-            {llm != null && llm.isReady && (
-              <Text
-                style={{
-                  color: Colors.TextPrimary,
-                  fontSize: 10,
-                  position: "absolute",
-                  bottom: 5,
-                  alignSelf: "center",
-                }}
-              >
-                Ready
-              </Text>
-            )}
-          </View>
+          <IconButton
+            icon={
+              <>
+                <Ionicons name="code-download" size={getScaledSize(24, dimensions)} color={Colors.White} />
+                {llm != null && llm.downloadProgress > 0 && (
+                  <Text
+                    style={{
+                      color: Colors.TextPrimary,
+                      fontSize: 10,
+                      position: "absolute",
+                      bottom: -5,
+                      alignSelf: "center",
+                    }}
+                  >
+                    {Math.trunc(llm?.downloadProgress * 100)}%
+                  </Text>
+                )}
+                {llm != null && llm.isReady && (
+                  <Text
+                    style={{
+                      color: Colors.TextPrimary,
+                      fontSize: 10,
+                      position: "absolute",
+                      bottom: -5,
+                      alignSelf: "center",
+                    }}
+                  >
+                    Ready
+                  </Text>
+                )}
+                {(llm === null || !llm.isReady) && !llm?.downloadProgress && (
+                  <Text
+                    style={{
+                      color: Colors.Danger,
+                      fontSize: 10,
+                      position: "absolute",
+                      bottom: -5,
+                      alignSelf: "center",
+                      textAlign: "center",
+                    }}
+                  >
+                    Empty
+                  </Text>
+                )}
+              </>
+            }
+            onPress={openModelPicker}
+            iconStyle={{ top: -5 }}
+          />
           <IconButton
             icon={
               <Ionicons

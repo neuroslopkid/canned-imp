@@ -2,8 +2,10 @@ import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, 
 import { LLMType, models, useLLM } from "react-native-executorch";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ModelSelector, ModelItem } from "@ui/components/model-selector";
+import { getDownloadedModelIds } from "@utils";
 
 const LLM_SELECTED_MODEL_KEY = "selectedLlmModel";
+const AUTOLOAD_ENABLED_KEY = "autoloadEnabled";
 
 const AVAILABLE_MODELS: (ModelItem & { accessor: () => any })[] = [
   {
@@ -65,6 +67,7 @@ interface LLMContextType {
   llm: LLMType | null;
   selectedModelId: string | null;
   availableModels: ModelItem[];
+  downloadedModelIds: Set<string>;
   openModelPicker: () => void;
 }
 
@@ -72,6 +75,7 @@ const LLMContext = createContext<LLMContextType>({
   llm: null,
   selectedModelId: null,
   availableModels: AVAILABLE_MODELS,
+  downloadedModelIds: new Set(),
   openModelPicker: () => {},
 });
 
@@ -79,13 +83,27 @@ export const LLMProvider = ({ children }: { children: ReactNode }) => {
   const [selectedModelId, setSelectedModelId] = useState<string | null>(null);
   const [preventLoad, setPreventLoad] = useState(true);
   const [pickerVisible, setPickerVisible] = useState(false);
+  const [downloadedModelIds, setDownloadedModelIds] = useState<Set<string>>(new Set());
+  const [autoloadEnabled, setAutoloadEnabled] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.getItem(LLM_SELECTED_MODEL_KEY).then((saved) => {
+    (async () => {
+      const [saved, autoload, downloaded] = await Promise.all([
+        AsyncStorage.getItem(LLM_SELECTED_MODEL_KEY),
+        AsyncStorage.getItem(AUTOLOAD_ENABLED_KEY),
+        getDownloadedModelIds(AVAILABLE_MODELS),
+      ]);
+      setDownloadedModelIds(downloaded);
+      setAutoloadEnabled(autoload === "true");
+
       if (saved) {
         setSelectedModelId(saved);
+
+        if (autoload === "true" && AVAILABLE_MODELS.some((m) => m.id === saved)) {
+          setPreventLoad(false);
+        }
       }
-    });
+    })();
   }, []);
 
   const modelConfig = useMemo(() => {
@@ -99,12 +117,35 @@ export const LLMProvider = ({ children }: { children: ReactNode }) => {
     preventLoad,
   });
 
-  const handleSelectModel = useCallback((id: string) => {
+  const loadModel = useCallback((id: string) => {
     AsyncStorage.setItem(LLM_SELECTED_MODEL_KEY, id);
     setSelectedModelId(id);
     setPreventLoad(false);
-    setPickerVisible(false);
   }, []);
+
+  const handleSelectModel = useCallback(
+    (id: string) => {
+      loadModel(id);
+      setPickerVisible(false);
+    },
+    [loadModel],
+  );
+
+  const handleToggleAutoload = useCallback(
+    (enabled: boolean, pendingModelId: string | null) => {
+      AsyncStorage.setItem(AUTOLOAD_ENABLED_KEY, enabled ? "true" : "false");
+      setAutoloadEnabled(enabled);
+
+      if (enabled) {
+        const id = pendingModelId ?? selectedModelId;
+
+        if (id && AVAILABLE_MODELS.some((m) => m.id === id)) {
+          loadModel(id);
+        }
+      }
+    },
+    [selectedModelId, loadModel],
+  );
 
   const openModelPicker = useCallback(() => setPickerVisible(true), []);
   const closeModelPicker = useCallback(() => setPickerVisible(false), []);
@@ -114,9 +155,10 @@ export const LLMProvider = ({ children }: { children: ReactNode }) => {
       llm: selectedModelId ? llm : null,
       selectedModelId,
       availableModels: AVAILABLE_MODELS,
+      downloadedModelIds,
       openModelPicker,
     }),
-    [llm, selectedModelId, openModelPicker],
+    [llm, selectedModelId, downloadedModelIds, openModelPicker],
   );
 
   return (
@@ -128,6 +170,9 @@ export const LLMProvider = ({ children }: { children: ReactNode }) => {
         title="Select LLM Model"
         models={AVAILABLE_MODELS}
         selectedModelId={selectedModelId}
+        downloadedModelIds={downloadedModelIds}
+        autoloadEnabled={autoloadEnabled}
+        onToggleAutoload={handleToggleAutoload}
         onSelectModel={handleSelectModel}
       />
     </LLMContext.Provider>

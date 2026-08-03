@@ -13,6 +13,7 @@ export const Colors = {
   TextPlaceholder: "#ffffff50",
   Transparent: "#00000000",
   Danger: "#f93a37",
+  Success: "#28c800",
   Icon: "#f0f0f0",
   White: "#fff",
   Black: "#000",
