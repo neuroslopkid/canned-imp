@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "types": ["node", "mocha", "@wdio/globals/types"],
     "moduleResolution": "bundler",
     "target": "ESNext",
     "module": "ESNext",
@@ -8,7 +7,8 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["node", "mocha", "@wdio/globals/types"]
   },
-  "include": ["e2e/**/*.ts", "wdio.conf.ts"]
+  "include": ["e2e/**/*.ts"]
 }

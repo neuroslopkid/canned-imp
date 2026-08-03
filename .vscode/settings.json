@@ -4,5 +4,9 @@
   "editor.insertSpaces": true,
   "editor.tabSize": 2,
   "prettier.tabWidth": 2,
-  "editor.indentSize": "tabSize"
+  "editor.indentSize": "tabSize",
+  "files.associations": { ".prettierrc": "json" },
+  "json.schemas": [
+    { "fileMatch": [".prettierrc", ".prettierrc.json"], "url": "https://json.schemastore.org/prettierrc" }
+  ]
 }

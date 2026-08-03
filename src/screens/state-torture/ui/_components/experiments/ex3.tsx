@@ -6,8 +6,8 @@ import { View, Text } from "react-native";
  * If you can avoid using state and get data from other source then do it instead of sync of 3+ states
  */
 export const Ex3 = () => {
-  const [firstName, setFirstName] = useState("John");
-  const [lastName, setLastName] = useState("Doe");
+  const [firstName] = useState("John");
+  const [lastName] = useState("Doe");
   const [fullName, setFullName] = useState("");
 
   const merge = () => {

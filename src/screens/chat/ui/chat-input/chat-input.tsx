@@ -1,3 +1,4 @@
+/* eslint-disable curly */
 import { View, StyleSheet, Text, Alert } from "react-native";
 import { Input } from "@components/inputs/input";
 import { Colors } from "@ui/theme/colors";
@@ -20,6 +21,7 @@ import {
   getAllScheduledNotificationsAsync,
 } from "expo-notifications";
 import { checkNotificationPermission } from "@utils";
+import * as Notifications from "expo-notifications";
 
 const NOTIFICATION_STORAGE_KEY = "scheduledNotificationId";
 
@@ -141,20 +143,25 @@ export const ChatInput = () => {
             }
             disabled={notificationLoading}
             onPress={async () => {
-              if (notificationLoading) return;
+              if (notificationLoading) {
+                return;
+              }
               setNotificationLoading(true);
               try {
                 if (notificationActive) {
                   setNotificationActive(await stopNotification());
                 } else {
-                  const granted = await checkNotificationPermission();
-                  if (!granted) {
+                  const permission = await checkNotificationPermission();
+                  if (permission.status === Notifications.PermissionStatus.DENIED) {
                     Alert.alert("Permission Denied", "Please enable notifications in Settings.");
+
                     return;
+                  } else {
+                    setNotificationActive(await startNotification());
                   }
-                  setNotificationActive(await startNotification());
                 }
               } catch (error) {
+                // eslint-disable-next-line no-console
                 console.log("Notification toggle failed:", error);
                 if (!notificationActive) setNotificationActive(false);
               } finally {

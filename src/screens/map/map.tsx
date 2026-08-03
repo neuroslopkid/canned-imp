@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import { setGeolocationData } from "@redux/slices/security/security-slice";
 import { checkLocationPermission, getGeoLocationData } from "@utils";
 import WebView from "react-native-webview";
+import { Link } from "expo-router";
+import { Colors } from "@ui/theme/colors";
 
 export const MapScreen = () => {
   const location = useSelector((state: StoreState) => state.security.location);
@@ -100,6 +102,12 @@ export const MapScreen = () => {
             source={{ uri: "https://reactnative.dev/" }}
             style={{ flex: 1 }}
           />
+        </View>
+
+        <View>
+          <Link style={{ color: Colors.Black }} href="https://example.com/">
+            Test Link
+          </Link>
         </View>
       </ScrollView>
     </BaseLayout>

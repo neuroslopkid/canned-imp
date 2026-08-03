@@ -13,7 +13,7 @@ export const FlatListDemo = ({ data }: any) => {
           scrollEnabled={false}
           data={data}
           style={styles.flastList}
-          keyExtractor={(item, index) => {
+          keyExtractor={(item) => {
             return item.id;
           }}
           renderItem={(itemData) => {

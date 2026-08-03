@@ -82,12 +82,15 @@ export const LLMProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     AsyncStorage.getItem(LLM_SELECTED_MODEL_KEY).then((saved) => {
-      if (saved) setSelectedModelId(saved);
+      if (saved) {
+        setSelectedModelId(saved);
+      }
     });
   }, []);
 
   const modelConfig = useMemo(() => {
     const entry = AVAILABLE_MODELS.find((m) => m.id === selectedModelId);
+
     return entry?.accessor() ?? models.llm.smollm2_1_135m();
   }, [selectedModelId]);
 

@@ -27,6 +27,6 @@
     },
     "types": ["jest", "node", "@wdio/globals/types"]
   },
-  "include": ["src", "App.tsx", "src/shared/typesInterfaces/declarations/svg.d.ts", "wdio.conf.ts"],
+  "include": ["src", "App.tsx", "src/shared/typesInterfaces/declarations/svg.d.ts", "wdio*.conf.ts"],
   "exclude": []
 }

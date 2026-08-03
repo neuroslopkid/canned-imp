@@ -19,8 +19,13 @@ interface ModelSelectorProps {
 }
 
 const toNumericGB = (size: string): number => {
-  if (size.endsWith("B")) return parseFloat(size);
-  if (size.endsWith("M")) return parseFloat(size) / 1000;
+  if (size.endsWith("B")) {
+    return parseFloat(size);
+  }
+  if (size.endsWith("M")) {
+    return parseFloat(size) / 1000;
+  }
+
   return 0;
 };
 
@@ -47,6 +52,7 @@ export const ModelSelector = ({
           <ScrollView style={styles.modelList}>
             {sortedModels.map((model) => {
               const isSelected = model.id === selectedModelId;
+
               return (
                 <Pressable
                   key={model.id}

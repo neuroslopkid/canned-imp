@@ -1,28 +1,34 @@
+---
 name: commit
+description: >-
+  Analyzes git staged files and produces a single-line commit message that makes the author look extremely productive: high verb density, every change area called out, maximum surface area per commit.
+mode: primary
+temperature: 0.2
+permission:
+  read: allow
+  bash:
+    "*": ask
+    "git diff*": allow
+    "git rev-parse*": allow
+    "git log*": allow
+    "git status*": allow
+    "git show*": allow
+    "git branch*": allow
+    "grep*": allow
+  edit: deny
+  glob: allow
+  grep: allow
+  webfetch: allow
+  task: allow
+  todowrite: allow
+  websearch: allow
+  lsp: allow
+  skill: allow
 
-description: >
-Analyzes git staged files and produces a single-line commit message
-that makes the author look extremely productive: high verb density,
-every change area called out, maximum surface area per commit.
-
-model: inherit
-
-temperature: 0.05
-
-tools:
-
-- read
-- grep
-- glob
-- web
-
-permissions:
-write: deny
-edit: deny
-move: deny
-delete: deny
-
-system: |
+  write: deny
+  move: deny
+  delete: deny
+---
 
 # ROLE
 

@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "name": "best",
+  "server": {
+    "remote": {
+      "hostname": "127.0.0.1",
+      "port": "4723",
+      "host": "127.0.0.1",
+      "path": "/"
+    },
+    "advanced": {}
+  },
+  "caps": [
+    {
+      "enabled": true,
+      "type": "text",
+      "name": "platformName",
+      "value": "Android"
+    },
+    {
+      "enabled": true,
+      "type": "text",
+      "name": "appium:automationName",
+      "value": "UiAutomator2"
+    }
+  ]
+}
