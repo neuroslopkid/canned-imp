@@ -1,4 +1,4 @@
-import { ActivityIndicator, AppState } from "react-native";
+import { ActivityIndicator } from "react-native";
 import { IconButton } from "@components/buttons/icon-button";
 import { getScaledSize } from "@helpers/getScaledSize";
 import { Ionicons } from "@expo/vector-icons";
@@ -7,8 +7,7 @@ import { Colors } from "@ui/theme/colors";
 import { useDimensions } from "@context/dimensions.provider";
 import { useLLMModels } from "@context/llm.provider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { checkNotificationPermission } from "@utils";
-import { PermissionStatus, scheduleNotificationAsync } from "expo-notifications";
+import { deliverReplyAsNotification } from "@shared/notifications";
 
 export const RightChatButtons = ({
   inputValue,
@@ -21,23 +20,22 @@ export const RightChatButtons = ({
   const { llm } = useLLMModels();
 
   const handleSendText = async () => {
-    if (llm?.isReady && !llm?.isGenerating && llm?.sendMessage && inputValue) {
-      const responseMessage = await llm?.sendMessage(inputValue);
-      const permission = await checkNotificationPermission();
-      if (permission.status === PermissionStatus.GRANTED) {
-        if (responseMessage && (AppState.currentState === "background" || AppState.currentState === "inactive")) {
-          await scheduleNotificationAsync({
-            content: {
-              title: "The AI has responded to you",
-              body: responseMessage || "Check the message in the App",
-            },
-            trigger: null,
-          });
-        }
-      }
+    if (!llm?.isReady || llm?.isGenerating || !llm?.sendMessage || !inputValue) {
+      return;
+    }
 
-      await AsyncStorage.setItem("lastMessage", inputValue);
-      setInputValue("");
+    const message = inputValue;
+    setInputValue("");
+
+    try {
+      const responseMessage = await llm.sendMessage(message);
+      await deliverReplyAsNotification(responseMessage || "");
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.warn("Failed to send message:", error);
+      setInputValue(message);
+    } finally {
+      await AsyncStorage.setItem("lastMessage", message);
     }
   };
 

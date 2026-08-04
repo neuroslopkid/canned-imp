@@ -1,3 +1,13 @@
+jest.mock(
+  "react-native-executorch-expo-resource-fetcher",
+  () => ({
+    ExpoResourceFetcher: {
+      listDownloadedFiles: () => ["file1.pte", "file2.pte"],
+    },
+  }),
+  { virtual: true },
+);
+
 jest.mock("@context/dimensions.provider", () => ({
   useDimensions: () => ({
     width: 400,
@@ -7,6 +17,10 @@ jest.mock("@context/dimensions.provider", () => ({
 
 jest.mock("@react-native-async-storage/async-storage", () => ({
   setItem: jest.fn(),
+}));
+
+jest.mock("@shared/notifications", () => ({
+  deliverReplyAsNotification: jest.fn(),
 }));
 
 jest.mock("@context/llm.provider", () => ({
@@ -90,6 +104,23 @@ describe("RightChatButtons", () => {
     });
 
     expect(setInputValue).toHaveBeenCalledWith("");
+    expect(AsyncStorage.setItem).toHaveBeenCalledWith("lastMessage", "Hello2");
+  });
+
+  it("restores input and stores lastMessage when sending fails", async () => {
+    const failingSendMessage = jest.fn().mockRejectedValue(new Error("generation interrupted"));
+    mockLLM({ sendMessage: failingSendMessage });
+    const rightChatButtons = await renderComponent("Hello2");
+    const sendButton = rightChatButtons.getByTestId("send-message-to-llm-button");
+
+    fireEvent.press(sendButton);
+
+    await waitFor(() => {
+      expect(failingSendMessage).toHaveBeenCalledWith("Hello2");
+    });
+
+    expect(setInputValue).toHaveBeenCalledWith("");
+    expect(setInputValue).toHaveBeenCalledWith("Hello2");
     expect(AsyncStorage.setItem).toHaveBeenCalledWith("lastMessage", "Hello2");
   });
 

@@ -22,6 +22,7 @@ import {
 } from "expo-notifications";
 import { checkNotificationPermission } from "@utils";
 import * as Notifications from "expo-notifications";
+import { useStuckGenerationWatchdog } from "./use-stuck-generation-watchdog";
 
 const NOTIFICATION_STORAGE_KEY = "scheduledNotificationId";
 
@@ -56,6 +57,8 @@ export const ChatInput = () => {
   const [notificationActive, setNotificationActive] = useState(false);
   const [notificationLoading, setNotificationLoading] = useState(false);
   const { llm, openModelPicker } = useLLMModels();
+
+  useStuckGenerationWatchdog();
 
   const handleTextChange = (text: string) => {
     setInputValue(text);

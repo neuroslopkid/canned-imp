@@ -5,8 +5,11 @@
   "editor.tabSize": 2,
   "prettier.tabWidth": 2,
   "editor.indentSize": "tabSize",
-  "files.associations": { ".prettierrc": "json" },
   "json.schemas": [
-    { "fileMatch": [".prettierrc", ".prettierrc.json"], "url": "https://json.schemastore.org/prettierrc" }
+    { "fileMatch": [".prettierrc", ".prettierrc.json"], "url": "https://json.schemastore.org/prettierrc" },
+    {
+      "fileMatch": [".package.json"],
+      "url": "https://www.schemastore.org/package.json"
+    }
   ]
 }
