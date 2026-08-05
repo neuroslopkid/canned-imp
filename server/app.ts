@@ -1,14 +1,7 @@
-import express from "express";
+import express, { type Application } from "express";
+import { rootRouter } from "@routes/root.js";
 
-const app = express();
+export const app: Application = express();
+export const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.json({ message: "API is working sdssdssssasf" });
-});
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Server running on port ${PORT}`);
-});
+app.use("/", rootRouter);

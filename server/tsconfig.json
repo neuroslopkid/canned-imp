@@ -1,0 +1,28 @@
+{
+  "extends": "../tsconfig.server.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "paths": {
+      "@controllers": ["./src/controllers/index"],
+      "@controllers/*": ["./src/controllers/*"],
+      "@decorators": ["./src/decorators/index"],
+      "@decorators/*": ["./src/decorators/*"],
+      "@middleware": ["./src/middleware/index"],
+      "@middleware/*": ["./src/middleware/*"],
+      "@models": ["./src/models/index"],
+      "@models/*": ["./src/models/*"],
+      "@routes": ["./src/routes/index"],
+      "@routes/*": ["./src/routes/*"],
+      "@services": ["./src/services/index"],
+      "@services/*": ["./src/services/*"],
+      "@typesInterfaces": ["./src/types/index"],
+      "@typesInterfaces/*": ["./src/types/*"],
+      "@utils": ["./src/utils/index"],
+      "@utils/*": ["./src/utils/*"],
+      "@src/*": ["./src/*"],
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}

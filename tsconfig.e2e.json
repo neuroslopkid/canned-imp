@@ -9,6 +9,5 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "types": ["node", "mocha", "@wdio/globals/types"]
-  },
-  "include": ["e2e/**/*.ts"]
+  }
 }

@@ -3,21 +3,27 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec tsx app.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "nodemon --exec tsx server.ts",
+    "build": "npx tsc -p tsconfig.build.json"
   },
   "author": "",
   "license": "ISC",
   "description": "",
+  "type": "module",
   "dependencies": {
     "express": "5.2.1",
     "mongoose": "9.6.2"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/express": "5.0.6",
     "@types/node": "26.1.1",
+    "eslint": "^10.8.0",
+    "eslint-config-prettier": "^10.1.8",
     "nodemon": "3.1.14",
     "tsx": "4.23.1",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "typescript-eslint": "^8.66.0"
   }
 }

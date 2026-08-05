@@ -1,10 +1,11 @@
 import { View } from "react-native";
 import { setDebugStyles } from "@ui/theme/debug.styles";
+import { Sizes } from "@ui/theme/sizes";
 import { Ex1 } from "./experiments/ex1";
 import { Ex2 } from "./experiments/ex2";
-import { Sizes } from "@ui/theme/sizes";
 import { Ex3 } from "./experiments/ex3";
 import { Ex4 } from "./experiments/ex4";
+import { Ex5 } from "./experiments/ex5";
 
 export const PolygonOfDoom = () => {
   return (
@@ -28,6 +29,10 @@ export const PolygonOfDoom = () => {
 
       <View style={{ height: Sizes.LineHeight, width: "100%" }}>
         <Ex4 />
+      </View>
+
+      <View style={{ height: Sizes.LineHeight, width: "100%" }}>
+        <Ex5 />
       </View>
     </View>
   );

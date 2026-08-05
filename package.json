@@ -23,7 +23,8 @@
     "check-types": "npx tsc --noEmit",
     "prettier": "npx prettier --check 'src/**/*.{ts,tsx}' '*.{ts,js,json}'",
     "prettier:fix": "npx prettier --write .",
-    "adb:clean": "powershell -Command \"Get-Process qemu-system-x86_64 -ErrorAction SilentlyContinue | Stop-Process -Force\" & adb kill-server & adb start-server"
+    "adb:clean": "powershell -Command \"Get-Process qemu-system-x86_64 -ErrorAction SilentlyContinue | Stop-Process -Force\" & adb kill-server & adb start-server",
+    "server": "cd ./server && npm run dev"
   },
   "dependencies": {
     "@expo/vector-icons": "~15.0.3",
