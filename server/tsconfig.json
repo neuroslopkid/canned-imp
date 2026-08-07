@@ -16,8 +16,6 @@
       "@config/*": ["./src/config/*"],
       "@controllers": ["./src/controllers/index"],
       "@controllers/*": ["./src/controllers/*"],
-      "@decorators": ["./src/decorators/index"],
-      "@decorators/*": ["./src/decorators/*"],
       "@middleware": ["./src/middleware/index"],
       "@middleware/*": ["./src/middleware/*"],
       "@models": ["./src/models/index"],
