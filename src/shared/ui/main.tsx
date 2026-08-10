@@ -10,6 +10,7 @@ import { Colors } from "@ui/theme/colors";
 import { AllowedCountriesList } from "@constants";
 import { checkLocationPermission, getGeoLocationData } from "@utils";
 import { setGeolocationData } from "@redux/slices/security/security-slice";
+import { NotificationLoop } from "@shared/notifications";
 
 preventAutoHideAsync();
 
@@ -114,6 +115,7 @@ export default function Main() {
 
   return (
     <>
+      <NotificationLoop />
       <StatusBar style="auto" />
       <Stack
         screenOptions={{

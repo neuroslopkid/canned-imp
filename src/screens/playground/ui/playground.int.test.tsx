@@ -1,3 +1,13 @@
+jest.mock(
+  "react-native-executorch-expo-resource-fetcher",
+  () => ({
+    ExpoResourceFetcher: {
+      listDownloadedFiles: () => ["file1.pte", "file2.pte"],
+    },
+  }),
+  { virtual: true },
+);
+
 jest.mock("react-native-executorch", () => ({
   useLLM: () => ({
     isReady: false,

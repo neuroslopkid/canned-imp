@@ -7,6 +7,7 @@ import { Colors } from "@ui/theme/colors";
 import { useDimensions } from "@context/dimensions.provider";
 import { useLLMModels } from "@context/llm.provider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { deliverReplyAsNotification } from "@shared/notifications";
 
 export const RightChatButtons = ({
   inputValue,
@@ -19,10 +20,22 @@ export const RightChatButtons = ({
   const { llm } = useLLMModels();
 
   const handleSendText = async () => {
-    if (llm?.isReady && !llm?.isGenerating && llm?.sendMessage && inputValue) {
-      llm?.sendMessage(inputValue);
-      await AsyncStorage.setItem("lastMessage", inputValue);
-      setInputValue("");
+    if (!llm?.isReady || llm?.isGenerating || !llm?.sendMessage || !inputValue) {
+      return;
+    }
+
+    const message = inputValue;
+    setInputValue("");
+
+    try {
+      const responseMessage = await llm.sendMessage(message);
+      await deliverReplyAsNotification(responseMessage || "");
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.warn("Failed to send message:", error);
+      setInputValue(message);
+    } finally {
+      await AsyncStorage.setItem("lastMessage", message);
     }
   };
 
@@ -51,7 +64,12 @@ export const RightChatButtons = ({
             llm?.isGenerating ? (
               <ActivityIndicator color={Colors.TextPrimary} testID="activity-indicator" />
             ) : (
-              <Ionicons name="arrow-up-circle" size={getScaledSize(24, dimensions)} color={Colors.White} />
+              <Ionicons
+                name="arrow-up-circle"
+                size={getScaledSize(24, dimensions)}
+                style={{ opacity: inputValue && llm?.isReady ? 1 : 0.5 }}
+                color={Colors.White}
+              />
             )
           }
         />
