@@ -1,4 +1,6 @@
 import { WebView } from "react-native-webview";
+import { webEvents } from "./map.constants";
+import { ActivityMessage } from "./map";
 
 export const createMapHtml = (latitude: number, longitude: number) => `
 <!DOCTYPE html>
@@ -45,15 +47,65 @@ export const createMapHtml = (latitude: number, longitude: number) => `
       L.marker(
         [${latitude}, ${longitude}]
       ).addTo(map);
+
+      window.addEventListener("message", (event) => {
+        const message = JSON.parse(event.data);
+
+        console.log("[webview] received", JSON.stringify(message));
+      });
+
+      const webEvents = ${JSON.stringify(webEvents)};
+      const throttledWebEvents = ["pointermove", "wheel", "scroll"];
+      const lastSent = {};
+
+      const notifyNative = (eventType) => {
+        if (throttledWebEvents.includes(eventType)) {
+          const now = Date.now();
+
+          if (now - (lastSent[eventType] || 0) < 100) {
+            return;
+          }
+
+          lastSent[eventType] = now;
+        }
+
+        const message = {
+          type: "USER_ACTIVITY",
+          source: "webview",
+          event: eventType,
+        };
+
+        console.log("[webview] detected", JSON.stringify(message));
+        window.ReactNativeWebView.postMessage(JSON.stringify(message));
+      };
+
+      for (const eventType of webEvents) {
+        window.addEventListener(
+          eventType,
+          () => notifyNative(eventType)
+        );
+      }
+
     </script>
     </div>
   </body>
 </html>
 `;
 
-export const MapWebView = ({ latitude, longitude }: { latitude: number; longitude: number }) => {
+export const MapWebView = ({
+  latitude,
+  longitude,
+  webViewRef,
+  reportActivity,
+}: {
+  latitude: number;
+  longitude: number;
+  webViewRef: React.RefObject<WebView | null>;
+  reportActivity: (message: ActivityMessage) => void;
+}) => {
   return (
     <WebView
+      ref={webViewRef}
       webviewDebuggingEnabled
       style={{ height: 300, width: 300, backgroundColor: "grey" }}
       originWhitelist={["*"]}
@@ -62,6 +114,21 @@ export const MapWebView = ({ latitude, longitude }: { latitude: number; longitud
       userAgent="MapCircle"
       source={{
         html: createMapHtml(latitude, longitude) as any,
+      }}
+      onMessage={(event) => {
+        let message: ActivityMessage;
+
+        try {
+          message = JSON.parse(event.nativeEvent.data);
+        } catch {
+          console.warn("[native] failed to parse webview message", event.nativeEvent.data);
+
+          return;
+        }
+
+        if (message.type === "USER_ACTIVITY") {
+          reportActivity(message);
+        }
       }}
     />
   );
