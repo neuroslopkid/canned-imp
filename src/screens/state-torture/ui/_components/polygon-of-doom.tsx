@@ -6,6 +6,7 @@ import { Ex2 } from "./experiments/ex2";
 import { Ex3 } from "./experiments/ex3";
 import { Ex4 } from "./experiments/ex4";
 import { Ex5 } from "./experiments/ex5";
+import { Ex6 } from "./experiments/ex6";
 
 export const PolygonOfDoom = () => {
   return (
@@ -33,6 +34,10 @@ export const PolygonOfDoom = () => {
 
       <View style={{ height: Sizes.LineHeight, width: "100%" }}>
         <Ex5 />
+      </View>
+
+      <View style={{ height: Sizes.LineHeight, width: "100%" }}>
+        <Ex6 />
       </View>
     </View>
   );
