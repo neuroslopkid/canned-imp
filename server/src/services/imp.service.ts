@@ -1,7 +1,8 @@
 import { ImpModel, type Imp } from "@models/imp.model.js";
 
-export const getAllImps = () => ImpModel.find({});
-export const getImpByName = (name: string) => ImpModel.findOne({ name });
+export const getAllImps = () => ImpModel.find({}).lean().exec();
+
+export const getImpByName = (name: string) => ImpModel.findOne({ name }).lean().exec();
 
 export const createImp = (data: Imp) => ImpModel.create(data);
 

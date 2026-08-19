@@ -1,4 +1,4 @@
-import mongoose, { Model, Schema } from "mongoose";
+import mongoose, { Model, Schema, type HydratedDocument } from "mongoose";
 
 export type Imp = {
   name: string;
@@ -6,8 +6,10 @@ export type Imp = {
 
 export type ImpMethods = {};
 
-const ImpSchema = new Schema<Imp, Model<Imp>, ImpMethods>({
+export const ImpSchema = new Schema<Imp, Model<Imp>, ImpMethods>({
   name: String,
 });
+
+export type ImpDoc = HydratedDocument<Imp>;
 
 export const ImpModel = mongoose.model("Imp", ImpSchema);
